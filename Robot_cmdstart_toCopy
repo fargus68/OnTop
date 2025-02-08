@@ -1,0 +1,6 @@
+robot --argumentfile Robot_arguments.txt Tests
+robot --argumentfile Robot_arguments.txt Tests/Login.robot
+robot --argumentfile Robot_arguments.txt Tests/Test1.robot
+robot --argumentfile Robot_arguments.txt Resources/Controls/Password_Tests.robot
+robot --argumentfile Robot_arguments.txt Resources/Controls/UnorderedList_Tests.robot
+robot --argumentfile Robot_arguments.txt Tests/001_Login/001_Login.robot

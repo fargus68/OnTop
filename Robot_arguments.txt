@@ -1,0 +1,6 @@
+--outputdir Output
+--pythonpath Resources
+--pythonpath Resources/Utils
+--pythonpath Resources/Locators
+--pythonpath Resources/PageObjects
+--loglevel=TRACE
