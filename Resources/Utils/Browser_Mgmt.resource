@@ -1,4 +1,7 @@
 *** Settings ***
+Library    OperatingSystem
+Library    Process
+Library    String
 Library    Browser    auto_closing_level=keep
 #Library    Browser    auto_closing_level=${auto_closing_level}
 
@@ -11,11 +14,16 @@ Set up browser
     ...            ${slowMo}=0:00:05
     ...            ${viewport}={'width': 1280, 'height': 720}
     ...            ${url}=https://app.tt-planer.de/login
+    #Launch Browser Server    browser=${browser}    headless=${headless}    slowMo=${slowMo}    port=9222
     New Browser    browser=${browser}    headless=${headless}    slowMo=${slowMo}
     New Context    viewport=${viewport}
     New Page       url=${url}
-    ${tmpSessionId}=    Get Browser Ids
-    Set Test Variable    ${session_id}    ${tmpSessionId}
+    ${tmpSessionIds}=    Get Browser Ids
+    #${tmpSessionId}=    ${tmpSessionIds}[0]
+    #${tmpSessionId}=    Replace String    ${tmpSessionId}    browser=
+    ${tmpSessionId}=    Remove String    ${tmpSessionIds}[0]    browser=
+    #Set Test Variable    ${session_id}    ${tmpSessionId}
+    Set Global Variable    ${session_id}    ${tmpSessionId}
     Log    ${session_id}
     Get Title
     ${catalog}=    Get Browser Catalog
@@ -26,3 +34,10 @@ Tear down browser
 
 Log Browser IDs
     Log    ${session_id}
+    
+Get Session ID
+    RETURN    ${session_id}
+    
+Kill all chromium processes
+    Log    not implemented yet
+    

@@ -3,8 +3,13 @@ Library    ExcelLibrary
 Library    String
 Resource    ../../Resources/Framework/fwVariables.resource
 Resource    ../../Resources/Controls/Button.resource
+Resource    ../../Resources/Controls/Checkbox.resource
 Resource    ../../Resources/Controls/Icon.resource
 Resource    ../../Resources/Controls/Link.resource
+Resource    ../../Resources/Controls/Menu.resource
+Resource    ../../Resources/Controls/MultiSelectDropdown.resource
+Resource    ../../Resources/Controls/NumericUpDown.resource
+Resource    ../../Resources/Controls/Page.resource
 Resource    ../../Resources/Controls/Password.resource
 Resource    ../../Resources/Controls/Textbox.resource
 Resource    ../../Resources/Controls/UnorderedList.resource
@@ -67,41 +72,6 @@ CheckIfDialogExists
     [Arguments]    ${Dialog}
     Get Title    ==    ${theDialogTitle}    Dialog not found!
 
-Old_DialogBaseProcessing
-    [Arguments]    ${Dialog}    ${DialogRecord}
-    Close Current Excel Document
-    ${FullDialogInheritanceFilePath}=    catenate    SEPARATOR=    ${DialogDir}    DialogInheritance.xlsx
-    Open Excel Document	filename=${FullDialogInheritanceFilePath}    doc_id=DialogInheritance
-
-    #${tmpDialogFirstRow}=    Read Excel Row    0    0
-    #Set Test Variable    ${DialogFirstRow}    ${tmpDialogFirstRow}
-    #${tmpDialogColumnCount}=    Get Length    ${DialogFirstRow}
-    #Set Test Variable    ${DialogColumnCount}    ${tmpDialogColumnCount}
-    
-    ${DialogInheritanceFirstColumn}=    Read Excel Column    0    0
-    ${DialogInheritanceRowCount}=    Get Length    ${DialogInheritanceFirstColumn}
-    
-    FOR    ${row_index}     IN RANGE     2    ${DialogInheritanceRowCount} + 1
-        ${theDialogInheritanceRecord}    Read Excel Cell    ${row_index}    1
-        Log    ${theDialogInheritanceRecord}
-        IF    $Dialog == $theDialogInheritanceRecord
-            ${theBaseDialog}=    Read Excel Cell    ${row_index}    2
-            IF    ${{$theBaseDialog is not None}}
-                InitializeDialogExecution    ${theBaseDialog}    ${DialogRecord}
-                FOR    ${row_index}     IN RANGE     3    ${DialogRowCount} + 1
-                    ${theDialogRecord}    Read Excel Cell    ${row_index}    1
-                    Log    ${theDialogRecord}
-                    IF    $DialogRecord == $theDialogRecord
-                        Set Test Variable    ${DialogRecordFound}    ${True}
-                        DialogRowProcessing    ${row_index}    #${DialogColumnCount}
-                        Exit For Loop
-                    END
-                END
-            END
-            Exit For Loop
-        END
-    END    
-
 DialogBaseProcessing
     [Arguments]    ${Dialog}    ${DialogRecord}
     Close Current Excel Document
@@ -117,7 +87,6 @@ DialogBaseProcessing
             END
         END
     END
-
 
 InitializeDialogExecution
     [Arguments]    ${Dialog}    ${DialogRecord}
@@ -175,26 +144,30 @@ DialogRowProcessing
 
     ${Action}    Read Excel Cell    ${row_index}    ${DialogColumnCount}
     
-    
 ControlProcessing
     [Arguments]    ${Modus}    ${Name}    ${Selector}    ${Value}
     ${ControlPrefix}=    Get Substring    ${Name}    0    3
-    IF  '${ControlPrefix}' == 'txt'
-        #Log    Textbox
-        TextboxProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}        
-    ELSE IF  '${ControlPrefix}' == 'pwd'
-        #Log    Password
-        PasswordProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE IF  '${ControlPrefix}' == 'but'
-        #Log    Button
+    IF  '${ControlPrefix}' == 'but'
         ButtonProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
+    ELSE IF  '${ControlPrefix}' == 'chk'
+        CheckboxProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
+    ELSE IF  '${ControlPrefix}' == 'ico'
+        IconProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'lnk'
         LinkProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE IF  '${ControlPrefix}' == 'ico'
-        #Log    Icon
-        IconProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
+    ELSE IF  '${ControlPrefix}' == 'men'
+        MenuProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
+    ELSE IF  '${ControlPrefix}' == 'msd'
+        MultiSelectDropdownProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
+    ELSE IF  '${ControlPrefix}' == 'nud'
+        NumericUpDownProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
+    ELSE IF  '${ControlPrefix}' == 'pag'
+        PageProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
+    ELSE IF  '${ControlPrefix}' == 'pwd'
+        PasswordProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
+    ELSE IF  '${ControlPrefix}' == 'txt'
+        TextboxProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'uli'
-        #Log    UnorderedList
         UnorderedListProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE
         Log    not defined yet ...
