@@ -11,7 +11,7 @@ Library    Browser    auto_closing_level=keep
 Set up browser
     [Arguments]    ${browser}=chromium
     ...            ${headless}=false
-    ...            ${slowMo}=0:00:05
+    ...            ${slowMo}=0:00:01
     ...            ${viewport}={'width': 1280, 'height': 720}
     ...            ${url}=https://app.tt-planer.de/login
     #Launch Browser Server    browser=${browser}    headless=${headless}    slowMo=${slowMo}    port=9222

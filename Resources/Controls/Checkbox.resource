@@ -1,3 +1,6 @@
+#Checkbox Handling in Browser Library | Robot Framework
+#https://www.youtube.com/watch?v=qDZ4HTvxiHo
+
 *** Settings ***
 Library    String
 Library    Browser
@@ -23,12 +26,7 @@ CheckboxProcessingGet
     Log        ButtonProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        ${ButtonContent}=    Get Text    ${Selector}
-        IF    '${ButtonContent}' == ''
-            Log    Button content = <EMPTY>
-        ELSE
-            Log    Button content = '${ButtonContent}'
-        END
+        Get Checkbox State    ${Selector}
     ELSE IF  '${FirstLetterOfValue}' == '<'
         Log    To be defined
     ELSE
@@ -37,16 +35,54 @@ CheckboxProcessingGet
 
 CheckboxProcessingChk
     [Arguments]    ${Name}    ${Selector}    ${Value}
-    Log        ButtonProcessingChk
+    #Log        ButtonProcessingChk
+    IF    '${Value}' == '<CHECKED>'
+        ${state}=    Get Checkbox State    ${Selector}
+        IF    ${state}
+            Log    Checkbox checked as expected!
+        ELSE
+            Fail    Checkbox not checked, but expected to be checked!!!
+        END
+    END
+
+    IF    '${Value}' == '<UNCHECKED>'
+        ${state}=    Get Checkbox State    ${Selector}
+        IF    ${state} != True
+            Log    Checkbox not checked as expected!
+        ELSE
+            Fail    Checkbox checked, but expected to be not checked!!!
+        END
+    END
 
 CheckboxProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}
-    #Log        ButtonProcessingSet
-    ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
-    IF  '${FirstLetterOfValue}' == 'X'
-        Click    ${Selector}
-    ELSE IF  '${FirstLetterOfValue}' == '<'
-        Log    To be defined
-    ELSE
-        Fatal Error    Value of Set-modus is X or a variable name
+
+    IF    '${Value}' == '<CHECK>'
+        ${state}=    Get Checkbox State    ${Selector}
+        IF    ${state}
+            Log    Checkbox already checked!
+        ELSE
+            Check Checkbox    ${Selector}
+        END
+        RETURN
+    END
+
+    IF    '${Value}' == '<UNCHECK>'
+        ${state}=    Get Checkbox State    ${Selector}
+        IF    ${state} != True
+            Log    Checkbox already unchecked!
+        ELSE
+            Uncheck Checkbox    ${Selector}
+        END
+        RETURN
+    END
+
+    IF    '${Value}' == '<CLICK>'
+        ${state}=    Get Checkbox State    ${Selector}
+        IF    ${state}
+            Uncheck Checkbox    ${Selector}
+        ELSE
+            Check Checkbox    ${Selector}
+        END
+        RETURN
     END
