@@ -11,6 +11,7 @@ Set_SelectPageBenachrichtigungen
     DialogExecution    dlgMain    Menueauswahl Mein Profil
     Take Screenshot
     #PageProcessing    <SET>    pagBenachrichtigungen    xpath=//*/li[@class = 'nav-item']/a[text()=" Benachrichtigungen"]    <SELECT>
+    DialogExecution    dlgProfil    Check defaults
     DialogExecution    dlgProfil    Auswahl Page Benachrichtigungen
     Take Screenshot
     
