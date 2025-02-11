@@ -1,21 +1,19 @@
 *** Settings ***
-Library    Browser    auto_closing_level=keep
 Resource    ../../Resources/Utils/Browser_Mgmt.resource
+Resource    ../../Resources/Framework/fwDialog.resource
 Resource    ../../Resources/Controls/MultiSelectDropdown.resource
 
 *** Keywords ***
-Local set up browser
-    New Browser    browser=chromium    headless=false    slowMo=0:00:05
-    New Context    viewport={'width': 1280, 'height': 720}
-    New Page       url=https://app.tt-planer.de/login
 
 *** Test Cases ***
-Get_LoginEmail
-    #Set Up Browser
-    Local set up browser
-    MultiSelectDropdownProcessing    <GET>    txtEmail    id=email    X
-    
-Set_LoginEmail
-    #Set Up Browser
-    Local set up browser
-    MultiSelectDropdownProcessing    <SET>    txtEmail    id=email    matthias@matthias-schmotz.de
+Get_MultiSelectDropdown_normalLogging
+    Set Up Browser
+    DialogExecution    dlgLogin    001_Login_001_Successful
+    DialogExecution    dlgMain    Menueauswahl Mein Profil
+    DialogExecution    dlgProfil    Auswahl Page Benachrichtigungen
+    Take Screenshot
+    Scroll To Element    id=training_ids
+    Take Screenshot
+    MultiSelectDropdownProcessing    <GET>    msdTeilnahmeerinnerungTrainings    id=training_ids    X
+    MultiSelectDropdownProcessing    <SET>    msdTeilnahmeerinnerungTrainings    id=training_ids    <SELECT>Aktiventraining (Donnerstag, 19:00 Uhr)
+    MultiSelectDropdownProcessing    <GET>    msdTeilnahmeerinnerungTrainings    id=training_ids    X

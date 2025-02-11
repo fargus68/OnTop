@@ -23,7 +23,8 @@ MultiSelectDropdownProcessingGet
     Log        MultiSelectDropdownProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        ${MultiSelectDropdownContent}=    Get Text    ${Selector}
+        #${MultiSelectDropdownContent}=    Get Text    ${Selector}
+        ${MultiSelectDropdownContent}=    Get Selected Options    ${Selector}
         IF    '${MultiSelectDropdownContent}' == ''
             Log    MultiSelectDropdown content = <EMPTY>
         ELSE
@@ -41,7 +42,8 @@ MultiSelectDropdownProcessingChk
 
 MultiSelectDropdownProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}    
-    Log        MultiSelectDropdownProcessingSet
-    Type Text    ${Selector}    ${Value}    0.1    False
+    #Log        MultiSelectDropdownProcessingSet
+    #Type Text    ${Selector}    ${Value}    0.1    False
+    Select Options By    ${Selector}    Value    ${Value}
     
     
