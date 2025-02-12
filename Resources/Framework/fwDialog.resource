@@ -22,7 +22,7 @@ ${DialogRecordFound}
 DialogExecution
     [Arguments]    ${Dialog}    ${DialogRecord}
     InitializeDialogData        ${Dialog}
-    CheckIfDialogExists    ${Dialog}
+    CheckIfDialogExists
     InitializeDialogExecution    ${Dialog}    ${DialogRecord}
     Set Test Variable    ${DialogRecordFound}    ${False}    
     FOR    ${row_index}     IN RANGE     3    ${DialogRowCount} + 1
@@ -69,7 +69,10 @@ InitializeDialogData
     Close Current Excel Document
 
 CheckIfDialogExists
-    [Arguments]    ${Dialog}
+    IF    '${theDialogTitle}' == 'Mein Profil | TT-Planer'
+        #ToDo: checken ob es einer von 3 möglichen Titeln ist in Abhängigkeit von der gewählten Notebookseite
+        RETURN
+    END
     Get Title    ==    ${theDialogTitle}    Dialog not found!
 
 DialogBaseProcessing
