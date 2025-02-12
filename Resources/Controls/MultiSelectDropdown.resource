@@ -25,11 +25,12 @@ MultiSelectDropdownProcessingGet
     IF  '${FirstLetterOfValue}' == 'X'
         #${MultiSelectDropdownContent}=    Get Text    ${Selector}
         ${MultiSelectDropdownContent}=    Get Selected Options    ${Selector}
-        IF    '${MultiSelectDropdownContent}' == ''
+        IF    "'${MultiSelectDropdownContent}' == ''"
             Log    MultiSelectDropdown content = <EMPTY>
         ELSE
             Log    MultiSelectDropdown content = '${MultiSelectDropdownContent}'
         END
+        Log Many    ${MultiSelectDropdownContent}
     ELSE IF  '${FirstLetterOfValue}' == '<'
         Log    MultiSelectDropdownProcessingGet
     ELSE
@@ -44,6 +45,10 @@ MultiSelectDropdownProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}    
     #Log        MultiSelectDropdownProcessingSet
     #Type Text    ${Selector}    ${Value}    0.1    False
-    Select Options By    ${Selector}    Value    ${Value}
-    
+    ${SelectKeyword}=    Convert To String    <SELECT>
+    ${ContainsSelect}=    Evaluate    '${SelectKeyword}' in '${Value}'
+    IF    ${ContainsSelect}
+        ${ValueToSelect}=    Remove String    ${Value}    ${SelectKeyword}
+        Select Options By    ${Selector}    Label    ${ValueToSelect}
+    END
     
