@@ -6,7 +6,7 @@ Library    Browser
 
 *** Keywords ***
 IconProcessing
-    [Arguments]    ${Modus}    ${Name}    ${Selector}    ${Value}
+    [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
     IF  '${Modus}' == '<GET>'
         IconProcessingGet    ${Name}    ${Selector}    ${Value}

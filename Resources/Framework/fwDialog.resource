@@ -2,6 +2,7 @@
 Library    ExcelLibrary
 Library    String
 Resource    ../../Resources/Framework/fwVariables.resource
+Resource    ../../Resources/Framework/fwControls.resource
 Resource    ../../Resources/Controls/Button.resource
 Resource    ../../Resources/Controls/Checkbox.resource
 Resource    ../../Resources/Controls/Icon.resource
@@ -41,6 +42,7 @@ DialogExecution
     
     Should Be True    ${DialogRecordFound}    Fatal Error: Dialog record not found!
 
+    Switch Current Excel Document    actualDialog
     Close Current Excel Document
 
 InitializeDialogData
@@ -55,6 +57,7 @@ InitializeDialogData
         ${theDialogInheritanceRecord}    Read Excel Cell    ${row_index}    1
         Log    ${theDialogInheritanceRecord}
         IF    $Dialog == $theDialogInheritanceRecord
+            Set Test Variable    ${theDialog}    ${Dialog}
             ${tempBaseDialog}=    Read Excel Cell    ${row_index}    2
             Set Test Variable    ${theBaseDialog}    ${tempBaseDialog}
             ${tempDialogSelector}=    Read Excel Cell    ${row_index}    3
@@ -139,7 +142,8 @@ DialogRowProcessing
 #           ...    Header=${theControlHeader}
 #           ...    Selector=${theControlSelector}
 #           ...    Value=${theControlValue}
-            ControlProcessing    ${theControlModus}    ${theControlHeader}    ${theControlSelector}    ${theControlValue}
+            ControlProcessing    ${theDialog}    ${theControlModus}    ${theControlHeader}    ${theControlSelector}    ${theControlValue}
+            Switch Current Excel Document    actualDialog
        ELSE
            Log    No control value found!
        END
@@ -147,7 +151,7 @@ DialogRowProcessing
 
     ${Action}    Read Excel Cell    ${row_index}    ${DialogColumnCount}
     
-ControlProcessing
+Old_ControlProcessing
     [Arguments]    ${Modus}    ${Name}    ${Selector}    ${Value}
     ${ControlPrefix}=    Get Substring    ${Name}    0    3
     IF  '${ControlPrefix}' == 'but'

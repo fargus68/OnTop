@@ -5,43 +5,43 @@ Library    Browser
 *** Variables ***
 
 *** Keywords ***
-TextboxProcessing
+CalendarProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
     IF  '${Modus}' == '<GET>'
-        TextboxProcessingGet    ${Name}    ${Selector}    ${Value}
+        CalendarProcessingGet    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${Modus}' == '<CHK>'
-        TextboxProcessingChk    ${Name}    ${Selector}    ${Value}
+        CalendarProcessingChk    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${Modus}' == '<SET>'
-        TextboxProcessingSet    ${Name}    ${Selector}    ${Value}
+        CalendarProcessingSet    ${Name}    ${Selector}    ${Value}
     ELSE
         Fatal Error    Modus not defined
     END
 
-TextboxProcessingGet
+CalendarProcessingGet
     [Arguments]    ${Name}    ${Selector}    ${Value}    
-    Log        TextboxProcessingGet
+    Log        CalendarProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        ${TextboxContent}=    Get Text    ${Selector}
-        IF    '${TextboxContent}' == ''
-            Log    Textbox content = <EMPTY>
+        ${CalendarContent}=    Get Text    ${Selector}
+        IF    '${CalendarContent}' == ''
+            Log    Calendar content = <EMPTY>
         ELSE
-            Log    Textbox content = '${TextboxContent}'
+            Log    Calendar content = '${CalendarContent}'
         END
     ELSE IF  '${FirstLetterOfValue}' == '<'
-        Log    TextboxProcessingGet
+        Log    CalendarProcessingGet
     ELSE
         Fatal Error    Value of Get-modus is X or a variable name
     END
 
-TextboxProcessingChk
+CalendarProcessingChk
     [Arguments]    ${Name}    ${Selector}    ${Value}    
-    Log        TextboxProcessingChk
+    Log        CalendarProcessingChk
 
-TextboxProcessingSet
+CalendarProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}    
-    Log        TextboxProcessingSet
-    Type Text    ${Selector}    ${Value}    0.1    False
+    Log        CalendarProcessingSet
+    Type Text    ${Selector}    ${Value}    0.01    False
     
     

@@ -7,7 +7,7 @@ Library    ../../Libraries/PasswordSafe.py
 
 *** Keywords ***
 PasswordProcessing
-    [Arguments]    ${Modus}    ${Name}    ${Selector}    ${Value}
+    [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
     IF  '${Modus}' == '<GET>'
         PasswordProcessingGet    ${Name}    ${Selector}    ${Value}

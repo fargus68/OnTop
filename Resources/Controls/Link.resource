@@ -6,7 +6,7 @@ Library    Browser
 
 *** Keywords ***
 LinkProcessing
-    [Arguments]    ${Modus}    ${Name}    ${Selector}    ${Value}
+    [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
     IF  '${Modus}' == '<GET>'
         LinkProcessingGet    ${Name}    ${Selector}    ${Value}

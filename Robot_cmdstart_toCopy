@@ -7,3 +7,4 @@ robot --argumentfile Robot_arguments.txt Tests/001_Login/001_Login.robot
 robot --argumentfile Robot_arguments.txt Resources/Controls/Page_Tests.robot
 robot --argumentfile Robot_arguments.txt Resources/Controls/MultiSelectDropdown_Tests.robot
 robot --argumentfile Robot_arguments.txt Tests/003_MeinProfil/001_Allgemein.robot
+robot --argumentfile Robot_arguments.txt Tests/003_MeinProfil/003_Abwesenheiten.robot

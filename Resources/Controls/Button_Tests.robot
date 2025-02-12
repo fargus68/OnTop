@@ -5,4 +5,4 @@ Resource    ../../Resources/Controls/Button.resource
 *** Test Cases ***
 Set_ClickButtonEinloggen
     Set Up Browser
-    ButtonProcessing    <SET>    butEinloggen    text=Einloggen    X
+    ButtonProcessing    dlgLogin    <SET>    butEinloggen    text=Einloggen    X
