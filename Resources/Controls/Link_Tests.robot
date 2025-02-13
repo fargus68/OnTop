@@ -5,4 +5,4 @@ Resource    ../../Resources/Controls/Link.resource
 *** Test Cases ***
 Set_ClickPasswortReset
     Set Up Browser
-    LinkProcessing    <SET>    lnkPasswortVergessen    text=Passwort vergessen    X
+    LinkProcessing    dlgLogin    <SET>    lnkPasswortVergessen    text=Passwort vergessen    X

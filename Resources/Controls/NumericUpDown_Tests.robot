@@ -1,21 +1,21 @@
 *** Settings ***
-Library    Browser    auto_closing_level=keep
 Resource    ../../Resources/Utils/Browser_Mgmt.resource
+Resource    ../../Resources/Framework/fwDialog.resource
 Resource    ../../Resources/Controls/NumericUpDown.resource
 
 *** Keywords ***
-Local set up browser
-    New Browser    browser=chromium    headless=false    slowMo=0:00:05
-    New Context    viewport={'width': 1280, 'height': 720}
-    New Page       url=https://app.tt-planer.de/login
 
 *** Test Cases ***
-Get_LoginEmail
-    #Set Up Browser
-    Local set up browser
-    NumericUpDownProcessing    <GET>    nudSpielerinnerungStunden    id=email    X
-    
-Set_LoginEmail
-    #Set Up Browser
-    Local set up browser
-    NumericUpDownProcessing    <SET>    nudSpielerinnerungStunden    id=email    48
+NumericUpDown_Test_AllModus
+    Set Up Browser
+    DialogExecution    dlgLogin    001_Login_001_Successful
+    DialogExecution    dlgMain    Menueauswahl Mein Profil
+    DialogExecution    dlgProfil    Auswahl Page Benachrichtigungen
+    Take Screenshot
+    Scroll To Element    id=reminder_games_hours
+    Take Screenshot    
+    NumericUpDownProcessing    dlgProfil_pagProfil    <GET>    nudSpielerinnerungStunden    id=reminder_games_hours    X
+    NumericUpDownProcessing    dlgProfil_pagProfil    <SET>    nudSpielerinnerungStunden    id=reminder_games_hours    42
+    NumericUpDownProcessing    dlgProfil_pagProfil    <GET>    nudSpielerinnerungStunden    id=reminder_games_hours    X
+    Take Screenshot
+    NumericUpDownProcessing    dlgProfil_pagProfil    <CHK>    nudSpielerinnerungStunden    id=reminder_games_hours    42

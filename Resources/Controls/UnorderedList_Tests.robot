@@ -6,4 +6,4 @@ Resource    ../../Resources/Controls/UnorderedList.resource
 Get_UnorderedList_KeywordX
     Set Up Browser
     Click    text=Einloggen
-    UnorderedListProcessing    <GET>    uliFehler    xpath=//*[@class='alert alert-danger border-left-danger alert-dismissible fade show']/ul/li    X
+    UnorderedListProcessing    dlgLogin    <GET>    uliFehler    xpath=//*[@class='alert alert-danger border-left-danger alert-dismissible fade show']/ul/li    X

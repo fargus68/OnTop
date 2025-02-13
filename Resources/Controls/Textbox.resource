@@ -42,6 +42,6 @@ TextboxProcessingChk
 TextboxProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}    
     Log        TextboxProcessingSet
-    Type Text    ${Selector}    ${Value}    0.1    False
+    Type Text    ${Selector}    ${Value}    0.01    False
     
     

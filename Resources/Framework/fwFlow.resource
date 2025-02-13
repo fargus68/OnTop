@@ -21,6 +21,7 @@ ${FlowRecordFound}
 *** Keywords ***
 FlowExecution
     [Arguments]    ${Flow}    ${FlowRecord}
+    Close All Excel Documents
     InitializeFlowExecution    ${Flow}    ${FlowRecord}
     Set Test Variable  ${FlowRecordFound}  ${False}
 

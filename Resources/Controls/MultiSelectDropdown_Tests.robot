@@ -14,6 +14,6 @@ Get_MultiSelectDropdown_normalLogging
     Take Screenshot
     Scroll To Element    id=training_ids
     Take Screenshot
-    MultiSelectDropdownProcessing    <GET>    msdTeilnahmeerinnerungTrainings    id=training_ids    X
-    MultiSelectDropdownProcessing    <SET>    msdTeilnahmeerinnerungTrainings    id=training_ids    <SELECT>Aktiventraining (Donnerstag, 19:00 Uhr)
-    MultiSelectDropdownProcessing    <GET>    msdTeilnahmeerinnerungTrainings    id=training_ids    X
+    MultiSelectDropdownProcessing    dlgProfil_pagProfil    <GET>    msdTeilnahmeerinnerungTrainings    id=training_ids    X
+    MultiSelectDropdownProcessing    dlgProfil_pagProfil    <SET>    msdTeilnahmeerinnerungTrainings    id=training_ids    <SELECT>Aktiventraining (Donnerstag, 19:00 Uhr)
+    MultiSelectDropdownProcessing    dlgProfil_pagProfil    <GET>    msdTeilnahmeerinnerungTrainings    id=training_ids    X

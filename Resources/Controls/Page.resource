@@ -58,14 +58,14 @@ PageProcessingChk
         END
         RETURN
     END
-    IF    '${Value}' != '<NOTSELECTED>'
+    IF    '${Value}' == '<NOTSELECTED>'
         ${list_of_classes}=    Get Classes    ${Selector}
         ${class_name}=    Convert To String    active
         ${found}=    check_if_element_contains_class    ${list_of_classes}    ${class_name}
         IF    ${found}
-            Log    Page tab not selected as expected!
-        ELSE
             Fail    Page tab selected, but expected to be not selected!!!
+        ELSE
+            Log    Page tab not selected as expected!
         END
         RETURN
     END

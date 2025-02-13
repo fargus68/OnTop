@@ -47,6 +47,6 @@ PasswordProcessingSet
         ${Value}=    read_password
         #${Value}=    ${ValueFromPasswordSafe}
     END
-    Type Text    ${Selector}    ${Value}    0.1    False
+    Type Text    ${Selector}    ${Value}    0.01    False
     
     

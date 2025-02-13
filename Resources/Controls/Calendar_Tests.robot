@@ -7,7 +7,7 @@ Resource    ../../Resources/Controls/Calendar.resource
 *** Keywords ***
 
 *** Test Cases ***
-Chk_Empty
+Calendar_AllModus
     Set Up Browser
     DialogExecution    dlgLogin    001_Login_001_Successful
     DialogExecution    dlgMain    Menueauswahl Mein Profil

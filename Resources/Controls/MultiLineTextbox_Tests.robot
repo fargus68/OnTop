@@ -7,7 +7,7 @@ Resource    ../../Resources/Controls/MultiLineTextbox.resource
 *** Keywords ***
 
 *** Test Cases ***
-Get_Comment_KeywordX
+MultiLineTextbox_AllModus
     Set Up Browser
     DialogExecution    dlgLogin    001_Login_001_Successful
     DialogExecution    dlgMain    Menueauswahl Mein Profil
