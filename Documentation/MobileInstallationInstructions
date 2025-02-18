@@ -1,0 +1,237 @@
+FromYouTube-Chanel
+Robot Framework Tutorials
+
+Robot Framework And Appium - Install Environment On Windows
+https://www.youtube.com/watch?v=W5hcHbzTjOc
+
+https://www.oracle.com/java/technologies/downloads/#jdk23-windows
+=> copy path to JAVA_Home-environment variable
+
+https://developer.android.com/studio?hl=de
+=> ANDROID_HOME=C:\Users\matth\AppData\Local\Android\Sdk
+
+(node.js Version v22.13.1. allready installed)
+
+https://appium.io/docs/en/latest/
+------------------------------------
+Command window:
+C:\Users\matth>npm install -g appium
+npm WARN deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm WARN deprecated rimraf@2.4.5: Rimraf versions prior to v4 are no longer supported
+npm WARN deprecated glob@6.0.4: Glob versions prior to v9 are no longer supported
+npm WARN deprecated lodash.get@4.4.2: This package is deprecated. Use the optional chaining (?.) operator instead.
+
+added 123 packages, removed 130 packages, and changed 303 packages in 15s
+
+60 packages are looking for funding
+  run `npm fund` for details
+
+C:\Users\matth>appium --version
+2.15.0
+
+C:\Users\matth>npm install -g appium-doctor
+npm WARN deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm WARN deprecated rimraf@2.4.5: Rimraf versions prior to v4 are no longer supported
+npm WARN deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm WARN deprecated glob@6.0.4: Glob versions prior to v9 are no longer supported
+npm WARN deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm WARN deprecated are-we-there-yet@3.0.1: This package is no longer supported.
+npm WARN deprecated gauge@4.0.4: This package is no longer supported.
+npm WARN deprecated npmlog@6.0.2: This package is no longer supported.
+npm WARN deprecated debug@4.1.1: Debug versions >=3.2.0 <3.2.7 || >=4 <4.3.1 have a low-severity ReDos regression when used in a Node.js environment. It is recommended you upgrade to 3.2.7 or 4.3.1. (https://github.com/visionmedia/debug/issues/797)
+npm WARN deprecated authorize-ios@1.2.1: Moved into appium
+npm WARN deprecated appium-support@2.55.0: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+
+added 287 packages in 11s
+
+33 packages are looking for funding
+  run `npm fund` for details
+
+C:\Users\matth>appium-doctor
+WARN AppiumDoctor [Deprecated] Please use appium-doctor installed with "npm install @appium/doctor --location=global"
+info AppiumDoctor Appium Doctor v.1.16.2
+info AppiumDoctor ### Diagnostic for necessary dependencies starting ###
+(node:29516) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+info AppiumDoctor  ✔ The Node.js binary was found at: C:\Program Files\nodejs\node.EXE
+info AppiumDoctor  ✔ Node version is 22.13.1
+info AppiumDoctor  ✔ ANDROID_HOME is set to: C:\Users\matth\AppData\Local\Android\Sdk
+info AppiumDoctor  ✔ JAVA_HOME is set to: C:\Program Files\Java\jdk-23
+info AppiumDoctor    Checking adb, android, emulator, apkanalyzer.bat
+info AppiumDoctor      'adb' is in C:\Users\matth\AppData\Local\Android\Sdk\platform-tools\adb.exe
+info AppiumDoctor      'emulator' is in C:\Users\matth\AppData\Local\Android\Sdk\emulator\emulator.exe
+WARN AppiumDoctor  ✖ android, apkanalyzer.bat could NOT be found in C:\Users\matth\AppData\Local\Android\Sdk!
+info AppiumDoctor  ✔ 'bin' subfolder exists under 'C:\Program Files\Java\jdk-23'
+info AppiumDoctor ### Diagnostic for necessary dependencies completed, one fix needed. ###
+info AppiumDoctor
+info AppiumDoctor ### Diagnostic for optional dependencies starting ###
+WARN AppiumDoctor  ✖ opencv4nodejs cannot be found.
+WARN AppiumDoctor  ✖ ffmpeg cannot be found
+WARN AppiumDoctor  ✖ mjpeg-consumer cannot be found.
+WARN AppiumDoctor  ✖ bundletool.jar cannot be found
+WARN AppiumDoctor  ✖ gst-launch-1.0.exe and/or gst-inspect-1.0.exe cannot be found
+info AppiumDoctor ### Diagnostic for optional dependencies completed, 5 fixes possible. ###
+info AppiumDoctor
+info AppiumDoctor ### Manual Fixes Needed ###
+info AppiumDoctor The configuration cannot be automatically fixed, please do the following first:
+WARN AppiumDoctor  ➜ Manually install android, apkanalyzer.bat and add it to PATH. https://developer.android.com/studio#cmdline-tools and https://developer.android.com/studio/intro/update#sdk-manager may help to setup.
+info AppiumDoctor
+info AppiumDoctor ### Optional Manual Fixes ###
+info AppiumDoctor The configuration can install optionally. Please do the following manually:
+WARN AppiumDoctor  ➜ Why opencv4nodejs is needed and how to install it: http://appium.io/docs/en/writing-running-appium/image-comparison/
+WARN AppiumDoctor  ➜ ffmpeg is needed to record screen features. Please read https://www.ffmpeg.org/ to install it
+WARN AppiumDoctor  ➜ mjpeg-consumer module is required to use MJPEG-over-HTTP features. Please install it with 'npm i -g mjpeg-consumer'.
+WARN AppiumDoctor  ➜ bundletool.jar is used to handle Android App Bundle. Please read http://appium.io/docs/en/writing-running-appium/android/android-appbundle/ to install it. Also consider adding the ".jar" extension into your PATHEXT environment variable in order to fix the problem for Windows
+WARN AppiumDoctor  ➜ gst-launch-1.0.exe and gst-inspect-1.0.exe are used to stream the screen of the device under test. Please read https://appium.io/docs/en/writing-running-appium/android/android-screen-streaming/ to install them and for more details
+info AppiumDoctor
+info AppiumDoctor ###
+info AppiumDoctor
+info AppiumDoctor Bye! Run appium-doctor again when all manual fixes have been applied!
+info AppiumDoctor
+
+C:\Users\matth>npm install @appium/doctor --location=global
+npm WARN deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm WARN deprecated rimraf@2.4.5: Rimraf versions prior to v4 are no longer supported
+npm WARN deprecated glob@6.0.4: Glob versions prior to v9 are no longer supported
+npm WARN cleanup Failed to remove some directories [
+npm WARN cleanup   [
+npm WARN cleanup     '\\\\?\\C:\\Users\\matth\\AppData\\Roaming\\npm\\node_modules\\@appium\\doctor',
+npm WARN cleanup     [Error: EPERM: operation not permitted, rmdir 'C:\Users\matth\AppData\Roaming\npm\node_modules\@appium\doctor\node_modules\rxjs\dist\esm5\internal\observable'] {
+npm WARN cleanup       errno: -4048,
+npm WARN cleanup       code: 'EPERM',
+npm WARN cleanup       syscall: 'rmdir',
+npm WARN cleanup       path: 'C:\\Users\\matth\\AppData\\Roaming\\npm\\node_modules\\@appium\\doctor\\node_modules\\rxjs\\dist\\esm5\\internal\\observable'
+npm WARN cleanup     }
+npm WARN cleanup   ],
+npm WARN cleanup   [
+npm WARN cleanup     '\\\\?\\C:\\Users\\matth\\AppData\\Roaming\\npm\\node_modules\\@appium',
+npm WARN cleanup     [Error: EPERM: operation not permitted, rmdir 'C:\Users\matth\AppData\Roaming\npm\node_modules\@appium\doctor\node_modules\rxjs\dist'] {
+npm WARN cleanup       errno: -4048,
+npm WARN cleanup       code: 'EPERM',
+npm WARN cleanup       syscall: 'rmdir',
+npm WARN cleanup       path: 'C:\\Users\\matth\\AppData\\Roaming\\npm\\node_modules\\@appium\\doctor\\node_modules\\rxjs\\dist'
+npm WARN cleanup     }
+npm WARN cleanup   ],
+npm WARN cleanup   [
+npm WARN cleanup     '\\\\?\\C:\\Users\\matth\\AppData\\Roaming\\npm\\node_modules\\@appium\\doctor\\node_modules\\resolve',
+npm WARN cleanup     [Error: EPERM: operation not permitted, rmdir 'C:\Users\matth\AppData\Roaming\npm\node_modules\@appium\doctor\node_modules\resolve'] {
+npm WARN cleanup       errno: -4048,
+npm WARN cleanup       code: 'EPERM',
+npm WARN cleanup       syscall: 'rmdir',
+npm WARN cleanup       path: 'C:\\Users\\matth\\AppData\\Roaming\\npm\\node_modules\\@appium\\doctor\\node_modules\\resolve'
+npm WARN cleanup     }
+npm WARN cleanup   ]
+npm WARN cleanup ]
+npm ERR! code EEXIST
+npm ERR! path C:\Users\matth\AppData\Roaming\npm\appium-doctor
+npm ERR! EEXIST: file already exists
+npm ERR! File exists: C:\Users\matth\AppData\Roaming\npm\appium-doctor
+npm ERR! Remove the existing file and try again, or run npm
+npm ERR! with --force to overwrite files recklessly.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     C:\Users\matth\AppData\Local\npm-cache\_logs\2025-02-15T07_40_02_136Z-debug-0.log
+
+C:\Users\matth>npm install @appium/doctor --location=global --force
+npm WARN using --force Recommended protections disabled.
+npm WARN deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm WARN deprecated rimraf@2.4.5: Rimraf versions prior to v4 are no longer supported
+npm WARN deprecated glob@6.0.4: Glob versions prior to v9 are no longer supported
+
+added 294 packages, and changed 1 package in 3s
+
+58 packages are looking for funding
+  run `npm fund` for details
+
+C:\Users\matth>appium-doctor
+info AppiumDoctor Appium Doctor v.2.1.15
+WARN AppiumDoctor This package is deprecated since the Appium server version 2.4.0 and will be removed in the future.
+WARN AppiumDoctor Use doctor checks (if any exist) integrated into your installed driver or plugin by running `appium driver doctor <driver_name>` or `appium plugin doctor <plugin_name>`.
+info AppiumDoctor ### Diagnostic for necessary dependencies starting ###
+info AppiumDoctor  ✔ APPIUM_HOME is C:\Users\matth\.appium
+info AppiumDoctor  ✔ The Node.js binary was found at: C:\Program Files\nodejs\node.EXE
+info AppiumDoctor  ✔ Node version is 22.13.1
+info AppiumDoctor  ✔ ANDROID_HOME is set to: C:\Users\matth\AppData\Local\Android\Sdk
+info AppiumDoctor  ✔ JAVA_HOME is set to: C:\Program Files\Java\jdk-23
+info AppiumDoctor    Checking adb, emulator, apkanalyzer.bat
+info AppiumDoctor      'adb' is in C:\Users\matth\AppData\Local\Android\Sdk\platform-tools\adb.exe
+info AppiumDoctor      'emulator' is in C:\Users\matth\AppData\Local\Android\Sdk\emulator\emulator.exe
+WARN AppiumDoctor  ✖ apkanalyzer.bat could NOT be found in C:\Users\matth\AppData\Local\Android\Sdk!
+info AppiumDoctor  ✔ 'bin' subfolder exists under 'C:\Program Files\Java\jdk-23'
+info AppiumDoctor ### Diagnostic for necessary dependencies completed, one fix needed. ###
+info AppiumDoctor
+info AppiumDoctor ### Diagnostic for optional dependencies starting ###
+WARN AppiumDoctor  ✖ ffmpeg cannot be found
+WARN AppiumDoctor  ✖ mjpeg-consumer cannot be found.
+WARN AppiumDoctor  ✖ bundletool.jar cannot be found
+WARN AppiumDoctor  ✖ gst-launch-1.0.exe and/or gst-inspect-1.0.exe cannot be found
+info AppiumDoctor ### Diagnostic for optional dependencies completed, 4 fixes possible. ###
+info AppiumDoctor
+info AppiumDoctor ### Manual Fixes Needed ###
+info AppiumDoctor The configuration cannot be automatically fixed, please do the following first:
+WARN AppiumDoctor  ➜ Manually install apkanalyzer.bat and add it to PATH. https://developer.android.com/studio#cmdline-tools and https://developer.android.com/studio/intro/update#sdk-manager may help to setup.
+info AppiumDoctor
+info AppiumDoctor ### Optional Manual Fixes ###
+info AppiumDoctor The configuration can install optionally. Please do the following manually:
+WARN AppiumDoctor  ➜ ffmpeg is needed to record screen features. Please read https://www.ffmpeg.org/ to install it
+WARN AppiumDoctor  ➜ mjpeg-consumer module is required to use MJPEG-over-HTTP features. Please install it with 'npm i -g mjpeg-consumer'.
+WARN AppiumDoctor  ➜ bundletool.jar is used to handle Android App Bundle. Please read http://appium.io/docs/en/writing-running-appium/android/android-appbundle/ to install it. Also consider adding the ".jar" extension into your PATHEXT environment variable in order to fix the problem for Windows
+WARN AppiumDoctor  ➜ gst-launch-1.0.exe and gst-inspect-1.0.exe are used to stream the screen of the device under test. Please read https://appium.io/docs/en/writing-running-appium/android/android-screen-streaming/ to install them and for more details
+info AppiumDoctor
+info AppiumDoctor ###
+info AppiumDoctor
+info AppiumDoctor Bye! Run appium-doctor again when all manual fixes have been applied!
+info AppiumDoctor
+
+
+Appium doctor as separate package no longer relevant:
+=>  Use doctor checks (if any exist) integrated into your installed driver or plugin by running `appium driver doctor <driver_name>` or `appium plugin doctor <plugin_name>`.
+--------------------------------------
+
+Next Video:
+
+https://www.youtube.com/watch?v=QYT0_qgkiCw
+Robot Framework And Appium - Configure Devices And Emulators
+
+---------------------------------------
+
+Next Video:
+
+https://www.youtube.com/watch?v=0a5NAJjUBbA
+Robot Framework And Appium - Open Application - AppiumLibrary
+
+apk info (on mobile device or emulator)
+
+Install via terminal:
+appium driver install uiautomator2
+
+and check installation via:
+appium driver doctor uiautomator2
+
+
+More docs:
+https://medium.com/takodigital/appium-robot-framework-step-by-step-zero-to-hero-ui-automate-test-for-mobile-app-ios-android-f3a012b4afe2
+
+
+Appium inspector:
+
+https://github.com/appium/appium-inspector
+https://appium.github.io/appium-inspector/latest/
+https://github.com/appium/appium-inspector/releases
+
+https://www.youtube.com/watch?v=FdHPFv-BsR4
+Automate Android hybrid mobile apps using appium | identify using appium inspector
+
+Capabilities:
+{
+  "platformName": "Android",
+  "appium:deviceName": "emulator-5554",
+  "appium:automationName": "UIAutomator2",
+  "appium:noReset": true,
+  "appium:appPackage": "org.chromium.webapk.a62c68cebaf69977d_v2",
+  "appium:appActivity": "org.chromium.webapk.shell_apk.h2o.H2OOpaqueMainActivity",
+  "appium:platformVersion": "15",
+  "appium:skipServerInstallation": true,
+  "appium:autoGrantPermissions": true,
+  "appium:appWaitForLaunch": false
+}
