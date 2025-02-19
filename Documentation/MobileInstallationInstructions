@@ -208,19 +208,18 @@ appium driver install uiautomator2
 and check installation via:
 appium driver doctor uiautomator2
 
-
 More docs:
 https://medium.com/takodigital/appium-robot-framework-step-by-step-zero-to-hero-ui-automate-test-for-mobile-app-ios-android-f3a012b4afe2
 
-
 Appium inspector:
-
 https://github.com/appium/appium-inspector
 https://appium.github.io/appium-inspector/latest/
 https://github.com/appium/appium-inspector/releases
 
 https://www.youtube.com/watch?v=FdHPFv-BsR4
 Automate Android hybrid mobile apps using appium | identify using appium inspector
+https://www.youtube.com/watch?v=2RscM7GS7LI
+Hybrid Android App Automation using Appium - Part 1 | Appium Hybrid App Testing
 
 Capabilities:
 {
