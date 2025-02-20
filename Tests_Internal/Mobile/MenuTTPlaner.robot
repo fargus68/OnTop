@@ -20,6 +20,7 @@ Open Application TT-Planer pn Google Pixel 9
 Choose Person to chat with
     [Arguments]    ${NameOfPerson}
     Open Application TT-Planer pn Google Pixel 9
+    Wait Until Element Is Visible    xpath=//android.widget.Spinner
     Click Element    xpath=//android.widget.Spinner
     Wait Until Element Is Visible    //android.webkit.WebView[@text="Chat - Persönlich | TT-Planer"]/android.view.View/android.view.View[4]/android.widget.EditText
     Click Element    //android.webkit.WebView[@text="Chat - Persönlich | TT-Planer"]/android.view.View/android.view.View[4]/android.widget.EditText
@@ -27,9 +28,16 @@ Choose Person to chat with
     Sleep    1s
     Long Press Keycode    66    #${KEYCODE_ENTER}
     Click Element    xpath=//android.widget.Spinner
+    
+Create chat entry
+    [Arguments]    ${ChatText}
+    Open Application TT-Planer pn Google Pixel 9
+    Wait Until Element Is Visible    xpath=//android.widget.EditText[@hint="Persönliche Nachricht eingeben ..."]
+    Input Text    xpath=//android.widget.EditText[@hint="Persönliche Nachricht eingeben ..."]    ${ChatText}
+    Click Element    xpath=//android.widget.Button[@text=""]    
 
 *** Test Cases ***
-Open Personal Chat Menu
+Open Personal Chat Menu Old Version It is not necessary to open the App again after each click
     Open Application TT-Planer pn Google Pixel 9
     Click Element    xpath=//android.widget.TextView[@text=""]
     Open Application TT-Planer pn Google Pixel 9
@@ -37,6 +45,15 @@ Open Personal Chat Menu
     Click Element    xpath=//android.view.View[@content-desc=" Chat 0"]
     Open Application TT-Planer pn Google Pixel 9
     #Click Element    xpath=//android.webkit.WebView[@text="Übersicht | TT-Planer"]/android.view.View[1]/android.widget.ListView/android.view.View[3]/android.widget.ListView/android.view.View[@content-desc="Persönlich 0"]
+    Click Element    xpath=//android.view.View[@content-desc="Persönlich 0"]
+
+Open Personal Chat Menu
+    Open Application TT-Planer pn Google Pixel 9
+    Wait Until Element Is Visible    xpath=//android.widget.TextView[@text=""]
+    Click Element    xpath=//android.widget.TextView[@text=""]
+    Wait Until Element Is Visible    xpath=//android.view.View[@content-desc=" Chat 0"]
+    Click Element    xpath=//android.view.View[@content-desc=" Chat 0"]
+    Wait Until Element Is Visible    xpath=//android.view.View[@content-desc="Persönlich 0"]
     Click Element    xpath=//android.view.View[@content-desc="Persönlich 0"]
 
 Choose Mitglied to chat with
@@ -101,6 +118,9 @@ Check Accessability name
     #Execute JavaScript    document.querySelectorAll('._highlighter-box_88g86_381').forEach(element => element.style.display = 'block')
     ${ELEMENT}=    Find Element    xpath=//android.view.View[@class='_highlighter-box_88g86_381']
     Log    Found element: ${ELEMENT}
+
+Create schwaebisch chat entry
+    Create chat entry    Halli hallo hallöle ...
 
 Login Admin TTPlaner On pixel 9 Emulator
     Open Application TT-Planer pn Google Pixel 9

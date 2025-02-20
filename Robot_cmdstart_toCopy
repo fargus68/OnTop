@@ -1,6 +1,7 @@
 robot --argumentfile Robot_arguments.txt Tests
 robot --argumentfile Robot_arguments.txt Tests/Login.robot
 robot --argumentfile Robot_arguments.txt Tests/Test1.robot
+
 robot --argumentfile Robot_arguments.txt Resources/Controls/Password_Tests.robot
 robot --argumentfile Robot_arguments.txt Resources/Controls/UnorderedList_Tests.robot
 robot --argumentfile Robot_arguments.txt Resources/Controls/Page_Tests.robot
@@ -13,3 +14,5 @@ robot --argumentfile Robot_arguments.txt Tests/003_MeinProfil/003_Abwesenheiten.
 
 robot --argumentfile Robot_arguments.txt Tests/001_Login
 robot --argumentfile Robot_arguments.txt Tests/003_MeinProfil
+
+robot --argumentfile Robot_arguments.txt Tests_Internal/Desktop/WindowManagement.robot

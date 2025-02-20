@@ -7,3 +7,11 @@ ERROR        | No AVD specified. Use '@foo' or '-avd foo' to launch a virtual de
 
 Getting the selectors/locators:
 https://www.guru99.com/de/uiautomatorviewer-tutorial.html
+
+Appium inspector videos:
+
+https://www.youtube.com/watch?v=JhwJhoQ-zQo
+Appium Inspector with Appium 2.0: Mastering Appium 2.0 - A Beginner's Journey into Appium Tutorials
+
+https://www.youtube.com/watch?v=kME9mMIL9A8
+How to use Appium Inspector with Android application like a PRO?
