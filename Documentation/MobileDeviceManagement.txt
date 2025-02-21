@@ -15,3 +15,10 @@ Appium Inspector with Appium 2.0: Mastering Appium 2.0 - A Beginner's Journey in
 
 https://www.youtube.com/watch?v=kME9mMIL9A8
 How to use Appium Inspector with Android application like a PRO?
+
+
+Appium:
+Print version
+npm list appium -g
+Update
+npm install --location=global appium

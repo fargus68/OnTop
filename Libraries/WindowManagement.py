@@ -1,6 +1,6 @@
 import pygetwindow as gw
 
-def setwindowtopos(partofwindowstitle, x : int, y : int, width : int, height : int):
+def setwindowtopos (partofwindowstitle, x : int, y : int, width : int = -1, height : int = - 1):
     success = False
     print(x, y, width, height)
     print(type(x))
