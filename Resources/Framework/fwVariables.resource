@@ -60,7 +60,8 @@ SetVariableValue
 GetVariableValue
     [Arguments]    ${theVariable}
     #Get From Dictionary    ${variableStorage}    ${${theVariable}}
-    ${value}=    Evaluate    $variableStorage.get("$${theVariable}", "NULL")
+    ${Value}=    Evaluate    $variableStorage.get("$${theVariable}", "NULL")
+    RETURN    ${Value}
     
 GetValueWithResolvedVariables
     [Arguments]    ${ValueWithVariables}

@@ -1,6 +1,6 @@
 *** Settings ***
 Library    String
-Library    Browser
+#Library    Browser
 Library    ../../Libraries/PasswordSafe.py
 
 *** Variables ***
@@ -8,6 +8,10 @@ Library    ../../Libraries/PasswordSafe.py
 *** Keywords ***
 PasswordProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
+
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceName}=    Catenate    SEPARATOR=    Resources/Controls/Password_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceName}
 
     IF  '${Modus}' == '<GET>'
         PasswordProcessingGet    ${Name}    ${Selector}    ${Value}
@@ -24,7 +28,7 @@ PasswordProcessingGet
     #Log        PasswordProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        ${PasswordContent}=    Get Text    ${Selector}
+        ${PasswordContent}=    Password specific get text    ${Selector}
         IF    '${PasswordContent}' == ''
             Log    Password content = <EMPTY>
         ELSE
@@ -47,6 +51,4 @@ PasswordProcessingSet
         ${Value}=    read_password
         #${Value}=    ${ValueFromPasswordSafe}
     END
-    Type Text    ${Selector}    ${Value}    0.01    False
-    
-    
+    Password specific set text    ${Selector}    ${Value}

@@ -8,6 +8,10 @@ Library    Browser
 ButtonProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceName}=    Catenate    SEPARATOR=    Resources/Controls/Button_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceName}
+
     IF  '${Modus}' == '<GET>'
         ButtonProcessingGet    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${Modus}' == '<CHK>'
@@ -44,7 +48,7 @@ ButtonProcessingSet
     #Log        ButtonProcessingSet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        Click    ${Selector}
+        Button specific click    ${Selector}
     ELSE IF  '${FirstLetterOfValue}' == '<'
         Log    To be defined
     ELSE

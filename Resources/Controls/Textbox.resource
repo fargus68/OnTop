@@ -1,12 +1,19 @@
 *** Settings ***
 Library    String
-Library    Browser
+#Library    AppiumLibrary
+#Library    Browser
+Resource    ../../Resources/Framework/fwVariables.resource
+#Resource    ../Controls/Textbox_Pixel9Pro_API35.resource
 
 *** Variables ***
 
 *** Keywords ***
 TextboxProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
+
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceFullPath}=    Catenate    SEPARATOR=    Resources/Controls/Textbox_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceFullPath}
 
     IF  '${Modus}' == '<GET>'
         TextboxProcessingGet    ${Name}    ${Selector}    ${Value}
@@ -23,7 +30,7 @@ TextboxProcessingGet
     Log        TextboxProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        ${TextboxContent}=    Get Text    ${Selector}
+        ${TextboxContent}=    Textbox specific get text    ${Selector}
         IF    '${TextboxContent}' == ''
             Log    Textbox content = <EMPTY>
         ELSE
@@ -42,6 +49,4 @@ TextboxProcessingChk
 TextboxProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}    
     Log        TextboxProcessingSet
-    Type Text    ${Selector}    ${Value}    0.01    False
-    
-    
+    Textbox specific set text    ${Selector}    ${Value}

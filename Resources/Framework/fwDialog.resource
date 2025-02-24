@@ -1,19 +1,10 @@
 *** Settings ***
+Library    AppiumLibrary
+Library    Browser
 Library    ExcelLibrary
 Library    String
 Resource    ../../Resources/Framework/fwVariables.resource
 Resource    ../../Resources/Framework/fwControls.resource
-Resource    ../../Resources/Controls/Button.resource
-Resource    ../../Resources/Controls/Checkbox.resource
-Resource    ../../Resources/Controls/Icon.resource
-Resource    ../../Resources/Controls/Link.resource
-Resource    ../../Resources/Controls/Menu.resource
-Resource    ../../Resources/Controls/MultiSelectDropdown.resource
-Resource    ../../Resources/Controls/NumericUpDown.resource
-Resource    ../../Resources/Controls/Page.resource
-Resource    ../../Resources/Controls/Password.resource
-Resource    ../../Resources/Controls/Textbox.resource
-Resource    ../../Resources/Controls/UnorderedList.resource
 
 *** Variables ***
 ${DialogDir}    Data\\Dialogs\\
@@ -26,7 +17,7 @@ DialogExecution
     CheckIfDialogExists
     InitializeDialogExecution    ${Dialog}    ${DialogRecord}
     Set Test Variable    ${DialogRecordFound}    ${False}    
-    FOR    ${row_index}     IN RANGE     3    ${DialogRowCount} + 1
+    FOR    ${row_index}     IN RANGE     4    ${DialogRowCount} + 1
         ${theDialogRecord}    Read Excel Cell    ${row_index}    1
         Log    ${theDialogRecord}
         IF    $DialogRecord == $theDialogRecord
@@ -60,11 +51,12 @@ InitializeDialogData
             Set Test Variable    ${theDialog}    ${Dialog}
             ${tempBaseDialog}=    Read Excel Cell    ${row_index}    2
             Set Test Variable    ${theBaseDialog}    ${tempBaseDialog}
-            ${tempDialogSelector}=    Read Excel Cell    ${row_index}    3
-            Set Test Variable    ${theDialogSelector}    ${tempDialogSelector}
-            ${tempDialogTitle}=    Read Excel Cell    ${row_index}    4
+            ${tempDialogTitle}=    Read Excel Cell    ${row_index}    3
             Set Test Variable    ${theDialogTitle}    ${tempDialogTitle}
 
+            #maybe not relevant?
+            ${tempDialogSelector}=    Read Excel Cell    ${row_index}    4
+            Set Test Variable    ${theDialogSelector}    ${tempDialogSelector}
             Exit For Loop
         END    
     END
@@ -76,14 +68,46 @@ CheckIfDialogExists
         #ToDo: checken ob es einer von 3 möglichen Titeln ist in Abhängigkeit von der gewählten Notebookseite
         RETURN
     END
-    Get Title    ==    ${theDialogTitle}    Dialog not found!
+    ${actualAUT}=    GetVariableValue    AUT
+    IF    $actualAUT == 'Chromium'
+        Get Title    ==    ${theDialogTitle}    Dialog not found!
+        RETURN
+    END
+    IF    $actualAUT == 'Pixel9Pro_API35'
+        Wait Until Element Text Is Correct    5    //android.webkit.WebView    ${theDialogTitle}    1s
+
+        #${mobileWindowTitle}=    Get Element Attribute    //android.webkit.WebView    text
+        #${mobileWindowTitle}=    Get Window Title
+        #IF    $mobileWindowTitle == $theDialogTitle
+        #    Log    Dialog found!
+        #ELSE
+        #    Fail    Dialog not found!
+        #END
+        #RETURN
+    END
+
+Wait Until Element Text Is Correct
+    [Arguments]        ${RETRY_COUNT}    ${Selector}    ${EXPECTED_TEXT}    ${WAIT_INTERVAL}
+    ${count}=    Convert To Number    0
+    FOR    ${index}    IN RANGE    ${RETRY_COUNT}
+        Wait Until Element Is Visible    ${Selector}
+        ${actual_text}=    Get Element Attribute    ${Selector}    text
+        IF    $actual_text == $EXPECTED_TEXT
+            Log    Dialog found with title ${actual_text}
+            RETURN
+        END
+        Sleep    ${WAIT_INTERVAL}
+        ${count}=    Evaluate    ${count} + 1
+    END
+    Fail    Dialog not found within ${RETRY_COUNT} retries!
+
 
 DialogBaseProcessing
     [Arguments]    ${Dialog}    ${DialogRecord}
     Close Current Excel Document
     IF    ${{$theBaseDialog is not None}}
         InitializeDialogExecution    ${theBaseDialog}    ${DialogRecord}
-        FOR    ${row_index}     IN RANGE     3    ${DialogRowCount} + 1
+        FOR    ${row_index}     IN RANGE     4    ${DialogRowCount} + 1
             ${theDialogRecord}    Read Excel Cell    ${row_index}    1
             Log    ${theDialogRecord}
             IF    $DialogRecord == $theDialogRecord
@@ -111,9 +135,20 @@ InitializeDialogExecution
     Set Test Variable    ${DialogFirstColumn}    ${tmpDialogFirstColumn}
     ${tmpDialogRowCount}=    Get Length    ${DialogFirstColumn}
     Set Test Variable    ${DialogRowCount}    ${tmpDialogRowCount}
-
+    
+    ${tmpSelectorRowIndex}=    Get selector row index
+    Set Test Variable    ${SelectorRowIndex}    ${tmpSelectorRowIndex}
     #ReportDialogContent    ${Sheet}
     #Set Test Variable    ${DialogRecordFound}    ${False}
+    
+ Get selector row index
+    ${actualAUT}=    GetVariableValue    AUT
+    ${tmpSelectorRowIndex}=    Convert To Number    2
+    IF    $actualAUT == 'Chromium'
+        ${tmpSelectorRowIndex}=    Convert To Number    1
+    END
+    #ToDo: implement search
+    RETURN    ${tmpSelectorRowIndex}
 
 DialogRowProcessing
     [Arguments]    ${row_index}    #${DialogColumnCount}
@@ -126,8 +161,8 @@ DialogRowProcessing
 
     FOR    ${col_index}    IN RANGE    3    ${DialogColumnCount}
        Log    ${col_index}
-       ${theControlHeader}      Read Excel Cell       1    ${col_index}
-       ${theControlSelector}    Read Excel Cell    2    ${col_index}
+       ${theControlHeader}      Read Excel Cell       3    ${col_index}
+       ${theControlSelector}    Read Excel Cell    ${SelectorRowIndex}    ${col_index}
        ${theControlModus}    Read Excel Cell    ${row_index}    2
        ${theControlValue}    Read Excel Cell    ${row_index}    ${col_index}
        
@@ -150,32 +185,3 @@ DialogRowProcessing
     END
 
     ${Action}    Read Excel Cell    ${row_index}    ${DialogColumnCount}
-    
-Old_ControlProcessing
-    [Arguments]    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ${ControlPrefix}=    Get Substring    ${Name}    0    3
-    IF  '${ControlPrefix}' == 'but'
-        ButtonProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE IF  '${ControlPrefix}' == 'chk'
-        CheckboxProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE IF  '${ControlPrefix}' == 'ico'
-        IconProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE IF  '${ControlPrefix}' == 'lnk'
-        LinkProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE IF  '${ControlPrefix}' == 'men'
-        MenuProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE IF  '${ControlPrefix}' == 'msd'
-        MultiSelectDropdownProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE IF  '${ControlPrefix}' == 'nud'
-        NumericUpDownProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE IF  '${ControlPrefix}' == 'pag'
-        PageProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE IF  '${ControlPrefix}' == 'pwd'
-        PasswordProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE IF  '${ControlPrefix}' == 'txt'
-        TextboxProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE IF  '${ControlPrefix}' == 'uli'
-        UnorderedListProcessing    ${Modus}    ${Name}    ${Selector}    ${Value}
-    ELSE
-        Log    not defined yet ...
-    END

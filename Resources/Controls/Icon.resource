@@ -8,6 +8,10 @@ Library    Browser
 IconProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceName}=    Catenate    SEPARATOR=    Resources/Controls/Icon_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceName}
+
     IF  '${Modus}' == '<GET>'
         IconProcessingGet    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${Modus}' == '<CHK>'
@@ -23,7 +27,8 @@ IconProcessingGet
     Log        IconProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        ${IconContent}=    Get Text    ${Selector}
+        #${IconContent}=    Get Text    ${Selector}
+        ${IconContent}=    Icon specific get text    ${Selector}
         IF    '${IconContent}' == ''
             Log    Icon content = <EMPTY>
         ELSE
@@ -44,7 +49,7 @@ IconProcessingSet
     #Log        ButtonProcessingSet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        Click    ${Selector}
+        Icon specific click    ${Selector}
     ELSE IF  '${FirstLetterOfValue}' == '<'
         Log    To be defined
     ELSE

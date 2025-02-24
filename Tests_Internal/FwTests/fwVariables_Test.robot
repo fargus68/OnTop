@@ -14,6 +14,13 @@ unitTest001
     ReportVariables
     SetVariableValue    Testvar1    Testvalue1
     ReportVariables
-    ReadVariablesFromFile    001_Login_001_Successful    Config2
+    ReadVariablesFromFile    var001_Login_001_Successful    Config2
     ReportVariables
     GetVariableValue    Testvar1
+    
+unitTest002
+    InitializeVariableStorage
+    ReadVariablesFromFile    var001_Login_001_Successful    Config2
+    ReportVariables
+    ${BaseStateChromium}=    GetVariableValue    BaseStateChromium
+    Log    ${BaseStateChromium}

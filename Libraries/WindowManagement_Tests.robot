@@ -34,3 +34,43 @@ Move cmd emulator with error
     ELSE
         Fatal Error    Move console window has failed!
     END
+
+Check for appium window
+    ${rc}=    window_exists    appium
+    IF    ${rc}
+        Log    Appium-Window exists!
+    ELSE
+        Log    Appium-Window doesn't exist!
+    END
+
+Check for appium window
+    ${rc}=    window_exists    appium
+    IF    ${rc}
+        Log    Appium-Window exists!
+    ELSE
+        Log    Appium-Window doesn't exist!
+    END
+
+Check for cmd emulator window
+    ${rc}=    window_exists    -avd
+    IF    ${rc}
+        Log    Emulator-Command-Window exists!
+    ELSE
+        Log    Emulator-Command-Window doesn't exist!
+    END
+
+Check for emulator window
+    ${rc}=    window_exists    Android Emulator - Pixel9Pro_API35:5554
+    IF    ${rc}
+        Log    Emulator-Window exists!
+    ELSE
+        Log    Emulator-Window doesn't exist!
+    END
+
+Check for not existing holladiewaldfee window
+    ${rc}=    window_exists    holladiewaldfee
+    IF    ${rc}
+        Log    holladiewaldfee-Window exists!
+    ELSE
+        Log    holladiewaldfee-Window doesn't exist!
+    END

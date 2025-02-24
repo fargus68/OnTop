@@ -1,22 +1,16 @@
 *** Settings ***
-# https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html
-# https://zero88.github.io/webdocs/robotframework-excel/main/_attachments/keywords/ExcelRobot.html#Get%20Sheet%20Names
-#Library    ExcelRobot
-
-# https://rawgit.com/peterservice-rnd/robotframework-excellib/master/docs/ExcelLibrary.html
 Library    ExcelLibrary
 Library    String
 Resource    ../../Resources/Utils/Browser_Mgmt.resource
+Resource    ../../Resources/Utils/Mobile_Mgmt.resource
 Resource    ../../Resources/Framework/fwVariables.resource
 Resource    ../../Resources/Framework/fwProcess.resource
 
 *** Variables ***
-#${FlowDir}    ..\\..\\Data\\Flows\\
 ${FlowDir}    Data\\Flows\\
-#${FullFlowFilePath}
-#${sheets}
 ${RowCount}    -1
 ${FlowRecordFound}
+${ActualConfig}    Config1
 
 *** Keywords ***
 FlowExecution
@@ -24,8 +18,6 @@ FlowExecution
     Close All Excel Documents
     InitializeFlowExecution    ${Flow}    ${FlowRecord}
     Set Test Variable  ${FlowRecordFound}  ${False}
-
-    Set Up Browser
 
     FOR    ${row_index}     IN RANGE     2    ${FlowRowCount} + 1
         ${theFlowRecord}    Read Excel Cell    ${row_index}    1
@@ -70,7 +62,9 @@ ProcessFlowProcessing
        
        IF    ${{$theProcessValue is not None}}
            IF    $theProcessHeader == "Variables"
-               ReadVariablesFromFile    ${theProcessValue}    Config2
+               ReadVariablesFromFile    ${theProcessValue}    ${ActualConfig}
+               ReportVariables
+               Setup SUT
            ELSE
                ProcessExecution    ${theProcessHeader}    ${theProcessValue}
            END
@@ -78,6 +72,16 @@ ProcessFlowProcessing
        ELSE
           Log    No process value found!
        END
+    END
+
+Setup SUT
+    ${BaseStateChromium}=    GetVariableValue    BaseStateChromium
+    IF    $BaseStateChromium == 'Started'
+        Set Up Browser
+    END
+    ${BaseStatePixel9Pro_API35}=    GetVariableValue    BaseStatePixel9Pro_API35
+    IF    $BaseStatePixel9Pro_API35 == 'Started'
+        Set Up Pixel9Pro_API35
     END
 
 ReportFlowContent
@@ -94,8 +98,3 @@ ReportFlowContent
         Get Length    ${row}
     END
     Log Many    @{ExcelContent}
-
-ExcelRobotDoesntWork
-    #Excel robot don't support xlsx-files
-    #Open Excel	${FullFlowFilePath}
-    #Get Sheet Names

@@ -22,3 +22,12 @@ def setwindowtopos (partofwindowstitle, x : int, y : int, width : int = -1, heig
             break
 
     return success
+
+def window_exists (partofwindowstitle):
+    success = False
+    list = gw.getAllTitles()
+    for title in list:
+        if partofwindowstitle in title:
+            success = True
+            break
+    return success
