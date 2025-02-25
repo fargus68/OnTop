@@ -16,3 +16,6 @@ robot --argumentfile Robot_arguments.txt Tests/001_Login
 robot --argumentfile Robot_arguments.txt Tests/003_MeinProfil
 
 robot --argumentfile Robot_arguments.txt Tests_Internal/Desktop/WindowManagement.robot
+
+robot --argumentfile Robot_arguments.txt --test Browser_Chk_UnorderedList_TwoErrorEntries Resources/Controls/UnorderedList_Tests.robot
+

@@ -1,6 +1,7 @@
 *** Settings ***
 Library    String
-Library    Browser
+Library    Collections
+#Library    Browser
 Resource    ../../Resources/Framework/fwVariables.resource
 
 *** Variables ***
@@ -8,6 +9,10 @@ Resource    ../../Resources/Framework/fwVariables.resource
 *** Keywords ***
 UnorderedListProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
+
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceFullPath}=    Catenate    SEPARATOR=    Resources/Controls/UnorderedList_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceFullPath}
 
     IF  '${Modus}' == '<GET>'
         UnorderedListProcessingGet    ${Name}    ${Selector}    ${Value}
@@ -24,10 +29,11 @@ UnorderedListProcessingGet
     Log        UnorderedListProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        @{ErrorElements}=    Get Elements    ${Selector}
-
+        #@{ErrorElements}=    Get Elements    ${Selector}
+        @{ErrorElements}=    UnorderedList specific get elements    ${Selector}
         FOR    ${ListEntry}    IN    @{ErrorElements}
-            Get Text    ${ListEntry}
+            #Get Text    ${ListEntry}
+            UnorderedList specific get text    ${ListEntry}
         END
     ELSE IF  '${FirstLetterOfValue}' == '<'
         Log    To be defined
@@ -40,4 +46,18 @@ UnorderedListProcessingChk
     Log        UnorderedListProcessingChk
     ${ValueToCheck}=    GetValueWithResolvedVariables    ${Value}
     Log    ${ValueToCheck}
-    Fatal Error    TESTING
+
+    @{ExpectedErrorElements}=    Split String    ${ValueToCheck}    <||>
+    ${CopyExpectedErrorElements}=    Create List    @{ExpectedErrorElements}
+    ${CountExpectedErrorElements}=    Get Length    ${CopyExpectedErrorElements}
+
+    @{ActualErrorElements}=    UnorderedList specific get elements    ${Selector}
+    ${CopyActualErrorElements}=    Create List    @{ActualErrorElements}
+    ${CountActualErrorElements}=    Get Length    ${CopyActualErrorElements}
+
+    #ToDo: implement different checks <FULLMATCH>, <PARTMATCH>, <ENTRYMATCH>, more ?
+
+    FOR    ${ListEntry}    IN    @{ActualErrorElements}
+        #Get Text    ${ListEntry}
+        UnorderedList specific get text    ${ListEntry}
+    END

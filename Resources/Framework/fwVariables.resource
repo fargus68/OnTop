@@ -2,6 +2,7 @@
 Library    ExcelLibrary
 Library    String
 Library    Collections
+Library    ../../Libraries/Keywords.py
 
 *** Variables ***
 ${VariablesDir}    Data\\Variables\\
@@ -59,11 +60,32 @@ SetVariableValue
 
 GetVariableValue
     [Arguments]    ${theVariable}
+    Log    ${theVariable}
     #Get From Dictionary    ${variableStorage}    ${${theVariable}}
     ${Value}=    Evaluate    $variableStorage.get("$${theVariable}", "NULL")
     RETURN    ${Value}
     
 GetValueWithResolvedVariables
     [Arguments]    ${ValueWithVariables}
-    ${Value}=    ${ValueWithVariables}    
-    RETURN    ${Value}
+    Log    ${ValueWithVariables}
+    Set Local Variable    ${Value}    ${ValueWithVariables}
+    Set Local Variable    ${KeywordVarIdentifier}    VAR
+
+    Set Local Variable    ${activeSearchProcess}    ${True}
+
+    WHILE    ${activeSearchProcess}
+        ${VarExists}=    check_keyword_existence    ${Value}    ${KeywordVarIdentifier}
+        IF    ${VarExists}
+            ${FullKeywordToReplace}=    get_full_keyword_substring    ${Value}    ${KeywordVarIdentifier}
+            ${tmpKeywordValueVar}=    get_keyword_value    ${Value}    ${KeywordVarIdentifier}
+            Log    ${tmpKeywordValueVar}
+            #Set Local Variable    ${Variable}    ${tmpKeywordValueVar}
+            #${tmpValueOfVar}=    GetVariableValue    ${Variable}
+            ${tmpValueOfVar}=    GetVariableValue    ${tmpKeywordValueVar}
+            ${Value}=    Replace String    ${Value}    ${FullKeywordToReplace}    ${tmpValueOfVar}
+        ELSE
+            Set Local Variable    ${activeSearchProcess}    ${False}
+            #BREAK
+        END
+    END
+    RETURN    ${Value}  
