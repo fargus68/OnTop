@@ -1,15 +1,15 @@
 *** Settings ***
-Library    String
 Library    AppiumLibrary
+Library    String
 
 *** Variables ***
 
 *** Keywords ***
-Textbox specific get text
+Calendar specific get text
     [Arguments]    ${Selector}
-    ${TextboxContent}=    AppiumLibrary.Get Text    ${Selector}
-    RETURN    ${TextboxContent}
+    ${CalendarContent}=    AppiumLibrary.Get Text    ${Selector}
+    RETURN    ${CalendarContent}
 
-Textbox specific set text
+Calendar specific set text
     [Arguments]    ${Selector}    ${Value}
     Input Text    ${Selector}    ${Value}

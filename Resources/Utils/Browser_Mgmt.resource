@@ -3,6 +3,7 @@ Library    OperatingSystem
 Library    Process
 Library    String
 Library    Browser    auto_closing_level=keep
+Resource    ../../Resources/Framework/fwVariables.resource
 #Library    Browser    auto_closing_level=${auto_closing_level}
 
 *** Variables ***
@@ -40,4 +41,9 @@ Get Session ID
     
 Kill all chromium processes
     Log    not implemented yet
+
+Setup AUT Chromium
+    Set Up Browser
+    InitializeVariableStorage
+    SetVariableValue    AUT    Chromium
     

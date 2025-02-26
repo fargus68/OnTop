@@ -7,9 +7,9 @@ Library    Browser
 *** Keywords ***
 Password specific get text
     [Arguments]    ${Selector}
-    ${TextboxContent}=    Get Text    ${Selector}
+    ${TextboxContent}=    Browser.Get Text    ${Selector}
     RETURN    ${TextboxContent}
 
 Password specific set text
     [Arguments]    ${Selector}    ${Value}
-    Type Text    ${Selector}    ${Value}    0.01    False
+    Browser.Type Text    ${Selector}    ${Value}    0.01    False

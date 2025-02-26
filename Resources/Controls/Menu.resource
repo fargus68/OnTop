@@ -1,12 +1,16 @@
 *** Settings ***
 Library    String
-Library    Browser
+#Library    Browser
 
 *** Variables ***
 
 *** Keywords ***
 MenuProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
+
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceName}=    Catenate    SEPARATOR=    Resources/Controls/Menu_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceName}
 
     IF  '${Modus}' == '<GET>'
         MenuProcessingGet    ${Name}    ${Selector}    ${Value}
@@ -23,11 +27,11 @@ MenuProcessingGet
     Log        ButtonProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        ${ButtonContent}=    Get Text    ${Selector}
-        IF    '${ButtonContent}' == ''
-            Log    Button content = <EMPTY>
+        ${MenuContent}=    Menu specific get text    ${Selector}
+        IF    '${MenuContent}' == ''
+            Log    Menu content = <EMPTY>
         ELSE
-            Log    Button content = '${ButtonContent}'
+            Log    Menu content = '${MenuContent}'
         END
     ELSE IF  '${FirstLetterOfValue}' == '<'
         Log    To be defined
@@ -37,14 +41,14 @@ MenuProcessingGet
 
 MenuProcessingChk
     [Arguments]    ${Name}    ${Selector}    ${Value}
-    Log        ButtonProcessingChk
+    Log        MenuProcessingChk
 
 MenuProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}
     #Log        ButtonProcessingSet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        Click    ${Selector}
+        Menu specific click    ${Selector}
     ELSE IF  '${FirstLetterOfValue}' == '<'
         Log    To be defined
     ELSE

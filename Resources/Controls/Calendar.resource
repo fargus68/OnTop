@@ -1,12 +1,16 @@
 *** Settings ***
 Library    String
-Library    Browser
+#Library    Browser
 
 *** Variables ***
 
 *** Keywords ***
 CalendarProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
+
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceName}=    Catenate    SEPARATOR=    Resources/Controls/Calendar_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceName}
 
     IF  '${Modus}' == '<GET>'
         CalendarProcessingGet    ${Name}    ${Selector}    ${Value}
@@ -23,7 +27,7 @@ CalendarProcessingGet
     Log        CalendarProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        ${CalendarContent}=    Get Text    ${Selector}
+        ${CalendarContent}=    Calendar specific get text    ${Selector}
         IF    '${CalendarContent}' == ''
             Log    Calendar content = <EMPTY>
         ELSE
@@ -42,6 +46,5 @@ CalendarProcessingChk
 CalendarProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}    
     Log        CalendarProcessingSet
-    Type Text    ${Selector}    ${Value}    0.01    False
-    
+    Calendar specific set text    ${Selector}    ${Value}
     

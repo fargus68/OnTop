@@ -9,15 +9,6 @@ Resource    ../../Resources/Utils/Mobile_Mgmt.resource
 *** Variables ***
 
 *** Keywords ***
-Setup AUT Chromium
-    Set Up Browser
-    InitializeVariableStorage
-    SetVariableValue    AUT    Chromium
-
-Setup AUT Pixel9Pro_API35
-    Set Up Pixel9Pro_API35
-    InitializeVariableStorage
-    SetVariableValue    AUT    Pixel9Pro_API35
 
 *** Test Cases ***
 Chromium_ExpectedDialogFound

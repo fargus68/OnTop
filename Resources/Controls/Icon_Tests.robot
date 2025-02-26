@@ -1,6 +1,7 @@
 *** Settings ***
 Resource    ../../Resources/Utils/Browser_Mgmt.resource
 Resource    ../../Resources/Framework/fwDialog.resource
+Resource    ../../Resources/Framework/fwVariables.resource
 Resource    ../../Resources/Controls/Icon.resource
 
 *** Test Cases ***

@@ -1,6 +1,6 @@
 *** Settings ***
 Library    String
-Library    Browser
+#Library    Browser
 
 *** Variables ***
 

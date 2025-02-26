@@ -5,11 +5,11 @@ Library    String
 *** Variables ***
 
 *** Keywords ***
-Textbox specific get text
+Calendar specific get text
     [Arguments]    ${Selector}
-    ${TextboxContent}=    Browser.Get Text    ${Selector}
-    RETURN    ${TextboxContent}
+    ${CalendarContent}=    Browser.Get Text    ${Selector}
+    RETURN    ${CalendarContent}
 
-Textbox specific set text
+Calendar specific set text
     [Arguments]    ${Selector}    ${Value}
     Type Text    ${Selector}    ${Value}    0.01    False

@@ -8,6 +8,10 @@ Library    Browser
 LinkProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceName}=    Catenate    SEPARATOR=    Resources/Controls/Link_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceName}
+
     IF  '${Modus}' == '<GET>'
         LinkProcessingGet    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${Modus}' == '<CHK>'
@@ -23,7 +27,8 @@ LinkProcessingGet
     Log        LinkProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        ${LinkContent}=    Get Text    ${Selector}
+        #${LinkContent}=    Get Text    ${Selector}
+        ${LinkContent}=    Link specific get text    ${Selector}
         IF    '${LinkContent}' == ''
             Log    Link content = <EMPTY>
         ELSE
@@ -45,7 +50,8 @@ LinkProcessingSet
 
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        Click    ${Selector}
+        #Click    ${Selector}
+        Link specific click    ${Selector}
     ELSE IF  '${FirstLetterOfValue}' == '<'
         Log    To be defined
     ELSE

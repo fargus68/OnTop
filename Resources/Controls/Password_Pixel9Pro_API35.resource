@@ -7,9 +7,9 @@ Library    String
 *** Keywords ***
 Password specific get text
     [Arguments]    ${Selector}
-    ${TextboxContent}=    Get Text    ${Selector}
+    ${TextboxContent}=    AppiumLibrary.Get Text    ${Selector}
     RETURN    ${TextboxContent}
 
 Password specific set text
     [Arguments]    ${Selector}    ${Value}
-    Input Text    ${Selector}    ${Value}
+    AppiumLibrary.Input Text    ${Selector}    ${Value}

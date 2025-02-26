@@ -4,6 +4,7 @@ Library    OperatingSystem
 Library    Process
 Library    String
 Library    ../../Libraries/WindowManagement.py
+Resource    ../../Resources/Framework/fwVariables.resource
 
 *** Variables ***
 ${BATCH_FILE_START_APPIUM_SERVER_NOBASEPATHARG_ALLOWDOWNLOADINSECURECHROMEDRIVER}    C:\\Users\\matth\\PycharmProjects\\OnTop\\Batch\\Start_Appium_Server_NoBasePathArg_AllowDwnload.bat
@@ -66,3 +67,8 @@ Open Application TT-Planer on Google Pixel 9
 Emulator Is Ready
     ${output}=    Run Process    adb    shell    getprop    sys.boot_completed
     Should Be Equal As Strings    ${output.stdout.strip()}    1
+
+Setup AUT Pixel9Pro_API35
+    Set Up Pixel9Pro_API35
+    InitializeVariableStorage
+    SetVariableValue    AUT    Pixel9Pro_API35
