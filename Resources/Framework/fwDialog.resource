@@ -90,11 +90,16 @@ Wait Until Element Text Is Correct
     [Arguments]        ${RETRY_COUNT}    ${Selector}    ${EXPECTED_TEXT}    ${WAIT_INTERVAL}
     ${count}=    Convert To Number    0
     FOR    ${index}    IN RANGE    ${RETRY_COUNT}
-        Wait Until Element Is Visible    ${Selector}
-        ${actual_text}=    Get Element Attribute    ${Selector}    text
-        IF    $actual_text == $EXPECTED_TEXT
-            Log    Dialog found with title ${actual_text}
-            RETURN
+        #Wait Until Element Is Visible    ${Selector}
+        TRY
+            Wait Until Element Is Visible    ${Selector}
+            ${actual_text}=    Get Element Attribute    ${Selector}    text
+            IF    $actual_text == $EXPECTED_TEXT
+                Log    Dialog found with title ${actual_text}
+                RETURN
+            END
+        EXCEPT
+            Log    Failed to get text of android.webkit.WebView
         END
         Sleep    ${WAIT_INTERVAL}
         ${count}=    Evaluate    ${count} + 1
