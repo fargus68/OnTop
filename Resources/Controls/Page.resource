@@ -12,6 +12,10 @@ ${PageDir}    Data\\Pages\\
 PageProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceName}=    Catenate    SEPARATOR=    Resources/Controls/Page_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceName}
+
     Set Test Variable    ${theContainer}    ${Container}    
     Set Test Variable    ${thePage}    ${Name}
     Set Test Variable    ${theModus}    ${Modus}
@@ -31,7 +35,7 @@ PageProcessingGet
     Log        PageProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        ${PageContent}=    Get Text    ${Selector}
+        ${PageContent}=    Page specific get text    ${Selector}
         IF    '${PageContent}' == ''
             Log    Page content = <EMPTY>
         ELSE
@@ -48,7 +52,8 @@ PageProcessingChk
     [Arguments]    ${Modus}    ${Name}    ${Selector}    ${Value}
     #Log        PageProcessingChk
     IF    '${Value}' == '<SELECTED>'
-        ${list_of_classes}=    Get Classes    ${Selector}
+        #${list_of_classes}=    Get Classes    ${Selector}
+        ${list_of_classes}=    Page specific get classes    ${Selector}
         ${class_name}=    Convert To String    active
         ${found}=    check_if_element_contains_class    ${list_of_classes}    ${class_name}
         IF    ${found}
@@ -59,7 +64,8 @@ PageProcessingChk
         RETURN
     END
     IF    '${Value}' == '<NOTSELECTED>'
-        ${list_of_classes}=    Get Classes    ${Selector}
+        #${list_of_classes}=    Get Classes    ${Selector}
+        ${list_of_classes}=    Page specific get classes    ${Selector}
         ${class_name}=    Convert To String    active
         ${found}=    check_if_element_contains_class    ${list_of_classes}    ${class_name}
         IF    ${found}
@@ -75,7 +81,7 @@ PageProcessingSet
     [Arguments]    ${Modus}    ${Name}    ${Selector}    ${Value}
     #Log        PageProcessingSet
     IF    '${Value}' == '<SELECT>'
-        Click    ${Selector}
+        Page specific click    ${Selector}
     ELSE
         PageExecution    ${Modus}    ${Name}    ${Selector}    ${Value}
     END

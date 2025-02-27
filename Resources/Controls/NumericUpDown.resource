@@ -1,6 +1,7 @@
 *** Settings ***
 Library    String
 Library    Browser
+Resource    ../../Resources/Framework/fwVariables.resource
 
 *** Variables ***
 

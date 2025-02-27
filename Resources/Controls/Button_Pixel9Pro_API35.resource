@@ -7,4 +7,4 @@ Library    AppiumLibrary
 *** Keywords ***
 Button specific click
     [Arguments]    ${Selector}
-    Click Element    ${Selector}
+    AppiumLibrary.Click Element    ${Selector}

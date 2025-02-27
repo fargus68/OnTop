@@ -3,13 +3,18 @@
 
 *** Settings ***
 Library    String
-Library    Browser
+#Library    Browser
+Resource    ../../Resources/Framework/fwVariables.resource
 
 *** Variables ***
 
 *** Keywords ***
 CheckboxProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
+
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceName}=    Catenate    SEPARATOR=    Resources/Controls/Checkbox_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceName}
 
     IF  '${Modus}' == '<GET>'
         CheckboxProcessingGet    ${Name}    ${Selector}    ${Value}
@@ -26,7 +31,7 @@ CheckboxProcessingGet
     Log        ButtonProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        Get Checkbox State    ${Selector}
+        Checkbox specific get checkbox state    ${Selector}
     ELSE IF  '${FirstLetterOfValue}' == '<'
         Log    To be defined
     ELSE
@@ -37,7 +42,7 @@ CheckboxProcessingChk
     [Arguments]    ${Name}    ${Selector}    ${Value}
     #Log        ButtonProcessingChk
     IF    '${Value}' == '<CHECKED>'
-        ${state}=    Get Checkbox State    ${Selector}
+        ${state}=    Checkbox specific get checkbox state    ${Selector}
         IF    ${state}
             Log    Checkbox checked as expected!
         ELSE
@@ -46,7 +51,7 @@ CheckboxProcessingChk
     END
 
     IF    '${Value}' == '<UNCHECKED>'
-        ${state}=    Get Checkbox State    ${Selector}
+        ${state}=    Checkbox specific get checkbox state    ${Selector}
         IF    ${state} != True
             Log    Checkbox not checked as expected!
         ELSE
@@ -58,21 +63,21 @@ CheckboxProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}
 
     IF    '${Value}' == '<CHECK>'
-        ${state}=    Get Checkbox State    ${Selector}
+        ${state}=    Checkbox specific get checkbox state    ${Selector}
         IF    ${state}
             Log    Checkbox already checked!
         ELSE
-            Check Checkbox    ${Selector}
+            Checkbox specific check    ${Selector}
         END
         RETURN
     END
 
     IF    '${Value}' == '<UNCHECK>'
-        ${state}=    Get Checkbox State    ${Selector}
+        ${state}=    Checkbox specific get checkbox state    ${Selector}
         IF    ${state} != True
             Log    Checkbox already unchecked!
         ELSE
-            Uncheck Checkbox    ${Selector}
+            Checkbox specific uncheck    ${Selector}
         END
         RETURN
     END
@@ -80,9 +85,9 @@ CheckboxProcessingSet
     IF    '${Value}' == '<CLICK>'
         ${state}=    Get Checkbox State    ${Selector}
         IF    ${state}
-            Uncheck Checkbox    ${Selector}
+            Checkbox specific uncheck    ${Selector}
         ELSE
-            Check Checkbox    ${Selector}
+            Checkbox specific check    ${Selector}
         END
         RETURN
     END

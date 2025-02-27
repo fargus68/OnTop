@@ -1,6 +1,7 @@
 *** Settings ***
 Library    String
 Library    Browser
+Resource    ../../Resources/Framework/fwVariables.resource
 
 *** Variables ***
 
@@ -8,6 +9,10 @@ Library    Browser
 MultiLineTextboxProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceFullPath}=    Catenate    SEPARATOR=    Resources/Controls/MultiLineTextbox_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceFullPath}
+    
     IF  '${Modus}' == '<GET>'
         MultiLineTextboxProcessingGet    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${Modus}' == '<CHK>'
@@ -23,7 +28,7 @@ MultiLineTextboxProcessingGet
     Log        MultiLineTextboxProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        ${MultiLineTextboxContent}=    Get Text    ${Selector}
+        ${MultiLineTextboxContent}=    MultiLineTextbox specific get text    ${Selector}
         IF    '${MultiLineTextboxContent}' == ''
             Log    MultiLineTextbox content = <EMPTY>
         ELSE
@@ -42,4 +47,5 @@ MultiLineTextboxProcessingChk
 MultiLineTextboxProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}    
     Log        MultiLineTextboxProcessingSet
-    Type Text    ${Selector}    ${Value}    0.01    False
+    #Type Text    ${Selector}    ${Value}    0.01    False
+    MultiLineTextbox specific set text    ${Selector}    ${Value}

@@ -8,6 +8,10 @@ Library    Browser
 MultiSelectDropdownProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceFullPath}=    Catenate    SEPARATOR=    Resources/Controls/MultiSelectDropdown_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceFullPath}
+
     IF  '${Modus}' == '<GET>'
         MultiSelectDropdownProcessingGet    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${Modus}' == '<CHK>'
@@ -23,8 +27,8 @@ MultiSelectDropdownProcessingGet
     Log        MultiSelectDropdownProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        #${MultiSelectDropdownContent}=    Get Text    ${Selector}
-        ${MultiSelectDropdownContent}=    Get Selected Options    ${Selector}
+        #${MultiSelectDropdownContent}=    Get Selected Options    ${Selector}
+        ${MultiSelectDropdownContent}=    MultiSelectDropdown specific get selected options    ${Selector}
         IF    "'${MultiSelectDropdownContent}' == ''"
             Log    MultiSelectDropdown content = <EMPTY>
         ELSE
@@ -49,6 +53,7 @@ MultiSelectDropdownProcessingSet
     ${ContainsSelect}=    Evaluate    '${SelectKeyword}' in '${Value}'
     IF    ${ContainsSelect}
         ${ValueToSelect}=    Remove String    ${Value}    ${SelectKeyword}
-        Select Options By    ${Selector}    Label    ${ValueToSelect}
+        #Select Options By    ${Selector}    Label    ${ValueToSelect}
+        MultiSelectDropdown specific select options by label    ${Selector}    ${ValueToSelect}
     END
     

@@ -7,4 +7,4 @@ Library    Browser
 *** Keywords ***
 Button specific click
     [Arguments]    ${Selector}
-    Click    ${Selector}
+    Browser.Click    ${Selector}
