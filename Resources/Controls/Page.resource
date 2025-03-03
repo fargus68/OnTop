@@ -3,6 +3,7 @@ Library    String
 Library    Browser
 Library    ../../Libraries/HTMLClasses.py
 Resource    ../../Resources/Framework/fwControls.resource
+Resource    ../../Resources/Framework/fwApplicationUnderTest.resource
 
 *** Variables ***
 ${PageDir}    Data\\Pages\\
@@ -92,7 +93,7 @@ PageExecution
     #CheckIfDialogExists
     InitializePageExecution    ${PageName}    ${PageRecord}
     Set Test Variable    ${PageRecordFound}    ${False}    
-    FOR    ${row_index}     IN RANGE     3    ${PageRowCount} + 1
+    FOR    ${row_index}     IN RANGE     4    ${PageRowCount} + 1
         ${thePageRecord}    Read Excel Cell    ${row_index}    1
         Log    ${thePageRecord}
         IF    $PageRecord == $thePageRecord
@@ -124,6 +125,8 @@ InitializePageExecution
     ${tmpPageRowCount}=    Get Length    ${PageFirstColumn}
     Set Test Variable    ${PageRowCount}    ${tmpPageRowCount}
 
+    ${tmpSelectorRowIndex}=    Get selector row index
+    Set Test Variable    ${SelectorRowIndex}    ${tmpSelectorRowIndex}
     #ReportDialogContent    ${Sheet}
     #Set Test Variable    ${PageRecordFound}    ${False}
 
@@ -140,8 +143,8 @@ PageRowProcessing
 
     FOR    ${col_index}    IN RANGE    2    ${PageColumnCount}+1
        Log    ${col_index}
-       ${theControlHeader}      Read Excel Cell       1    ${col_index}
-       ${theControlSelector}    Read Excel Cell    2    ${col_index}
+       ${theControlHeader}      Read Excel Cell       3    ${col_index}
+       ${theControlSelector}    Read Excel Cell    ${SelectorRowIndex}    ${col_index}
        #${theControlModus}    Read Excel Cell    ${row_index}    2
        ${theControlValue}    Read Excel Cell    ${row_index}    ${col_index}
        

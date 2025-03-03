@@ -23,6 +23,6 @@ Test scroll_into_view
     ${session-id}=    Get Appium SessionId
     ${full-url}=    Catenate    SEPARATOR=    http://127.0.0.1:4723/session/    ${session-id}
     ${xpath}=    Convert To String    //android.widget.Button[@text="Speichern"]
-    scroll_into_view    ${full-url}    ${xpath}
+    scroll_into_view    ${full-url}    ${session-id}    ${xpath}
 
 

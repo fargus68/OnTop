@@ -8,6 +8,7 @@ Resource    ../../Resources/Framework/fwVariables.resource
 
 *** Variables ***
 ${BATCH_FILE_START_APPIUM_SERVER_NOBASEPATHARG_ALLOWDOWNLOADINSECURECHROMEDRIVER}    C:\\Users\\matth\\PycharmProjects\\OnTop\\Batch\\Start_Appium_Server_NoBasePathArg_AllowDwnload.bat
+${BATCH_FILE_START_APPIUM_SERVER_BASEPATHARG_ALLOWDOWNLOADINSECURECHROMEDRIVER}    C:\\Users\\matth\\PycharmProjects\\OnTop\\Batch\\Start_Appium_Server_BasePathArg_AllowDwnload.bat
 ${BATCH_FILE_START_EMULATOR}    C:\\Users\\matth\\PycharmProjects\\OnTop\\Batch\\Start_Emulator.bat
 
 *** Keywords ***
@@ -39,6 +40,7 @@ Start Appium if necessary
         Log    Appium-Window already exists!
     ELSE
         Appium_Start_NoBasePathArg_AllowDownloadInsecureChromeDriver
+        #Appium_Start_BasePathArg_AllowDownloadInsecureChromeDriver
         Sleep    1s
     END
     Setwindowtopos    appium    50    900    1000    200
@@ -48,6 +50,10 @@ Wait Until Login Screen Is Ready
 
 Appium_Start_NoBasePathArg_AllowDownloadInsecureChromeDriver
     Run Process    ${BATCH_FILE_START_APPIUM_SERVER_NOBASEPATHARG_ALLOWDOWNLOADINSECURECHROMEDRIVER}    shell=True    stdout=stdout.txt    stderr=stderr.txt
+    Log    Appium Server gestartet
+
+Appium_Start_BasePathArg_AllowDownloadInsecureChromeDriver
+    Run Process    ${BATCH_FILE_START_APPIUM_SERVER_BASEPATHARG_ALLOWDOWNLOADINSECURECHROMEDRIVER}    shell=True    stdout=stdout.txt    stderr=stderr.txt
     Log    Appium Server gestartet
 
 Emulator_Start

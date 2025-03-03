@@ -1,3 +1,25 @@
+Python                      3.13.2
 Appium                      appium@2.16.2
-PyCharm Professional        2024.3.3
-Android Studio              Ladybug Feature Drop | 2024.2.2 Patch 1
+PyCharm Professional        2024.3.4
+Android Studio              Ladybug Feature Drop | 2024.2.2 Patch 2
+Node.js                     v22.14.0
+npm                         11.1.0
+uiautomator2                4.1.0
+appium/support              6.0.6
+
+robotframework-appiumlibrary    2.1.0
+appium-python-client        3.2.1 (!!! old !!!)
+
+
+
+Downgrade to appium 2.0.1.
+==========================
+npm uninstall -g appium
+npm install -g appium@2.0.3
+npm view appium versions
+npm install -g appium@2.0.1
+appium -v
+----------
+appium driver uninstall uiautomator2
+appium driver install uiautomator2
+appium driver list

@@ -3,6 +3,7 @@ Library    AppiumLibrary
 Library    Browser
 Library    ExcelLibrary
 Library    String
+Resource    ../../Resources/Framework/fwApplicationUnderTest.resource
 Resource    ../../Resources/Framework/fwVariables.resource
 Resource    ../../Resources/Framework/fwControls.resource
 
@@ -145,15 +146,6 @@ InitializeDialogExecution
     Set Test Variable    ${SelectorRowIndex}    ${tmpSelectorRowIndex}
     #ReportDialogContent    ${Sheet}
     #Set Test Variable    ${DialogRecordFound}    ${False}
-    
- Get selector row index
-    ${actualAUT}=    GetVariableValue    AUT
-    ${tmpSelectorRowIndex}=    Convert To Number    2
-    IF    $actualAUT == 'Chromium'
-        ${tmpSelectorRowIndex}=    Convert To Number    1
-    END
-    #ToDo: implement search
-    RETURN    ${tmpSelectorRowIndex}
 
 DialogRowProcessing
     [Arguments]    ${row_index}    #${DialogColumnCount}

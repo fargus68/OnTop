@@ -17,3 +17,5 @@ Checkbox specific check
 Checkbox specific uncheck
     [Arguments]    ${Selector}
     Uncheck Checkbox    ${Selector}
+
+#ToDo: obviously checkbox handling gets complicated on mobile
