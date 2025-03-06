@@ -23,6 +23,16 @@ Set Up Pixel9Pro_API35
     Open Application TT-Planer on Google Pixel 9
     Wait Until Login Screen Is Ready
 
+Set Up Pixel9Pro_API35 NoWaitForLoginScreen
+    Start Appium if necessary
+    Start Emulator if necessary
+
+    #ToDo: can be further optimized
+    #Get Appium SessionId
+    #Page Should Contain Element    id=${ELEMENT_ID}
+
+    Open Application TT-Planer on Google Pixel 9
+
 Start Emulator if necessary
     ${EmulatorWinPixel9Pro_API35Exists}=    window_exists    Android Emulator - Pixel9Pro_API35:5554
     IF    ${EmulatorWinPixel9Pro_API35Exists}
@@ -47,6 +57,7 @@ Start Appium if necessary
 
 Wait Until Login Screen Is Ready
     Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    30s
+    #ToDo: könnte sein dass die Anwendung noch offen ist, dann sollte der Abmelden-Button gedrückt werden und dann nochmals auf den Einloggen-Button gewartet
 
 Appium_Start_NoBasePathArg_AllowDownloadInsecureChromeDriver
     Run Process    ${BATCH_FILE_START_APPIUM_SERVER_NOBASEPATHARG_ALLOWDOWNLOADINSECURECHROMEDRIVER}    shell=True    stdout=stdout.txt    stderr=stderr.txt
@@ -76,5 +87,10 @@ Emulator Is Ready
 
 Setup AUT Pixel9Pro_API35
     Set Up Pixel9Pro_API35
+    InitializeVariableStorage
+    SetVariableValue    AUT    Pixel9Pro_API35
+
+Setup AUT Pixel9Pro_API35 NoWaitForLoginScreen
+    Set Up Pixel9Pro_API35 NoWaitForLoginScreen
     InitializeVariableStorage
     SetVariableValue    AUT    Pixel9Pro_API35

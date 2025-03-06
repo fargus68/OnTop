@@ -31,3 +31,13 @@ Pixel9Pro_API35_Get_Checkbox_normalLogging
     CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <SET>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    <CHECK>
     CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <SET>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    <CLICK>
     CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <CHK>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    <UNCHECKED>
+
+Pixel9Pro_API35_Checkbox_Quicktests
+    Setup AUT Pixel9Pro_API35 NoWaitForLoginScreen
+    CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <GET>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    X
+    CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <CHK>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    <CHECKED>
+    CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <SET>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    <UNCHECK>
+    CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <CHK>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    <UNCHECKED>
+    CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <SET>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    <CHECK>
+    CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <SET>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    <CLICK>
+    CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <CHK>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    <UNCHECKED>
