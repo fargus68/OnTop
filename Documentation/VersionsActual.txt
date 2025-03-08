@@ -1,7 +1,7 @@
 Python                      3.13.2
 Appium                      appium@2.16.2
 PyCharm Professional        2024.3.4
-Android Studio              Ladybug Feature Drop | 2024.2.2 Patch 2
+Android Studio              Android Studio Meerkat | 2024.3.1
 Node.js                     v22.14.0
 npm                         11.1.0
 uiautomator2                4.1.0

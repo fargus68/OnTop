@@ -5,6 +5,8 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common import NoSuchElementException
 from win32con import NULLREGION
 from ScrollIntoView import scroll_page_down
+from sessionHelperAppium import open_session
+from elementHelperAppium import search_element
 import PIL
 
 def get_checkbox_state(selector):
@@ -25,10 +27,10 @@ def get_checkbox_state(selector):
     else:
         return False
 
-def search_element(selector, driver):
+def to_delete_search_checkbox(selector, driver):
     element : webelement.WebElement
     element_found = False
-    retry_count = 5
+    retry_count = 1
     while element_found is False:
         try:
             element = driver.find_element(AppiumBy.XPATH, selector)
@@ -38,7 +40,7 @@ def search_element(selector, driver):
             scroll_page_down("url not necessary!")
             #driver.close()
             driver = open_session()
-        if retry_count == 0:
+        if retry_count == -1:
             break
     return element
 
@@ -72,7 +74,8 @@ def simple_image_compare(filename):
     print(f"Ähnlichkeitswert: {score}")
     return score
 
-def open_session():
+
+def to_delete_open_session():
     from appium import webdriver
     from appium.options.android import UiAutomator2Options
     options = UiAutomator2Options()

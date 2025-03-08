@@ -238,6 +238,12 @@ def scroll_page_down(url):
     #driver.get_screenshot_as_png()
     driver.switch_to.context(driver.contexts[0])
 
+def scroll_page_down_with_driver(driver):
+    driver.switch_to.context(driver.contexts[1])
+    print(driver.current_context)
+    driver.execute_script("window.scrollBy(0, 850)")
+    driver.switch_to.context(driver.contexts[0])
+
 def open_session(executor_url):
     from appium import webdriver
     from appium.options.android import UiAutomator2Options

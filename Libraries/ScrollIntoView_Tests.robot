@@ -27,7 +27,6 @@ Test scroll_into_view
     swipe   100    700    100    3500    100
     #scroll_into_view    ${full-url}    ${session-id}    ${xpath}
 
-
 Test scroll_into_view
     Open Application TT-Planer pn Google Pixel 9
     ${session-id}=    Get Appium SessionId
@@ -37,4 +36,6 @@ Test scroll_into_view
     swipe   100    700    100    3500    100
     #scroll_into_view    ${full-url}    ${session-id}    ${xpath}
 
+Test scroll to the top
+    Scroll To Top    irrelevant
 

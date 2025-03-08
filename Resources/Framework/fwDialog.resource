@@ -3,6 +3,7 @@ Library    AppiumLibrary
 Library    Browser
 Library    ExcelLibrary
 Library    String
+Library    ../../Libraries/ScrollIntoView.py
 Resource    ../../Resources/Framework/fwApplicationUnderTest.resource
 Resource    ../../Resources/Framework/fwVariables.resource
 Resource    ../../Resources/Framework/fwControls.resource
@@ -65,11 +66,15 @@ InitializeDialogData
     Close Current Excel Document
 
 CheckIfDialogExists
+    ${actualAUT}=    GetVariableValue    AUT
     IF    '${theDialogTitle}' == 'Mein Profil | TT-Planer'
         #ToDo: checken ob es einer von 3 möglichen Titeln ist in Abhängigkeit von der gewählten Notebookseite
+        IF    $actualAUT == 'Pixel9Pro_API35'
+            #Scroll To Top    Url ist irrelevant
+            Log    Not used yet!
+        END
         RETURN
     END
-    ${actualAUT}=    GetVariableValue    AUT
     IF    $actualAUT == 'Chromium'
         Get Title    ==    ${theDialogTitle}    Dialog not found!
         RETURN
@@ -85,6 +90,8 @@ CheckIfDialogExists
         #    Fail    Dialog not found!
         #END
         #RETURN
+        
+        #Scroll To Top    Url ist irrelevant
     END
 
 Wait Until Element Text Is Correct

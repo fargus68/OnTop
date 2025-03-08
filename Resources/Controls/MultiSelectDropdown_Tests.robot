@@ -26,13 +26,6 @@ Pixel9Pro_API35_Get_MultiSelectDropdown_normalLogging
     DialogExecution    dlgMain    Menueauswahl Mein Profil
     Sleep    1s
     DialogExecution    dlgProfil    Auswahl Page Benachrichtigungen
-    #Take Screenshot
-    #Scroll To Element    id=training_ids
-    #Take Screenshot
-    Capture Page Screenshot
-    Scroll Element Into View    //android.widget.ListView[@resource-id="select2-training_ids-container"]
-    Capture Page Screenshot
-    
     ${xpath}=    Convert To String    //android.widget.ListView[@resource-id="select2-training_ids-container"]
     MultiSelectDropdownProcessing    dlgProfil_pagProfil    <GET>    msdTeilnahmeerinnerungTrainings    ${xpath}    X
     MultiSelectDropdownProcessing    dlgProfil_pagProfil    <SET>    msdTeilnahmeerinnerungTrainings    ${xpath}    <SELECT>Aktiventraining (Donnerstag, 19:00 Uhr)
