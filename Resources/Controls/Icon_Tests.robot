@@ -15,3 +15,9 @@ Pixel9Pro_API35_Set_ClickIconAbmelden
     Setup AUT Pixel9Pro_API35
     DialogExecution    dlgLogin    001_Login_001_Successful
     IconProcessing    dlgMain    <SET>    icoAbmelden    xpath=(//android.view.View[@resource-id="navbar-collapse"])[2]/android.widget.ListView/android.view.View[3]/android.view.View/android.widget.TextView    X
+    
+Pixel9Pro_API35_Set_ClickIconAbmelden_direct
+    #Setup AUT Pixel9Pro_API35
+    #DialogExecution    dlgLogin    001_Login_001_Successful
+    Setup AUT Pixel9Pro_API35 NoWaitForLoginScreen
+    IconProcessing    dlgMain    <SET>    icoAbmelden    xpath=(//android.view.View[@resource-id="navbar-collapse"])[2]/android.widget.ListView/android.view.View[3]/android.view.View/android.widget.TextView    X    

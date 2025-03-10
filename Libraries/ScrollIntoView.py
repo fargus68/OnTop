@@ -3,8 +3,7 @@ from robot.api.logger import console
 from selenium.common import NoSuchElementException
 from selenium.webdriver import Keys
 from appium.webdriver.common.appiumby import AppiumBy
-from appium.webdriver.common.touch_action import TouchAction
-from win32api import mouse_event
+from sessionHelperAppium import open_session
 from PIL import Image
 
 def checkbox_experiments(url):
@@ -159,7 +158,7 @@ def scroll_into_view(url="http://192.168.2.224:4723", session_id="111", xpath="/
 def using_keys(url):
     from appium.webdriver.common.appiumby import AppiumBy
 
-    driver = open_session(url)
+    driver = open_session()
 
     dieApp = driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
                                  'new UiScrollable(new UiSelector().scrollable(true)).setAsVerticalList().scrollIntoView(new UiSelector().text("Benachrichtigungen | TT-Planer"))')
@@ -198,7 +197,7 @@ def using_keys(url):
     print(derButton.location)
 
 def tap_experiments(url):
-    driver = open_session(url)
+    driver = open_session()
     from appium.webdriver.common.touch_action import TouchAction
     # Assuming 'driver' is your Appium driver instance
     action = TouchAction(driver)
@@ -206,7 +205,7 @@ def tap_experiments(url):
     action.move_to(x=500, y=3000)
 
 def scroll_experiments(url):
-    driver = open_session(url)
+    driver = open_session()
     driver.switch_to.context(driver.contexts[1])
     print(driver.current_context)
     #driver.execute_script("window.scrollBy(0, 850)")
@@ -217,25 +216,18 @@ def scroll_experiments(url):
     driver.switch_to.context(driver.contexts[0])
 
 def scroll_to_top(url):
-    driver = open_session(url)
+    driver = open_session()
     driver.switch_to.context(driver.contexts[1])
     print(driver.current_context)
-    #driver.execute_script("window.scrollBy(0, 850)")
     driver.execute_script("window.scrollTo(0, 0)")
-    #driver.get_screenshot_as_png()
-    #driver.execute_script("window.scrollBy(0, 1200)")
-    #driver.get_screenshot_as_png()
+    #driver.execute_script("window.scrollBy(0, -2000)")
     driver.switch_to.context(driver.contexts[0])
 
 def scroll_page_down(url):
-    driver = open_session(url)
+    driver = open_session()
     driver.switch_to.context(driver.contexts[1])
     print(driver.current_context)
     driver.execute_script("window.scrollBy(0, 850)")
-    #driver.execute_script("window.scrollTo(0, 0)")
-    #driver.get_screenshot_as_png()
-    #driver.execute_script("window.scrollBy(0, 1200)")
-    #driver.get_screenshot_as_png()
     driver.switch_to.context(driver.contexts[0])
 
 def scroll_page_down_with_driver(driver):
@@ -244,7 +236,7 @@ def scroll_page_down_with_driver(driver):
     driver.execute_script("window.scrollBy(0, 850)")
     driver.switch_to.context(driver.contexts[0])
 
-def open_session(executor_url):
+def old_open_session(executor_url):
     from appium import webdriver
     from appium.options.android import UiAutomator2Options
 
@@ -259,76 +251,4 @@ def open_session(executor_url):
     #driver = webdriver.Remote('http://192.168.2.224:4723', True, True, None, True, options)
     driver = webdriver.Remote('http://192.168.2.224:4723', True, True, None, True, options)
 
-    return driver
-
-def attach_to_session(executor_url, session_id):
-    from selenium.webdriver.remote.webdriver import WebDriver
-    from selenium.webdriver.remote.command import Command
-    from selenium.webdriver.remote.remote_connection import RemoteConnection
-
-    # Erstellen Sie den Befehlsausführer
-    command_executor = RemoteConnection(executor_url, keep_alive=True)
-
-    # Erstellen Sie eine WebDriver-Instanz
-    driver = WebDriver(command_executor, {})
-
-    # Zuweisen der Sitzung-ID
-    driver.session_id = session_id
-
-    def get_existing_session(self):
-        return self.execute(Command.STATUS)
-
-    # Weisen Sie die Methode get_existing_session der WebDriver-Instanz zu
-    driver.get_existing_session = get_existing_session.__get__(driver, WebDriver)
-
-    return driver
-
-def old3_attach_to_session(executor_url, session_id):
-    from appium.webdriver.webdriver import WebDriver
-    from selenium.webdriver.remote.remote_connection import RemoteConnection
-
-    # Create the command executor
-    command_executor = RemoteConnection(executor_url, keep_alive=True)
-
-    # Create a WebDriver instance without desired capabilities
-    driver = WebDriver(command_executor, None)
-
-    # Attach to an existing session
-    driver.session_id = session_id
-
-    return driver
-
-
-def old2_attach_to_session(executor_url, session_id):
-    from appium.webdriver.webdriver import WebDriver
-    from selenium.webdriver.remote.remote_connection import RemoteConnection
-
-    # Create the command executor
-    command_executor = RemoteConnection(executor_url, keep_alive=True)
-
-    # Define a new instance of WebDriver without desired capabilities
-    driver = WebDriver(command_executor, {})
-
-    # Attach to an existing session
-    driver.session_id = session_id
-
-    return driver
-
-def old_attach_to_session(url, session_id):
-    from appium.webdriver.webdriver import WebDriver
-    from selenium.webdriver.remote.remote_connection import RemoteConnection
-
-    original_execute = WebDriver.execute
-    command_executor = RemoteConnection(url, keep_alive=True)
-
-    def new_command_execute(self, command, params=None):
-        if command == "newSession":
-            return {'status': 0, 'value': None, 'sessionId': session_id}
-        else:
-            return original_execute(self, command, params)
-
-    WebDriver.execute = new_command_execute
-    driver = WebDriver(command_executor=command_executor, desired_capabilities={})
-    driver.session_id = session_id
-    WebDriver.execute = original_execute
     return driver

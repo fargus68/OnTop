@@ -1,7 +1,9 @@
 import datetime
 from time import sleep
+from appium import webdriver
 from appium.webdriver import webelement
 from appium.webdriver.common.appiumby import AppiumBy
+from appium.options.android import UiAutomator2Options
 from selenium.common import NoSuchElementException
 from win32con import NULLREGION
 from ScrollIntoView import scroll_page_down
@@ -73,16 +75,3 @@ def simple_image_compare(filename):
 
     print(f"Ähnlichkeitswert: {score}")
     return score
-
-
-def to_delete_open_session():
-    from appium import webdriver
-    from appium.options.android import UiAutomator2Options
-    options = UiAutomator2Options()
-    options.platformName = 'Android'
-    options.deviceName = 'emulator-5554'
-    options.appPackage = 'org.chromium.webapk.a62c68cebaf69977d_v2'
-    options.appActivity = 'org.chromium.webapk.shell_apk.h2o.H2OOpaqueMainActivity'
-    options.noReset = True  # Setze noReset explizit auf True
-    driver = webdriver.Remote('http://192.168.2.224:4723', True, True, None, True, options)
-    return driver

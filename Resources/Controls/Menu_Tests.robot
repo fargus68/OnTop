@@ -19,3 +19,9 @@ Pixel9Pro_API35_Set_ClickMenuMeinProfil
     DialogExecution    dlgLogin    001_Login_001_Successful
     MenuProcessing    dlgMain    <SET>    menMeinProfil    xpath=//android.view.View[@content-desc=" Mein Profil"]    X
 
+Pixel9Pro_API35_Set_ClickMenuUebersicht
+    #Setup AUT Pixel9Pro_API35
+    #DialogExecution    dlgLogin    001_Login_001_Successful
+    Setup AUT Pixel9Pro_API35 NoWaitForLoginScreen
+    MenuProcessing    dlgMain    <SET>    menUebersicht    xpath=//android.view.View[@content-desc=" Übersicht"]    X
+

@@ -1,6 +1,7 @@
 *** Settings ***
 Library    AppiumLibrary
 Library    Browser
+Library    BuiltIn
 Library    ExcelLibrary
 Library    String
 Library    ../../Libraries/ScrollIntoView.py
@@ -92,6 +93,7 @@ CheckIfDialogExists
         #RETURN
         
         #Scroll To Top    Url ist irrelevant
+        #Sleep    1s
     END
 
 Wait Until Element Text Is Correct
@@ -109,7 +111,7 @@ Wait Until Element Text Is Correct
         EXCEPT
             Log    Failed to get text of android.webkit.WebView
         END
-        Sleep    ${WAIT_INTERVAL}
+        BuiltIn.Sleep    ${WAIT_INTERVAL}
         ${count}=    Evaluate    ${count} + 1
     END
     Fail    Dialog not found within ${RETRY_COUNT} retries!

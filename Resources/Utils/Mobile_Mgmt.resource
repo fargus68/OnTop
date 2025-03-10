@@ -56,7 +56,10 @@ Start Appium if necessary
     Setwindowtopos    appium    50    900    1000    200
 
 Wait Until Login Screen Is Ready
-    Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    30s
+    #Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    30s
+    #Wait For Primary Element Or Click Secondary
+    ${result} =    Run Keyword And Ignore Error    Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    30s
+    Run Keyword If    '${result}[0]' == 'FAIL'    Click Element    xpath=//android.widget.TextView[@text=""]
     #ToDo: könnte sein dass die Anwendung noch offen ist, dann sollte der Abmelden-Button gedrückt werden und dann nochmals auf den Einloggen-Button gewartet
 
 Appium_Start_NoBasePathArg_AllowDownloadInsecureChromeDriver

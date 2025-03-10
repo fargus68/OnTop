@@ -1,6 +1,9 @@
 *** Settings ***
 Library    String
 Library    AppiumLibrary
+Library    ../../Libraries/sessionHelperAppium.py
+Library    ../../Libraries/ScrollIntoView.py
+Resource    ../../Resources/Utils/Mobile_Mgmt.resource
 
 *** Variables ***
 
@@ -14,7 +17,13 @@ Menu specific click
     [Arguments]    ${Selector}
     #AppiumLibrary.Click Element    //android.webkit.WebView/android.view.View[1]//android.widget.TextView[@text=""]
     #AppiumLibrary.Click Element    xpath=//android.widget.Spinner
-    AppiumLibrary.Wait Until Element Is Visible    xpath=//android.widget.TextView[@text=""]
+    
+    ${result} =    Run Keyword And Ignore Error    AppiumLibrary.Wait Until Element Is Visible    xpath=//android.widget.TextView[@text=""]
+    Run Keyword If    '${result}[0]' == 'FAIL'    scroll_to_top    not relevant
+    #Run Keyword If    '${result}[0]' == 'FAIL'    Sleep    2s
+    #Run Keyword If    '${result}[0]' == 'FAIL'    sessionHelperAppium.Open Session
+    #Run Keyword If    '${result}[0]' == 'FAIL'    Sleep    2s
+    Open Application TT-Planer on Google Pixel 9
     AppiumLibrary.Click Element    xpath=//android.widget.TextView[@text=""]
     Capture Page Screenshot
     AppiumLibrary.Wait Until Element Is Visible    ${Selector}
