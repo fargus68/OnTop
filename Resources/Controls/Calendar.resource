@@ -10,7 +10,7 @@ CalendarProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
     ${actualAUT}=    GetVariableValue    AUT
-    ${controlResourceName}=    Catenate    SEPARATOR=    Resources/Controls/Calendar_    ${actualAUT}    .resource
+    ${controlResourceName}=    Catenate    SEPARATOR=    C:/Users/matth/PycharmProjects/OnTop/Resources/Controls/Calendar_    ${actualAUT}    .resource
     Import Resource    ${controlResourceName}
 
     IF  '${Modus}' == '<GET>'

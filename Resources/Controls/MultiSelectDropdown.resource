@@ -9,7 +9,7 @@ MultiSelectDropdownProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
     ${actualAUT}=    GetVariableValue    AUT
-    ${controlResourceFullPath}=    Catenate    SEPARATOR=    Resources/Controls/MultiSelectDropdown_    ${actualAUT}    .resource
+    ${controlResourceFullPath}=    Catenate    SEPARATOR=    C:/Users/matth/PycharmProjects/OnTop/Resources/Controls/MultiSelectDropdown_    ${actualAUT}    .resource
     Import Resource    ${controlResourceFullPath}
 
     IF  '${Modus}' == '<GET>'

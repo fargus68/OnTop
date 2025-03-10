@@ -10,7 +10,7 @@ ButtonProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
     ${actualAUT}=    GetVariableValue    AUT
-    ${controlResourceName}=    Catenate    SEPARATOR=    Resources/Controls/Button_    ${actualAUT}    .resource
+    ${controlResourceName}=    Catenate    SEPARATOR=    C:/Users/matth/PycharmProjects/OnTop/Resources/Controls/Button_    ${actualAUT}    .resource
     Import Resource    ${controlResourceName}
 
     IF  '${Modus}' == '<GET>'

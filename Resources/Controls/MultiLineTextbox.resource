@@ -10,7 +10,7 @@ MultiLineTextboxProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
     ${actualAUT}=    GetVariableValue    AUT
-    ${controlResourceFullPath}=    Catenate    SEPARATOR=    Resources/Controls/MultiLineTextbox_    ${actualAUT}    .resource
+    ${controlResourceFullPath}=    Catenate    SEPARATOR=    C:/Users/matth/PycharmProjects/OnTop/Resources/Controls/MultiLineTextbox_    ${actualAUT}    .resource
     Import Resource    ${controlResourceFullPath}
     
     IF  '${Modus}' == '<GET>'

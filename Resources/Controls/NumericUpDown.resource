@@ -9,6 +9,10 @@ Resource    ../../Resources/Framework/fwVariables.resource
 NumericUpDownProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
+    ${actualAUT}=    GetVariableValue    AUT
+    ${controlResourceFullPath}=    Catenate    SEPARATOR=    C:/Users/matth/PycharmProjects/OnTop/Resources/Controls/NumericUpDown_    ${actualAUT}    .resource
+    Import Resource    ${controlResourceFullPath}
+
     IF  '${Modus}' == '<GET>'
         NumericUpDownProcessingGet    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${Modus}' == '<CHK>'
@@ -24,7 +28,8 @@ NumericUpDownProcessingGet
     Log        NumericUpDownProcessingGet
     ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
     IF  '${FirstLetterOfValue}' == 'X'
-        ${NumericUpDownContent}=    Get Text    ${Selector}
+        #${NumericUpDownContent}=    Get Text    ${Selector}
+        ${NumericUpDownContent}=    NumericUpDown specific get text    ${Selector}
         IF    '${NumericUpDownContent}' == ''
             Log    NumericUpDown content = <EMPTY>
         ELSE
@@ -43,6 +48,7 @@ NumericUpDownProcessingChk
 NumericUpDownProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}    
     Log        NumericUpDownProcessingSet
-    Type Text    ${Selector}    ${Value}    0.1    False
+    #Type Text    ${Selector}    ${Value}    0.1    False
+    NumericUpDown specific set text    ${Selector}    ${Value}
     
     

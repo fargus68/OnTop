@@ -10,7 +10,7 @@ IconProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
     ${actualAUT}=    GetVariableValue    AUT
-    ${controlResourceName}=    Catenate    SEPARATOR=    Resources/Controls/Icon_    ${actualAUT}    .resource
+    ${controlResourceName}=    Catenate    SEPARATOR=    C:/Users/matth/PycharmProjects/OnTop/Resources/Controls/Icon_    ${actualAUT}    .resource
     Import Resource    ${controlResourceName}
 
     IF  '${Modus}' == '<GET>'

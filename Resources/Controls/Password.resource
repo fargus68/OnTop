@@ -10,7 +10,7 @@ PasswordProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
 
     ${actualAUT}=    GetVariableValue    AUT
-    ${controlResourceName}=    Catenate    SEPARATOR=    Resources/Controls/Password_    ${actualAUT}    .resource
+    ${controlResourceName}=    Catenate    SEPARATOR=    C:/Users/matth/PycharmProjects/OnTop/Resources/Controls/Password_    ${actualAUT}    .resource
     Import Resource    ${controlResourceName}
 
     IF  '${Modus}' == '<GET>'
