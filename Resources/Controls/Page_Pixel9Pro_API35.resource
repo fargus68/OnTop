@@ -34,4 +34,5 @@ Page specific get classes
 
 Page specific click
     [Arguments]    ${Selector}
+    AppiumLibrary.Wait Until Element Is Visible    ${Selector}
     AppiumLibrary.Click Element   ${Selector}

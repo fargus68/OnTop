@@ -36,3 +36,14 @@ Chromium_UseExistingBrowser
     #Connect To Browser    ws://127.0.0.1:9222/devtools/browser/${ExistingSessionId}
     Connect To Browser    http://localhost:9222/devtools/browser/${ExistingSessionId}
     PageProcessing    <SET>    pagBenachrichtigungen    xpath=//*/li[@class = 'nav-item']/a[text()=" Benachrichtigungen"]    <SELECT>
+
+Pixel9Pro_API35_Set_SelectPageAbwesenheitenViaDialogExecution
+    #Setup AUT Pixel9Pro_API35
+    #DialogExecution    dlgLogin    001_Login_001_Successful
+    #DialogExecution    dlgMain    Menueauswahl Mein Profil
+    #Capture Page Screenshot
+    #PageProcessing    <SET>    pagBenachrichtigungen    xpath=//*/li[@class = 'nav-item']/a[text()=" Benachrichtigungen"]    <SELECT>
+    #DialogExecution    dlgProfil    Check defaults
+    Setup AUT Pixel9Pro_API35 NoWaitForLoginScreen
+    DialogExecution    dlgProfil    Auswahl Page Abwesenheiten
+    #Capture Page Screenshot
