@@ -10,7 +10,7 @@ Resource    ../../Resources/Framework/fwProcess.resource
 ${FlowDir}    Data\\Flows\\
 ${RowCount}    -1
 ${FlowRecordFound}
-${ActualConfig}    Config2
+${ActualConfig}    Config1
 
 *** Keywords ***
 FlowExecution

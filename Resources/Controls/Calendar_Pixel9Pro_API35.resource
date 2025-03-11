@@ -1,8 +1,8 @@
 *** Settings ***
 Library    AppiumLibrary
 Library    String
-Library    dateTimePickerHelperAppium.py
-Resource    ../../Resources/Utils/Mobile_Mgmt.resource
+Library    C:/Users/matth/PycharmProjects/OnTop/Libraries/dateTimePickerHelperAppium.py
+Resource    C:/Users/matth/PycharmProjects/OnTop/Resources/Utils/Mobile_Mgmt.resource
 
 *** Variables ***
 
