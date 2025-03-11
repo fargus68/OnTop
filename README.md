@@ -7,8 +7,8 @@ Diese Art von Framework habe ich mit ehemaligen Kollegen zusammen in der Vergang
 mit einigen Testautomatisierungswerkzeugen erstellt, darunter SilkTest, Ranorex und
 TestComplete.
 
-Ein Einführungsvideo zu diesem Projekt findet sich auf meiner Homepage:
-https://www.matthias-schmotz.eu/Downloads/Projekteinf%C3%BChrung_OnTop.mp4
+Videos zu diesem Projekt findet sich auf meiner Homepage auf der Tools-Seite:  
+https://matthias-schmotz.eu/tools
 
 OnTop ist als eine weitere Möglichkeit gedacht, wie nachhaltige Software-Testautomatisierung
 durchgeführt werden kann. Genau wie bei dem Keyword-Driven-Ansatz oder Behaviour-Driven testing
@@ -37,7 +37,7 @@ Warum Excel?
 - Excel ist insbesondere in Fachabteilungen, die mit datenintensiven betriebswirtschaftlichen Anwendungen zu tun haben weit verbreitet
 - Excel bietet eine übersichtliche Darstellung tabellarischer Daten
 - Excel bietet eine komfortable Bearbeitungsmöglichkeit tabellarischer Daten
-- Excel als defacto-Standard wird von den meisten Automatisierungstools unterstützt
+- Excel als de facto-Standard wird von den meisten Automatisierungstools unterstützt
 - Excel ist eine mächtige und selbst erweiterbare Software
 Zu guter Letzt ist es somit sogar denkbar den "Testtreiber" auszutauschen.
 
