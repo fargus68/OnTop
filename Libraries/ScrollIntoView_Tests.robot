@@ -37,5 +37,5 @@ Test scroll_into_view
     #scroll_into_view    ${full-url}    ${session-id}    ${xpath}
 
 Test scroll to the top
-    Scroll To Top    irrelevant
+    Scroll To Top
 

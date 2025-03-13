@@ -1,6 +1,7 @@
 *** Settings ***
 Library    ExcelLibrary
 Library    String
+Library    ScreenCapLibrary
 Resource    ../../Resources/Utils/Browser_Mgmt.resource
 Resource    ../../Resources/Utils/Mobile_Mgmt.resource
 Resource    ../../Resources/Framework/fwVariables.resource
@@ -15,6 +16,9 @@ ${ActualConfig}    Config2
 *** Keywords ***
 FlowExecution
     [Arguments]    ${Flow}    ${FlowRecord}
+    #ToDo minimize pycharm
+    #Start Video Recording     alias=None    name="recording"    fps=None    size_percentage=1    embed=True    embed_width='800px'    monitor=1
+
     Close All Excel Documents
     InitializeFlowExecution    ${Flow}    ${FlowRecord}
     Set Test Variable  ${FlowRecordFound}  ${False}
@@ -32,7 +36,9 @@ FlowExecution
     Should Be True    ${FlowRecordFound}    Fatal Error: Flow record not found!
     Close Current Excel Document
     ReportVariables
-
+    
+    #Stop Video Recording    alias=None    save_to_disk=true
+    
 InitializeFlowExecution
     [Arguments]    ${Flow}    ${FlowRecord}
     ${FullFlowFilePath}=    catenate    SEPARATOR=    ${FlowDir}    ${Flow}    .xlsx

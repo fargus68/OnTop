@@ -1,18 +1,34 @@
 import datetime
 from time import sleep
-from appium import webdriver
-from appium.webdriver import webelement
-from appium.webdriver.common.appiumby import AppiumBy
-from appium.options.android import UiAutomator2Options
-from selenium.common import NoSuchElementException
-from win32con import NULLREGION
-from ScrollIntoView import scroll_page_down
 from sessionHelperAppium import open_session
+from sessionHelperAppium import get_current_session
 from elementHelperAppium import search_element
-import PIL
+from robot.api import logger
 
 def get_checkbox_state(selector):
+    logger.info('getting checkbox state')
+    driver = get_current_session()
+    logger.info('session opened')
+    #sleep(1)
+
+    #theCheckbox = driver.find_element(AppiumBy.XPATH, selector)
+    theCheckbox = search_element(selector, driver)
+    now = datetime.datetime.now()
+    # String im gewünschten Format erstellen
+    formatted_string = now.strftime("%Y%m%d_%H%M%S")
+
+    filename = "checkboxStateActual_" + formatted_string + ".png"
+    theCheckbox.screenshot(filename)
+    diff = simple_image_compare(filename)
+    if diff > 0.5:
+        return True
+    else:
+        return False
+
+def old_get_checkbox_state(selector):
+    logger.info('old getting checkbox state')
     driver = open_session()
+    logger.info('old session opened')
     sleep(1)
 
     #theCheckbox = driver.find_element(AppiumBy.XPATH, selector)
@@ -29,22 +45,6 @@ def get_checkbox_state(selector):
     else:
         return False
 
-def to_delete_search_checkbox(selector, driver):
-    element : webelement.WebElement
-    element_found = False
-    retry_count = 1
-    while element_found is False:
-        try:
-            element = driver.find_element(AppiumBy.XPATH, selector)
-            element_found = True
-        except NoSuchElementException:
-            retry_count -= 1
-            scroll_page_down("url not necessary!")
-            #driver.close()
-            driver = open_session()
-        if retry_count == -1:
-            break
-    return element
 
 def simple_image_compare(filename):
     import cv2

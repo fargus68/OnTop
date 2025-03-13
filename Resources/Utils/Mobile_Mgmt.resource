@@ -1,8 +1,11 @@
 *** Settings ***
+Library    BuiltIn
 Library    AppiumLibrary
 Library    OperatingSystem
 Library    Process
 Library    String
+Library    ../../Libraries/sessionHelperAppium.py
+Library    ../../Libraries/ScrollIntoView.py
 Library    ../../Libraries/WindowManagement.py
 Resource    ../../Resources/Framework/fwVariables.resource
 
@@ -20,6 +23,10 @@ Set Up Pixel9Pro_API35
     #Get Appium SessionId
     #Page Should Contain Element    id=${ELEMENT_ID}
 
+    initializeCurrentSession
+    Close All Appium Sessions
+    BuiltIn.Sleep    1s
+
     Open Application TT-Planer on Google Pixel 9
     Wait Until Login Screen Is Ready
 
@@ -30,6 +37,10 @@ Set Up Pixel9Pro_API35 NoWaitForLoginScreen
     #ToDo: can be further optimized
     #Get Appium SessionId
     #Page Should Contain Element    id=${ELEMENT_ID}
+
+    initializeCurrentSession
+    Close All Appium Sessions
+    BuiltIn.Sleep    1s
 
     Open Application TT-Planer on Google Pixel 9
 
@@ -51,16 +62,27 @@ Start Appium if necessary
     ELSE
         Appium_Start_NoBasePathArg_AllowDownloadInsecureChromeDriver
         #Appium_Start_BasePathArg_AllowDownloadInsecureChromeDriver
-        Sleep    1s
+        BuiltIn.Sleep    1s
     END
     Setwindowtopos    appium    50    900    1000    200
 
 Wait Until Login Screen Is Ready
     #Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    30s
     #Wait For Primary Element Or Click Secondary
-    ${result} =    Run Keyword And Ignore Error    Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    30s
-    Run Keyword If    '${result}[0]' == 'FAIL'    Click Element    xpath=//android.widget.TextView[@text=""]
+    Scroll To Top
+    ${result} =    Run Keyword And Ignore Error    Wait Until Element Is Visible    xpath=//android.widget.TextView[@text=""]
+    Run Keyword If    '${result}[0]' == 'PASS'    Click Element    xpath=//android.widget.TextView[@text=""]
+    ${result} =    Run Keyword And Ignore Error    Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    10s
+    #Run Keyword If    '${result}[0]' == 'FAIL'    Click Element    xpath=//android.widget.TextView[@text=""]
+    #Log    ${result}[0]
+    Run Keyword If    '${result}[0]' == 'FAIL'    Restart Application
     #ToDo: könnte sein dass die Anwendung noch offen ist, dann sollte der Abmelden-Button gedrückt werden und dann nochmals auf den Einloggen-Button gewartet
+
+Restart Application
+    Close Application
+    Open Application TT-Planer On Google Pixel 9
+    Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    10s
+    #ToDo    Restart code
 
 Appium_Start_NoBasePathArg_AllowDownloadInsecureChromeDriver
     Run Process    ${BATCH_FILE_START_APPIUM_SERVER_NOBASEPATHARG_ALLOWDOWNLOADINSECURECHROMEDRIVER}    shell=True    stdout=stdout.txt    stderr=stderr.txt
@@ -75,14 +97,28 @@ Emulator_Start
     Run Process    ${BATCH_FILE_START_EMULATOR}    ${EmulatorName}    shell=True    stdout=stdout.txt    stderr=stderr.txt
     Log    Emulator gestartet
 
+Open Application TT-Planer on Google Pixel 9 with reset
+    #Open Application    http://127.0.0.1:4723
+    ${appID}=    Open Application    http://192.168.2.224:4723
+    ...                 platformName=Android
+    ...                 deviceName=emulator-5554
+    ...                 appPackage=org.chromium.webapk.a62c68cebaf69977d_v2
+    ...                 appActivity=org.chromium.webapk.shell_apk.h2o.H2OOpaqueMainActivity
+    ...                 automationName=UIAutomator2
+    ...                 noReset=false
+    Log    ${appID}
+
 Open Application TT-Planer on Google Pixel 9
-    Open Application    http://127.0.0.1:4723
+    #Open Application    http://127.0.0.1:4723
+    ${appID}=    Open Application    http://192.168.2.224:4723
     ...                 platformName=Android
     ...                 deviceName=emulator-5554
     ...                 appPackage=org.chromium.webapk.a62c68cebaf69977d_v2
     ...                 appActivity=org.chromium.webapk.shell_apk.h2o.H2OOpaqueMainActivity
     ...                 automationName=UIAutomator2
     ...                 noReset=true
+    Log    ${appID}
+
 
 Emulator Is Ready
     ${output}=    Run Process    adb    shell    getprop    sys.boot_completed
