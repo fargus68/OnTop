@@ -45,5 +45,10 @@ Kill all chromium processes
 Setup AUT Chromium
     Set Up Browser
     InitializeVariableStorage
-    SetVariableValue    AUT    Chromium
-    
+    SetVariableValue    AUT    Chromium  
+
+Setup AUT Chromium VehicleInsuranceDemoApp
+    Set Up Browser    url=https://sampleapp.tricentis.com/101/
+    InitializeVariableStorage
+    SetVariableValue    AUT    Chromium  
+

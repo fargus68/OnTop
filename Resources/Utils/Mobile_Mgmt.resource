@@ -52,8 +52,8 @@ Start Emulator if necessary
         Emulator_Start    Pixel9Pro_API35
         Wait Until Keyword Succeeds    10x    5s    Emulator Is Ready
     END
-    Setwindowtopos    -avd    1100    900    1000    200
-    Setwindowtopos    Android Emulator - Pixel9Pro_API35:5554    2200    120
+    Setwindowtopos    -avd    1350    1120    1330    250
+    Setwindowtopos    Android Emulator - Pixel9Pro_API35:5554    2730    130
 
 Start Appium if necessary
     ${AppiumWinExists}=    window_exists    appium
@@ -64,7 +64,7 @@ Start Appium if necessary
         #Appium_Start_BasePathArg_AllowDownloadInsecureChromeDriver
         BuiltIn.Sleep    1s
     END
-    Setwindowtopos    appium    50    900    1000    200
+    Setwindowtopos    appium    10    1120    1330    250
 
 Wait Until Login Screen Is Ready
     #Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    30s

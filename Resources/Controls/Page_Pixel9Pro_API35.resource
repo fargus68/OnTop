@@ -35,4 +35,7 @@ Page specific get classes
 Page specific click
     [Arguments]    ${Selector}
     AppiumLibrary.Wait Until Element Is Visible    ${Selector}
+    BuiltIn.Sleep    250ms
     AppiumLibrary.Click Element   ${Selector}
+    BuiltIn.Sleep    250ms
+    Capture Page Screenshot

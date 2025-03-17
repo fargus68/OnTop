@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="OnTop" type="robot-runner" factoryName="RobotRunConfigurationFactory">
+    <option name="extraArguments" />
+    <option name="logFilePath" />
+    <option name="logTitle" />
+    <option name="outputDirPath" />
+    <option name="outputFilePath" />
+    <option name="pabotArguments" />
+    <option name="reportFilePath" />
+    <option name="reportTitle" />
+    <option name="sdkHomePath" value="$PROJECT_DIR$/.venv/Scripts/python.exe" />
+    <option name="showOutputView" value="true" />
+    <method v="2" />
+  </configuration>
+</component>

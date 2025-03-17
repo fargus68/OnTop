@@ -5,6 +5,7 @@ Resource    ../../Resources/Framework/fwDialog.resource
 Resource    ../../Resources/Framework/fwVariables.resource
 Resource    ../../Resources/Controls/Page.resource
 Library    Browser    auto_closing_level=keep
+Library    ScreenCapLibrary
 
 *** Test Cases ***
 Chromium_Set_SelectPageBenachrichtigungen
@@ -47,3 +48,12 @@ Pixel9Pro_API35_Set_SelectPageAbwesenheitenViaDialogExecution
     Setup AUT Pixel9Pro_API35 NoWaitForLoginScreen
     DialogExecution    dlgProfil    Auswahl Page Abwesenheiten
     #Capture Page Screenshot
+
+
+Pixel9Pro_API35_Set_SelectPageBenachrichtigungenViaDialogExecution
+    FOR    ${index}    IN RANGE    5
+        Setup AUT Pixel9Pro_API35
+        DialogExecution    dlgLogin    001_Login_001_Successful
+        DialogExecution    dlgMain    Menueauswahl Mein Profil
+        DialogExecution    dlgProfil    Auswahl Page Benachrichtigungen
+    END

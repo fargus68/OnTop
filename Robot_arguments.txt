@@ -5,3 +5,4 @@
 --pythonpath Resources/Locators
 --pythonpath Resources/PageObjects
 --loglevel=TRACE
+--listener Listener/TestCaseListener.py
