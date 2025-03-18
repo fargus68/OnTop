@@ -7,7 +7,7 @@ Library    String
 Library    ../../Libraries/ScrollIntoView.py
 Resource    ../../Resources/Framework/fwApplicationUnderTest.resource
 Resource    ../../Resources/Framework/fwVariables.resource
-Resource    ../../Resources/Framework/fwControls.resource
+Resource    ../../Resources/Framework/fwControl.resource
 
 *** Variables ***
 ${DialogDir}    Data\\Dialogs\\

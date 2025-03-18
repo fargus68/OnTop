@@ -11,7 +11,7 @@ Resource    ../../Resources/Framework/fwProcess.resource
 ${FlowDir}    Data\\Flows\\
 ${RowCount}    -1
 ${FlowRecordFound}
-${ActualConfig}    Config2
+${ActualConfig}    Config1
 
 *** Keywords ***
 FlowExecution
@@ -80,10 +80,18 @@ ProcessFlowProcessing
        END
     END
 
+#ToDo: sollte in Konfigurationsdaten ausgelagert werden
 Setup SUT
     ${BaseStateChromium}=    GetVariableValue    BaseStateChromium
     IF    $BaseStateChromium == 'Started'
-        Set Up Browser
+        ${AUT}=    GetVariableValue    AUT
+        IF    $AUT == 'VIA_Chromium'
+            Set Up Browser    url=https://sampleapp.tricentis.com/101/    viewport={'width': 1600, 'height': 900}
+            #ToDo: auch nur ein Workaround
+            SetVariableValue    AUT    Chromium
+        ELSE
+            Set Up Browser
+        END
     END
     ${BaseStatePixel9Pro_API35}=    GetVariableValue    BaseStatePixel9Pro_API35
     IF    $BaseStatePixel9Pro_API35 == 'Started'

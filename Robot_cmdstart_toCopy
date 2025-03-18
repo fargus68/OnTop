@@ -15,6 +15,10 @@ robot --argumentfile Robot_arguments.txt Tests/003_MeinProfil/003_Abwesenheiten.
 robot --argumentfile Robot_arguments.txt Tests/001_Login
 robot --argumentfile Robot_arguments.txt Tests/003_MeinProfil
 
+robot --argumentfile Robot_arguments.txt Tests/101_VehicleInsuranceMain
+robot --argumentfile Robot_arguments.txt Tests/102_VehicleInsuranceAutomobile
+robot --argumentfile Robot_arguments.txt Tests/102_VehicleInsuranceAutomobile/102_VehicleInsuranceAutomobile_001_SmokeTest.robot
+
 robot --argumentfile Robot_arguments.txt Tests_Internal/Desktop/WindowManagement.robot
 
 robot --argumentfile Robot_arguments.txt --test Browser_Chk_UnorderedList_TwoErrorEntries Resources/Controls/UnorderedList_Tests.robot

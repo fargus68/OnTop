@@ -2,8 +2,8 @@
 Resource    ../../Resources/Framework/fwFlow.resource
 
 *** Variables ***
-${Flow}    floVehicleInsuranceAutomobile
+${Flow}    floVehicleInsurance
 
 *** Test Cases ***
-102_VehicleInsuranceAutomobile_001_VehicleData
+102_VehicleInsuranceAutomobile_001_SmokeTest
     FlowExecution    ${Flow}    ${TEST NAME}

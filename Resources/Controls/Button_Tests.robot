@@ -12,3 +12,8 @@ Chromium_Set_ClickButtonEinloggen
 Pixel9Pro_API35_Set_ClickButtonEinloggen
     Setup AUT Pixel9Pro_API35
     ButtonProcessing    dlgLogin    <SET>    butEinloggen    xpath=//android.widget.Button[@text="Einloggen"]    X
+
+VIA_Chromium_Chk_Enabled
+    Setup AUT Chromium VehicleInsuranceDemoApp
+    ButtonProcessing    dlgVehicleInsuranceMain    <CHK>    butSearchSupport    id=search_button    <ENABLED>
+

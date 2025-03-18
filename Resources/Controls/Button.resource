@@ -1,6 +1,6 @@
 *** Settings ***
 Library    String
-#Library    Browser
+Library    Browser
 Resource    ../../Resources/Framework/fwVariables.resource
 
 *** Variables ***
@@ -42,8 +42,10 @@ ButtonProcessingGet
 
 ButtonProcessingChk
     [Arguments]    ${Name}    ${Selector}    ${Value}
-    Log        ButtonProcessingChk
-
+    IF    '${Value}' == '<ENABLED>'
+        Get Attribute Names    ${Selector}
+    END
+        
 ButtonProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}
     #Log        ButtonProcessingSet

@@ -5,5 +5,5 @@ Resource    ../../Resources/Framework/fwFlow.resource
 ${Flow}    floVehicleInsurance
 
 *** Test Cases ***
-101_Common_001_CheckDefaults
+102_VehicleInsuranceAutomobile_002_VehicleData
     FlowExecution    ${Flow}    ${TEST NAME}

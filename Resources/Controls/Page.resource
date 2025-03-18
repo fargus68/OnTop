@@ -2,7 +2,7 @@
 Library    String
 Library    Browser
 Library    ../../Libraries/HTMLClasses.py
-Resource    ../../Resources/Framework/fwControls.resource
+Resource    ../../Resources/Framework/fwControl.resource
 Resource    ../../Resources/Framework/fwApplicationUnderTest.resource
 
 *** Variables ***
