@@ -11,14 +11,13 @@ Resource    ../../Resources/Controls/MultiSelectDropdown.resource
 Resource    ../../Resources/Controls/NumericUpDown.resource
 Resource    ../../Resources/Controls/Page.resource
 Resource    ../../Resources/Controls/Password.resource
+Resource    ../../Resources/Controls/SelectDropdown.resource
 Resource    ../../Resources/Controls/Textbox.resource
 Resource    ../../Resources/Controls/UnorderedList.resource
 
 *** Keywords ***
 ControlProcessing
     [Arguments]    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
-
-
 
     ${ControlPrefix}=    Get Substring    ${Name}    0    3
     IF  '${ControlPrefix}' == 'but'
@@ -43,6 +42,8 @@ ControlProcessing
         PageProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'pwd'
         PasswordProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
+    ELSE IF  '${ControlPrefix}' == 'sel'
+        SelectDropdownProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'txt'
         TextboxProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'uli'

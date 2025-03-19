@@ -50,5 +50,7 @@ Setup AUT Chromium
 Setup AUT Chromium VehicleInsuranceDemoApp
     Set Up Browser    url=https://sampleapp.tricentis.com/101/
     InitializeVariableStorage
-    SetVariableValue    AUT    Chromium  
+    SetVariableValue    AUT    Chromium
 
+Open Existing AUT Chromium VehicleInsuranceDemoApp
+    Open Browser

@@ -68,6 +68,9 @@ InitializeDialogData
 
 CheckIfDialogExists
     ${actualAUT}=    GetVariableValue    AUT
+    IF    '${theDialogTitle}' == '<TitleFromPage>'
+        RETURN
+    END
     IF    '${theDialogTitle}' == 'Mein Profil | TT-Planer'
         #ToDo: checken ob es einer von 3 möglichen Titeln ist in Abhängigkeit von der gewählten Notebookseite
         IF    $actualAUT == 'Pixel9Pro_API35'
