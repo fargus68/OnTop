@@ -11,6 +11,7 @@ Resource    ../../Resources/Controls/MultiSelectDropdown.resource
 Resource    ../../Resources/Controls/NumericUpDown.resource
 Resource    ../../Resources/Controls/Page.resource
 Resource    ../../Resources/Controls/Password.resource
+Resource    ../../Resources/Controls/Radiobutton.resource
 Resource    ../../Resources/Controls/SelectDropdown.resource
 Resource    ../../Resources/Controls/Textbox.resource
 Resource    ../../Resources/Controls/UnorderedList.resource
@@ -42,6 +43,8 @@ ControlProcessing
         PageProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'pwd'
         PasswordProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
+    ELSE IF  '${ControlPrefix}' == 'rad'
+        RadiobuttonProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'sel'
         SelectDropdownProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'txt'

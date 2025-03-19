@@ -41,3 +41,11 @@ Pixel9Pro_API35_Checkbox_Quicktests
     CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <SET>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    <CHECK>
     CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <SET>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    <CLICK>
     CheckboxProcessing    dlgProfil_pagBenachrichtigungen    <CHK>    chkTeilnahmeTrainingApp    xpath=//*/tr/*[text()='Teilnahme am Training?']/parent::*/td[@data-label = '📱 App']/div/input    <UNCHECKED>
+
+Via_Chromium_Set_CheckRadiobutton
+    Setup AUT Chromium VehicleInsuranceDemoApp
+    DialogExecution    dlgVehicleInsuranceMain    Click Automobile link
+    DialogExecution    dlgAutomobileInsurance    Button Next from Page VehicleData
+    CheckboxProcessing    dlgAutomobileInsurance_pagInsurantData    <SET>    chkOther    xpath=//*[@name='Hobbies' and @value='Other']/parent::*    <CHECK>
+    #CheckboxProcessing    dlgAutomobileInsurance_pagInsurantData    <SET>    chkOther    id=other    <CHECK>
+    #CheckboxProcessing    dlgAutomobileInsurance_pagInsurantData    <SET>    chkOther    text="Other"    <CHECK>

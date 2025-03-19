@@ -57,3 +57,8 @@ Pixel9Pro_API35_Set_SelectPageBenachrichtigungenViaDialogExecution
         DialogExecution    dlgMain    Menueauswahl Mein Profil
         DialogExecution    dlgProfil    Auswahl Page Benachrichtigungen
     END
+    
+Via_Chromium_Set_SelectPageInsurantData
+    Setup AUT Chromium VehicleInsuranceDemoApp
+    DialogExecution    dlgVehicleInsuranceMain    Click Automobile link
+    PageProcessing    dlgAutomobileInsurance    pagInsurantData    Goto insurant page
