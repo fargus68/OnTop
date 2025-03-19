@@ -18,6 +18,7 @@ robot --argumentfile Robot_arguments.txt Tests/003_MeinProfil
 robot --argumentfile Robot_arguments.txt Tests/101_VehicleInsuranceMain
 robot --argumentfile Robot_arguments.txt Tests/102_VehicleInsuranceAutomobile
 robot --argumentfile Robot_arguments.txt Tests/102_VehicleInsuranceAutomobile/102_VehicleInsuranceAutomobile_001_SmokeTest.robot
+robot --argumentfile Robot_arguments.txt Tests/103_VehicleInsuranceTruck/103_TruckInsuranceAutomobile_001_SmokeTest.robot
 
 robot --argumentfile Robot_arguments.txt Tests_Internal/Desktop/WindowManagement.robot
 

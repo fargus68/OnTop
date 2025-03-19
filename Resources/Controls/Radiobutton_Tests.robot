@@ -52,3 +52,9 @@ Via_Chromium_Set_CheckRadiobutton
     RadiobuttonProcessing    dlgAutomobileInsurance_pagInsurantData    <SET>    radMale    id=gendermale    <CHECK>
     RadiobuttonProcessing    dlgAutomobileInsurance_pagInsurantData    <GET>    radMale    id=gendermale    X
     RadiobuttonProcessing    dlgAutomobileInsurance_pagInsurantData    <CHK>    radMale    id=gendermale    <CHECKED>
+
+Via_Chromium_Set_CheckRadiobuttonInTable
+    Setup AUT Chromium VehicleInsuranceDemoApp
+    DialogExecution    dlgVehicleInsuranceMain    Click Automobile link
+    DialogExecution    dlgAutomobileInsurance    Button Next from Page VehicleData
+    RadiobuttonProcessing    dlgAutomobileInsurance_pagInsurantData    <SET>    radMale    text="Male"    <CHECK>
