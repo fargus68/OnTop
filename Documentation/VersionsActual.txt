@@ -1,16 +1,14 @@
 Python                      3.13.2
-Appium                      appium@2.16.2
-PyCharm Professional        2024.3.4
+Appium                      appium@2.17.1
+PyCharm Professional        2024.3.5
 Android Studio              Android Studio Meerkat | 2024.3.1
 Node.js                     v22.14.0
-npm                         11.1.0
-uiautomator2                4.1.0
+npm                         11.2.0
+uiautomator2                4.1.0   (https://github.com/appium/appium-uiautomator2-driver)
 appium/support              6.0.6
 
 robotframework-appiumlibrary    2.1.0
 appium-python-client        3.2.1 (!!! old !!!)
-
-
 
 Downgrade to appium 2.0.1.
 ==========================

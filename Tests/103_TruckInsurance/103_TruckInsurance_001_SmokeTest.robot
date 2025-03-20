@@ -5,5 +5,5 @@ Resource    ../../Resources/Framework/fwFlow.resource
 ${Flow}    floVehicleInsurance
 
 *** Test Cases ***
-103_TruckInsuranceAutomobile_001_SmokeTest
+103_TruckInsurance_001_SmokeTest
     FlowExecution    ${Flow}    ${TEST NAME}
