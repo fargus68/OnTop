@@ -16,9 +16,11 @@ robot --argumentfile Robot_arguments.txt Tests/001_Login
 robot --argumentfile Robot_arguments.txt Tests/003_MeinProfil
 
 robot --argumentfile Robot_arguments.txt Tests/101_VehicleInsuranceMain
-robot --argumentfile Robot_arguments.txt Tests/102_VehicleInsuranceAutomobile
-robot --argumentfile Robot_arguments.txt Tests/102_VehicleInsuranceAutomobile/102_VehicleInsuranceAutomobile_001_SmokeTest.robot
+robot --argumentfile Robot_arguments.txt Tests/102_AutomobileInsurance
+robot --argumentfile Robot_arguments.txt Tests/102_AutomobileInsurance/102_AutomobileInsurance_001_SmokeTest.robot
 robot --argumentfile Robot_arguments.txt Tests/103_TruckInsurance/103_TruckInsurance_001_SmokeTest.robot
+robot --argumentfile Robot_arguments.txt Tests/104_MotorcycleInsurance/104_MotorcycleInsurance_001_SmokeTest.robot
+robot --argumentfile Robot_arguments.txt Tests/105_CamperInsurance/105_CamperInsurance_001_SmokeTest.robot
 
 robot --argumentfile Robot_arguments.txt Tests_Internal/Desktop/WindowManagement.robot
 

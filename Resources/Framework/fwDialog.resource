@@ -31,9 +31,13 @@ DialogExecution
     END
 
     IF    ${DialogRecordFound} == ${False}
-        DialogBaseProcessing    ${Dialog}    ${DialogRecord}
+        DialogBaseProcessing    ${Dialog}    ${DialogRecord}    ${theBaseDialog}
     END
-    
+
+    IF    ${DialogRecordFound} == ${False}
+        DialogBaseProcessing    ${Dialog}    ${DialogRecord}    ${theBaseDialog2}
+    END
+
     Should Be True    ${DialogRecordFound}    Fatal Error: Dialog record not found!
 
     Switch Current Excel Document    actualDialog
@@ -54,11 +58,12 @@ InitializeDialogData
             Set Test Variable    ${theDialog}    ${Dialog}
             ${tempBaseDialog}=    Read Excel Cell    ${row_index}    2
             Set Test Variable    ${theBaseDialog}    ${tempBaseDialog}
-            ${tempDialogTitle}=    Read Excel Cell    ${row_index}    3
+            ${tempBaseDialog2}=    Read Excel Cell    ${row_index}    3
+            Set Test Variable    ${theBaseDialog2}    ${tempBaseDialog2}
+            ${tempDialogTitle}=    Read Excel Cell    ${row_index}    4
             Set Test Variable    ${theDialogTitle}    ${tempDialogTitle}
-
             #maybe not relevant?
-            ${tempDialogSelector}=    Read Excel Cell    ${row_index}    4
+            ${tempDialogSelector}=    Read Excel Cell    ${row_index}    5
             Set Test Variable    ${theDialogSelector}    ${tempDialogSelector}
             Exit For Loop
         END    
@@ -120,11 +125,27 @@ Wait Until Element Text Is Correct
     Fail    Dialog not found within ${RETRY_COUNT} retries!
 
 
-DialogBaseProcessing
+old_DialogBaseProcessing
     [Arguments]    ${Dialog}    ${DialogRecord}
     Close Current Excel Document
     IF    ${{$theBaseDialog is not None}}
         InitializeDialogExecution    ${theBaseDialog}    ${DialogRecord}
+        FOR    ${row_index}     IN RANGE     4    ${DialogRowCount} + 1
+            ${theDialogRecord}    Read Excel Cell    ${row_index}    1
+            Log    ${theDialogRecord}
+            IF    $DialogRecord == $theDialogRecord
+                Set Test Variable    ${DialogRecordFound}    ${True}
+                DialogRowProcessing    ${row_index}    #${DialogColumnCount}
+                Exit For Loop
+            END
+        END
+    END
+
+DialogBaseProcessing
+    [Arguments]    ${Dialog}    ${DialogRecord}    ${BaseDialog}
+    Close Current Excel Document
+    IF    ${{$BaseDialog is not None}}
+        InitializeDialogExecution    ${BaseDialog}    ${DialogRecord}
         FOR    ${row_index}     IN RANGE     4    ${DialogRowCount} + 1
             ${theDialogRecord}    Read Excel Cell    ${row_index}    1
             Log    ${theDialogRecord}

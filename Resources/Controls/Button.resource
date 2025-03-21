@@ -43,7 +43,8 @@ ButtonProcessingGet
 ButtonProcessingChk
     [Arguments]    ${Name}    ${Selector}    ${Value}
     IF    '${Value}' == '<ENABLED>'
-        Get Attribute Names    ${Selector}
+        #Get Attribute Names    ${Selector}
+        Button specific get attribute names    ${Selector}
     END
         
 ButtonProcessingSet

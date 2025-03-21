@@ -7,7 +7,6 @@ Resource    ../../Resources/Framework/fwApplicationUnderTest.resource
 
 *** Variables ***
 ${PageDir}    Data\\Pages\\
-#${PageRecordFound}
 
 *** Keywords ***
 PageProcessing
@@ -89,7 +88,7 @@ PageProcessingSet
 
 PageExecution
     [Arguments]    ${Modus}    ${PageName}    ${PageSelector}    ${PageRecord}
-    #InitializeDialogData        ${Dialog}
+    InitializePageData        ${PageName}
     #CheckIfDialogExists
     InitializePageExecution    ${PageName}    ${PageRecord}
     Set Test Variable    ${PageRecordFound}    ${False}    
@@ -103,13 +102,47 @@ PageExecution
         END
     END
 
+    IF    ${PageRecordFound} == ${False}
+        PageBaseProcessing    ${PageName}    ${PageRecord}
+    END    
+
     Should Be True    ${PageRecordFound}    Fatal Error: Page record not found!
+
+    Close Current Excel Document
+
+InitializePageData
+    [Arguments]    ${Page}
+    ${FullPageInheritanceFilePath}=    catenate    SEPARATOR=    ${PageDir}    PageInheritance.xlsx
+    Open Excel Document	filename=${FullPageInheritanceFilePath}    doc_id=PageInheritance
+
+    ${FullPageName}=    catenate    SEPARATOR=    ${theContainer}    _    ${Page}
+    Log    ${FullPageName}
+
+    ${PageInheritanceFirstColumn}=    Read Excel Column    0    0
+    ${PageInheritanceRowCount}=    Get Length    ${PageInheritanceFirstColumn}
+    
+    FOR    ${row_index}     IN RANGE     2    ${PageInheritanceRowCount} + 1
+        ${thePageInheritanceRecord}    Read Excel Cell    ${row_index}    1
+        Log    ${thePageInheritanceRecord}
+        IF    $FullPageName == $thePageInheritanceRecord
+            Set Test Variable    ${theFullPageName}    ${FullPageName}
+            ${tempBasePage}=    Read Excel Cell    ${row_index}    2
+            Set Test Variable    ${theBasePage}    ${tempBasePage}
+            ${tempPageTitle}=    Read Excel Cell    ${row_index}    3
+            Set Test Variable    ${thePageTitle}    ${tempPageTitle}
+            #maybe not relevant?
+            ${tempPageSelector}=    Read Excel Cell    ${row_index}    4
+            Set Test Variable    ${thePageSelector}    ${tempPageSelector}
+            Exit For Loop
+        END    
+    END
 
     Close Current Excel Document
 
 InitializePageExecution
     [Arguments]    ${Page}    ${PageRecord}
-    ${FullPageFilePath}=    catenate    SEPARATOR=    ${PageDir}    ${theContainer}    _    ${Page}    .xlsx
+    #${FullPageFilePath}=    catenate    SEPARATOR=    ${PageDir}    ${theContainer}    _    ${Page}    .xlsx
+    ${FullPageFilePath}=    catenate    SEPARATOR=    ${PageDir}    ${theFullPageName}    .xlsx
     Log    ${FullPageFilePath}
 
     Open Excel Document	filename=${FullPageFilePath}    doc_id=actualPage
@@ -130,6 +163,23 @@ InitializePageExecution
     #ReportDialogContent    ${Sheet}
     #Set Test Variable    ${PageRecordFound}    ${False}
 
+PageBaseProcessing
+    [Arguments]    ${Page}    ${PageRecord}
+    Close Current Excel Document
+    IF    ${{$theBasePage is not None}}
+        Set Test Variable    ${theFullPageName}    ${theBasePage}
+        InitializePageExecution    ${theBasePage}    ${PageRecord}
+        FOR    ${row_index}     IN RANGE     4    ${PageRowCount} + 1
+            ${thePageRecord}    Read Excel Cell    ${row_index}    1
+            Log    ${thePageRecord}
+            IF    $PageRecord == $thePageRecord
+                Set Test Variable    ${PageRecordFound}    ${True}
+                PageRowProcessing    ${row_index}
+                Exit For Loop
+            END
+        END
+    END
+
 PageRowProcessing
     [Arguments]    ${row_index}    #${PageColumnCount}
     Log    ${row_index}
@@ -139,6 +189,7 @@ PageRowProcessing
     #Log    Record found!
     #Set Test Variable    ${PageRecordFound}    ${True}
 
+    #original page name necessary
     ${newContainername}=    catenate    SEPARATOR=    ${theContainer}    _    ${thePage}
 
     FOR    ${col_index}    IN RANGE    2    ${PageColumnCount}+1
