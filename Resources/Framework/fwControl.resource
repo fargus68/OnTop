@@ -4,6 +4,7 @@ Resource    ../../Resources/Controls/Button.resource
 Resource    ../../Resources/Controls/Calendar.resource
 Resource    ../../Resources/Controls/Checkbox.resource
 Resource    ../../Resources/Controls/Icon.resource
+Resource    ../../Resources/Controls/Label.resource
 Resource    ../../Resources/Controls/Link.resource
 Resource    ../../Resources/Controls/Menu.resource
 Resource    ../../Resources/Controls/MultiLineTextbox.resource
@@ -29,6 +30,8 @@ ControlProcessing
         CheckboxProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'ico'
         IconProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
+    ELSE IF  '${ControlPrefix}' == 'lab'
+        LabelProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'lnk'
         LinkProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'men'

@@ -1,6 +1,7 @@
 *** Settings ***
 Library    String
 #Library    Browser
+Resource    ../../Resources/Keywords/mandatoryFieldKeywordsVehicleInsuranceApp.resource
 
 *** Variables ***
 
@@ -44,6 +45,13 @@ SelectDropdownProcessingGet
 SelectDropdownProcessingChk
     [Arguments]    ${Name}    ${Selector}    ${Value}    
     Log        SelectDropdownProcessingChk
+    ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
+    IF  '${FirstLetterOfValue}' == '<'
+        ${ends_with}=    Evaluate    '${Value}'.endswith('MandatoryField>')
+        Run Keyword If    '${ends_with}'    mandatoryFieldKeywordsProcessing    ${Selector}    ${Value}
+    ELSE
+        Fail    Keyword not defined
+    END
 
 SelectDropdownProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}

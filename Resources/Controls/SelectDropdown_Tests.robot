@@ -39,4 +39,11 @@ Via_Chromium_Get_SelectDropdown_normalLogging
     SelectDropdownProcessing    dlgAutomobileInsurance_pagVehicleData    <SET>    selMake    id=make    Audi
     SelectDropdownProcessing    dlgAutomobileInsurance_pagVehicleData    <SET>    selNumberOfSeats    id=numberofseats    5
     SelectDropdownProcessing    dlgAutomobileInsurance_pagVehicleData    <SET>    selFuelType    id=fuel    Benzin-Fail
-    
+
+Via_Chromium_Chk_SelectDropdown_mandatoryFields
+    Setup AUT Chromium VehicleInsuranceDemoApp
+    DialogExecution    dlgVehicleInsuranceMain    Click Automobile link
+    SelectDropdownProcessing    dlgAutomobileInsurance_pagVehicleData    <CHK>    selMake    id=make    <MissingMandatoryField>
+    SelectDropdownProcessing    dlgAutomobileInsurance_pagVehicleData    <SET>    selMake    id=make    Audi
+    SelectDropdownProcessing    dlgAutomobileInsurance_pagVehicleData    <CHK>    selMake    id=make    <FilledMandatoryField>
+    SelectDropdownProcessing    dlgAutomobileInsurance_pagVehicleData    <CHK>    txtLicensePlateNumber    id=licenseplatenumber    <NoMandatoryField>
