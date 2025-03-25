@@ -4,6 +4,7 @@ Library    String
 #Library    Browser
 Resource    ../../Resources/Framework/fwVariables.resource
 #Resource    ../Controls/Textbox_Pixel9Pro_API35.resource
+Resource    ../../Resources/Keywords/mandatoryFieldKeywordsVehicleInsuranceApp.resource
 
 *** Variables ***
 
@@ -48,6 +49,13 @@ TextboxProcessingGet
 TextboxProcessingChk
     [Arguments]    ${Name}    ${Selector}    ${Value}    
     Log        TextboxProcessingChk
+    ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
+    IF  '${FirstLetterOfValue}' == '<'
+        ${ends_with}=    Evaluate    '${Value}'.endswith('MandatoryField>')
+        Run Keyword If    ${ends_with}    mandatoryFieldKeywordsProcessing    ${Selector}    ${Value}
+    ELSE
+        Fail    Keyword not defined
+    END
 
 TextboxProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}    

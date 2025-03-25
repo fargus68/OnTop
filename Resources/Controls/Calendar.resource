@@ -2,6 +2,7 @@
 Library    String
 #Library    Browser
 Resource    ../../Resources/Framework/fwVariables.resource
+Resource    ../../Resources/Keywords/mandatoryFieldKeywordsVehicleInsuranceApp.resource
 
 *** Variables ***
 
@@ -43,6 +44,13 @@ CalendarProcessingGet
 CalendarProcessingChk
     [Arguments]    ${Name}    ${Selector}    ${Value}    
     Log        CalendarProcessingChk
+    ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
+    IF  '${FirstLetterOfValue}' == '<'
+        ${ends_with}=    Evaluate    '${Value}'.endswith('MandatoryField>')
+        Run Keyword If    ${ends_with}    mandatoryFieldKeywordsProcessing    ${Selector}    ${Value}
+    ELSE
+        Fail    Keyword not defined
+    END
 
 CalendarProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}    
