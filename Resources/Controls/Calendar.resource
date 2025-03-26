@@ -48,6 +48,8 @@ CalendarProcessingChk
     IF  '${FirstLetterOfValue}' == '<'
         ${ends_with}=    Evaluate    '${Value}'.endswith('MandatoryField>')
         Run Keyword If    ${ends_with}    mandatoryFieldKeywordsProcessing    ${Selector}    ${Value}
+        ${contains}=    Evaluate    'HINT' in '${Value}'
+        Run Keyword If    ${contains}    hintKeywordsProcessing    ${Selector}    ${Value}
     ELSE
         Fail    Keyword not defined
     END

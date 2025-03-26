@@ -2,6 +2,7 @@
 Library    String
 #Library    Browser
 Resource    ../../Resources/Keywords/mandatoryFieldKeywordsVehicleInsuranceApp.resource
+Resource    ../../Resources/Keywords/hintKeywordsVehicleInsuranceApp.resource
 
 *** Variables ***
 
@@ -49,6 +50,8 @@ SelectDropdownProcessingChk
     IF  '${FirstLetterOfValue}' == '<'
         ${ends_with}=    Evaluate    '${Value}'.endswith('MandatoryField>')
         Run Keyword If    ${ends_with}    mandatoryFieldKeywordsProcessing    ${Selector}    ${Value}
+        ${contains}=    Evaluate    'HINT' in '${Value}'
+        Run Keyword If    ${contains}    hintKeywordsProcessing    ${Selector}    ${Value}
     ELSE
         Fail    Keyword not defined
     END
