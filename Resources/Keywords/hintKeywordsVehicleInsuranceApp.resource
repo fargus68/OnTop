@@ -15,7 +15,7 @@ hintKeywordsProcessing
     #it is necessary that field has focus
     Browser.Focus    ${Selector}
 
-    BuiltIn.Sleep    3s
+    BuiltIn.Sleep    500ms
 
     Browser.Take Screenshot
 

@@ -12,4 +12,5 @@ Textbox specific get text
 
 Textbox specific set text
     [Arguments]    ${Selector}    ${Value}
-    Type Text    ${Selector}    ${Value}    0.01    False
+    Browser.Clear Text    ${Selector}
+    Browser.Type Text    ${Selector}    ${Value}    0.01    False
