@@ -2,7 +2,6 @@
 Library    String
 Library    Browser
 Library    BuiltIn
-Library    mandatoryFieldHelperVehicleInsuranceApp.py
 
 *** Variables ***
 

@@ -1,7 +1,7 @@
 *** Settings ***
 Library    String
 Library    Browser
-Library    mandatoryFieldHelperVehicleInsuranceApp.py
+Library    ../../Libraries/mandatoryFieldHelperVehicleInsuranceApp.py
 
 *** Variables ***
 ${NoMandatoryField}    <NoMandatoryField>
