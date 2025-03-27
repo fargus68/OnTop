@@ -17,4 +17,15 @@ Page specific get classes
 
 Page specific click
     [Arguments]    ${Selector}
+    #${ContainsInsuranceForm}=    Evaluate    '//*[@id="insurance-form"]/div/section' in ${Selector}
+    ${ContainsInsuranceForm}=    Evaluate    'insurance-form' in '${Selector}'
+    Run Keyword If    ${ContainsInsuranceForm}    Get VIA Page Selector    ${Selector}        
     Browser.Click    ${Selector}
+
+Get VIA Page Selector
+    [Arguments]    ${Selector}
+    #original selector = //*[@id="insurance-form"]/div/section[2]
+    ${start_removed}    Evaluate    '${Selector}'[38:]
+    ${ixPage}=    Evaluate    '${start_removed}'[:-1]
+    ${newSelector}=    Catenate    SEPARATOR=    //*[@id="idealsteps-nav"]/ul/li[    ${ixPage}    ]
+    Set Test Variable    ${Selector}    ${newSelector}

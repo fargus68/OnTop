@@ -16,6 +16,7 @@ ${DialogRecordFound}
 *** Keywords ***
 DialogExecution
     [Arguments]    ${Dialog}    ${DialogRecord}
+    ${DialogRecord}=    If Relevant Resolve Dialog Record    ${DialogRecord}
     InitializeDialogData        ${Dialog}
     CheckIfDialogExists
     InitializeDialogExecution    ${Dialog}    ${DialogRecord}
@@ -42,6 +43,18 @@ DialogExecution
 
     Switch Current Excel Document    actualDialog
     Close Current Excel Document
+
+If Relevant Resolve Dialog Record    
+    [Arguments]    ${DialogRecord}
+    ${tmpDialogRecord}=    Convert To String    ${DialogRecord}
+    ${StartsWithResolve}=    Evaluate    '${DialogRecord}'.startswith("<RESOLVE ")
+    IF    ${StartsWithResolve}
+        Log    Resolve identifiziert
+        ${start_removed}    Evaluate    '${DialogRecord}'[9:]
+        ${ResolveVariable}=    Evaluate    '${start_removed}'[:-1]
+        ${tmpDialogRecord}=    GetVariableValue    ${ResolveVariable}
+    END
+    RETURN    ${tmpDialogRecord}
 
 InitializeDialogData
     [Arguments]    ${Dialog}

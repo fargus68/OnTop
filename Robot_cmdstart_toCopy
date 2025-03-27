@@ -19,6 +19,9 @@ robot --argumentfile Robot_arguments.txt Tests/101_VehicleInsuranceMain
 robot --argumentfile Robot_arguments.txt Tests/102_AutomobileInsurance
 robot --argumentfile Robot_arguments.txt Tests/102_AutomobileInsurance/102_AutomobileInsurance_001_SmokeTest.robot
 robot --argumentfile Robot_arguments.txt Tests/102_AutomobileInsurance/102_AutomobileInsurance_002_VehicleData.robot
+robot --argumentfile Robot_arguments.txt --test 102_AutomobileInsurance_002_VehicleData_001_MandatoryFields Tests/102_AutomobileInsurance/102_AutomobileInsurance_002_VehicleData.robot
+robot --argumentfile Robot_arguments.txt Tests/102_AutomobileInsurance/102_AutomobileInsurance_003_InsurantData.robot
+robot --argumentfile Robot_arguments.txt Tests/102_AutomobileInsurance/102_AutomobileInsurance_004_ProductData.robot
 robot --argumentfile Robot_arguments.txt Tests/103_TruckInsurance/103_TruckInsurance_001_SmokeTest.robot
 robot --argumentfile Robot_arguments.txt Tests/104_MotorcycleInsurance/104_MotorcycleInsurance_001_SmokeTest.robot
 robot --argumentfile Robot_arguments.txt Tests/105_CamperInsurance/105_CamperInsurance_001_SmokeTest.robot

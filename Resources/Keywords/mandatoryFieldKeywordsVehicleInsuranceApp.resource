@@ -31,7 +31,7 @@ mandatoryFieldKeywordsProcessing
         IF    ${icoCount} == 1
             Browser.Take Screenshot    filename=actualIcon    selector=${xpathIcoMandatoryField}
             #simple_image_compare_Icons    C:\Users\matth\PycharmProjects\OnTop\browser\screenshot\actualIcon.png
-            ${rc}=    simple_image_compare_Icons    browser\\screenshot\\actualIcon.png
+            ${rc}=    simple_image_compare_Icons    output\\browser\\screenshot\\actualIcon.png
             Set local Variable    ${Actual}    ${rc}
         END
     END

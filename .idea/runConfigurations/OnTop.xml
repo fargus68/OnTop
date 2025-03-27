@@ -3,7 +3,7 @@
     <option name="extraArguments" />
     <option name="logFilePath" />
     <option name="logTitle" />
-    <option name="outputDirPath" />
+    <option name="outputDirPath" value="C:\Users\matth\PycharmProjects\OnTop\Output" />
     <option name="outputFilePath" />
     <option name="pabotArguments" />
     <option name="reportFilePath" />

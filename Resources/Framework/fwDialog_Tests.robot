@@ -30,3 +30,7 @@ Pixel9Pro_API35_ExpectedDialogNotFound
     Setup AUT Pixel9Pro_API35
     InitializeDialogData    dlgPasswordReset
     CheckIfDialogExists
+
+ResolveCheck
+    SetVariableValue    DialogRecord_Automobile_DefaultFillProductPage    102_AutomobileInsurance_001_SmokeTest_FillPageProductData
+    ${ActualizedDialogRecord}=    If Relevant Resolve Dialog Record    <RESOLVE DialogRecord_Automobile_DefaultFillProductPage>
