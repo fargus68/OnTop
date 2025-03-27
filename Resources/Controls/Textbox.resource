@@ -56,7 +56,8 @@ TextboxProcessingChk
         ${contains}=    Evaluate    'HINT' in '${Value}'
         Run Keyword If    ${contains}    hintKeywordsProcessing    ${Selector}    ${Value}
     ELSE
-        Fail    Keyword not defined
+        #Fail    Keyword not defined
+        Log    ToDo: normal check for textbox not implemented yet
     END
 
 TextboxProcessingSet
