@@ -1,4 +1,6 @@
 robot --argumentfile Robot_arguments.txt Tests
+robot --argumentfile Robot_arguments.txt --include MobileReady Tests
+
 robot --argumentfile Robot_arguments.txt Tests/Login.robot
 robot --argumentfile Robot_arguments.txt Tests/Test1.robot
 

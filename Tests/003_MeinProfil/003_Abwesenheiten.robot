@@ -1,4 +1,5 @@
 *** Settings ***
+Test Tags       MobileReady
 Resource    ../../Resources/Framework/fwFlow.resource
 
 *** Variables ***

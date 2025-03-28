@@ -69,7 +69,12 @@ Start Appium if necessary
 Wait Until Login Screen Is Ready
     #Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    30s
     #Wait For Primary Element Or Click Secondary
-    Scroll To Top
+    	
+    #waiting until any ttplaner window exists
+    #Wait Until Element Is Visible    //android.webkit.WebView    120s
+    
+    Run Keyword And Ignore Error    Scroll To Top
+
     ${result} =    Run Keyword And Ignore Error    Wait Until Element Is Visible    xpath=//android.widget.TextView[@text=""]
     Run Keyword If    '${result}[0]' == 'PASS'    Click Element    xpath=//android.widget.TextView[@text=""]
     ${result} =    Run Keyword And Ignore Error    Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    10s
@@ -110,15 +115,13 @@ Open Application TT-Planer on Google Pixel 9 with reset
 
 Open Application TT-Planer on Google Pixel 9
     #Open Application    http://127.0.0.1:4723
-    ${appID}=    Open Application    http://192.168.2.224:4723
+    Open Application    http://192.168.2.224:4723
     ...                 platformName=Android
     ...                 deviceName=emulator-5554
     ...                 appPackage=org.chromium.webapk.a62c68cebaf69977d_v2
     ...                 appActivity=org.chromium.webapk.shell_apk.h2o.H2OOpaqueMainActivity
     ...                 automationName=UIAutomator2
     ...                 noReset=true
-    Log    ${appID}
-
 
 Emulator Is Ready
     ${output}=    Run Process    adb    shell    getprop    sys.boot_completed
