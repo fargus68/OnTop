@@ -15,6 +15,7 @@ Resource    ../../Resources/Controls/Page.resource
 Resource    ../../Resources/Controls/Password.resource
 Resource    ../../Resources/Controls/Radiobutton.resource
 Resource    ../../Resources/Controls/SelectDropdown.resource
+Resource    ../../Resources/Controls/Table.resource
 Resource    ../../Resources/Controls/Textbox.resource
 Resource    ../../Resources/Controls/UnorderedList.resource
 
@@ -53,6 +54,8 @@ ControlProcessing
         RadiobuttonProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'sel'
         SelectDropdownProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
+    ELSE IF  '${ControlPrefix}' == 'tab'
+        TableProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'txt'
         TextboxProcessing    ${Container}    ${Modus}    ${Name}    ${Selector}    ${Value}
     ELSE IF  '${ControlPrefix}' == 'uli'
