@@ -2,7 +2,7 @@
 Library    OperatingSystem
 Library    Process
 Library    String
-Library    Browser    #auto_closing_level=keep
+Library    Browser    auto_closing_level=keep
 Resource    ../../Resources/Framework/fwVariables.resource
 #Library    Browser    auto_closing_level=${auto_closing_level}
 

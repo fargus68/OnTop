@@ -1,6 +1,7 @@
 *** Settings ***
 Library    String
 #Library    Browser
+Library    ../../Libraries/dateRelatedKeywords.py
 Resource    ../../Resources/Framework/fwVariables.resource
 Resource    ../../Resources/Keywords/mandatoryFieldKeywordsVehicleInsuranceApp.resource
 
@@ -50,12 +51,21 @@ CalendarProcessingChk
         Run Keyword If    ${ends_with}    mandatoryFieldKeywordsProcessing    ${Selector}    ${Value}
         ${contains}=    Evaluate    'HINT' in '${Value}'
         Run Keyword If    ${contains}    hintKeywordsProcessing    ${Selector}    ${Value}
+
+        #${containsToday}=    Evaluate    '<TODAY' in '${Value}'
+        #Run Keyword If    ${containsToday}    today_keywords_processing    ${Selector}    ${Value}
+
     ELSE
-        Fail    Keyword not defined
+        Fail    Normal check not implemented yet!
     END
 
 CalendarProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}    
     Log        CalendarProcessingSet
+
+    ${containsToday}=    Evaluate    "<TODAY" in "${Value}"
+    IF    ${containsToday}
+        ${Value}=    today_keywords_processing    ${Value}
+    END
     Calendar specific set text    ${Selector}    ${Value}
     

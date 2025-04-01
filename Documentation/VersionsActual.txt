@@ -6,6 +6,8 @@ Node.js                     v22.14.0
 npm                         11.2.0
 uiautomator2                4.1.0   (https://github.com/appium/appium-uiautomator2-driver)
 appium/support              6.0.6
+robotframework              7.2.2
+pip                         25.0.1
 
 robotframework-appiumlibrary    2.1.0
 appium-python-client        3.2.1 (!!! old !!!)
