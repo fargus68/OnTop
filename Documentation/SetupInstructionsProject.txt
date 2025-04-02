@@ -1,0 +1,12 @@
+1.) von Python.org die in VersionsActual.txt angegebene Python-Version installieren.
+
+2.) PyCharm Professional oder Community installieren
+
+3.) Android Studio installieren
+
+4.) Damit die Bibliotheken auf der Zielmaschine auch eingerichtet werden können:
+pip freeze > requirements.txt
+
+5.) Die virtuelle Umgebung wird mit dem folgenden Script eingerichtet:
+setup-venv.py
+
