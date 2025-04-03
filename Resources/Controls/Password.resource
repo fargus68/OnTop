@@ -43,6 +43,17 @@ PasswordProcessingGet
 PasswordProcessingChk
     [Arguments]    ${Name}    ${Selector}    ${Value}    
     Log        PasswordProcessingChk
+    ${FirstLetterOfValue}=    Get Substring    ${Value}    0    1
+    IF  '${FirstLetterOfValue}' == '<'
+        ${ends_with}=    Evaluate    '${Value}'.endswith('MandatoryField>')
+        Run Keyword If    ${ends_with}    mandatoryFieldKeywordsProcessing    ${Selector}    ${Value}
+        ${contains}=    Evaluate    'HINT' in '${Value}'
+        Run Keyword If    ${contains}    hintKeywordsProcessing    ${Selector}    ${Value}
+    ELSE
+        #Fail    Keyword not defined
+        Log    ToDo: normal check for password not implemented yet
+    END
+
 
 PasswordProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}    

@@ -3,11 +3,13 @@
 - Fachliches Testprotokoll
 - Test plan creator
 - Multi-Project directory structure
-- Inheritance Pages
-- Multi-Inheritance (for Dialogs, Pages, etc.)
+- (DONE) Inheritance Pages
+- (PARTLY DONE) Multi-Inheritance (for Dialogs, Pages, etc.)
 - Project configuration concept
 - RESOLVE-Keyword
 - RoboCon 2024 - Beyond log files (https://www.youtube.com/watch?v=5bDQoN2TEXI&t=6s)
 - Multi-Keyword-Handling
+- TestCaseComposer - creates the pure test case in one structure from the excel files (for example as one json)
+    - no additional creation of loops at runtime so log reads better
 
 to be defined
