@@ -3,6 +3,7 @@ Library    String
 #Library    Browser
 Resource    ../../Resources/Keywords/mandatoryFieldKeywordsVehicleInsuranceApp.resource
 Resource    ../../Resources/Keywords/hintKeywordsVehicleInsuranceApp.resource
+Resource    ../../Resources/Keywords/elementlistKeywordsVehicleInsuranceApp.resource
 
 *** Variables ***
 
@@ -52,10 +53,27 @@ SelectDropdownProcessingChk
         Run Keyword If    ${ends_with}    mandatoryFieldKeywordsProcessing    ${Selector}    ${Value}
         ${contains}=    Evaluate    'HINT' in '${Value}'
         Run Keyword If    ${contains}    hintKeywordsProcessing    ${Selector}    ${Value}
+        ${contains}=    Evaluate    'FIRSTELEMENT' in '${Value}'
+        Run Keyword If    ${contains}    CheckFirstElementKeywordProcessing    ${Selector}    ${Value}
+        ${contains}=    Evaluate    'CONTENT' in '${Value}'
+        Run Keyword If    ${contains}    CheckContentKeywordProcessing    ${Selector}    ${Value}
+
     ELSE
         Fail    Keyword not defined
     END
 
+CheckFirstElementKeywordProcessing
+    [Arguments]    ${Selector}    ${Value}
+     ${availableOptions}=    SelectDropdown specific get available options    ${Selector}
+     firstElementKeywordsProcessing    ${availableOptions}    ${Value}
+
+CheckContentKeywordProcessing
+    [Arguments]    ${Selector}    ${Value}
+     ${availableOptions}=    SelectDropdown specific get available options    ${Selector}
+     contentKeywordsProcessing    ${availableOptions}    ${Value}
+
 SelectDropdownProcessingSet
     [Arguments]    ${Name}    ${Selector}    ${Value}
     SelectDropdown specific select option by label    ${Selector}    ${Value}
+    
+    

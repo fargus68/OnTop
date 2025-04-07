@@ -14,6 +14,14 @@ def get_keyword_value(value : str, keyword : str):
     keyword_value = value[ix_keyword_value_start : ix_keyword_value_end]
     return keyword_value
 
+def get_keyword_string_values(value : str, keyword : str):
+    ix_keyword_start : int =    value.find("<" + keyword)
+    ix_keyword_value_start : int = ix_keyword_start + len("<" + keyword) + 1
+    ix_keyword_end : int = value.find(">", ix_keyword_start)
+    ix_keyword_value_end : int = ix_keyword_end
+    keyword_value = value[ix_keyword_value_start + 1 : ix_keyword_value_end - 1]
+    string_values = keyword_value.split('","')
+    return string_values
 
 def get_full_keyword_substring(value : str, keyword : str):
     ix_keyword_start : int =    value.find("<" + keyword)

@@ -5,4 +5,5 @@
 --pythonpath Resources/Locators
 --pythonpath Resources/PageObjects
 --loglevel=TRACE
+--listener=RobotVidSub.RobotVidSubListener
 --listener Listener/ListenerClass.py

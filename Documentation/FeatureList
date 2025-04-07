@@ -11,5 +11,8 @@
 - Multi-Keyword-Handling
 - TestCaseComposer - creates the pure test case in one structure from the excel files (for example as one json)
     - no additional creation of loops at runtime so log reads better
+- Utilities:
+    - Konsistenzchecker
+    - Obsolete data finder
 
 to be defined
