@@ -5,7 +5,7 @@ Library    BuiltIn
 Library    ExcelLibrary
 Library    String
 Library    ../../Libraries/ScrollIntoView.py
-Library    ../../Libraries/elementHelperAppium.py    WITH NAME    ElementHelper
+Library    ../../Libraries/elementHelperAppium.py
 Resource    ../../Resources/Framework/fwApplicationUnderTest.resource
 Resource    ../../Resources/Framework/fwVariables.resource
 Resource    ../../Resources/Framework/fwControl.resource
@@ -110,7 +110,7 @@ Wait Until Element Text Is Correct
     [Arguments]        ${RETRY_COUNT}    ${Selector}    ${EXPECTED_TEXT}    ${WAIT_INTERVAL}
     ${count}=    Convert To Number    0
     FOR    ${count}    IN RANGE    ${RETRY_COUNT}
-        ${DialogFound}=    ElementHelper.Wait Until Element Exists And Text Correct    ${Selector}    ${EXPECTED_TEXT}
+        ${DialogFound}=    Wait Until Element Exists And Text Correct    ${Selector}    ${EXPECTED_TEXT}    
         IF     ${DialogFound}
             RETURN
         END
@@ -118,6 +118,46 @@ Wait Until Element Text Is Correct
         ${count}=    Evaluate    ${count} + 1
     END
     Fail    Dialog not found within ${RETRY_COUNT} retries!
+
+# uses AppiumLibrary
+Old Wait Until Element Text Is Correct
+    [Arguments]        ${RETRY_COUNT}    ${Selector}    ${EXPECTED_TEXT}    ${WAIT_INTERVAL}
+    ${count}=    Convert To Number    0
+    FOR    ${index}    IN RANGE    ${RETRY_COUNT}
+        #Wait Until Element Is Visible    ${Selector}
+        TRY
+            Wait Until Element Is Visible    ${Selector}
+            ${actual_text}=    Get Element Attribute    ${Selector}    text
+            
+            IF    $actual_text == $EXPECTED_TEXT
+                Log    Dialog found with title ${actual_text}
+                RETURN
+            END
+        EXCEPT
+            Log    Failed to get text of android.webkit.WebView
+        END
+        BuiltIn.Sleep    ${WAIT_INTERVAL}
+        ${count}=    Evaluate    ${count} + 1
+    END
+    Fail    Dialog not found within ${RETRY_COUNT} retries!
+
+
+
+old_DialogBaseProcessing
+    [Arguments]    ${Dialog}    ${DialogRecord}
+    Close Current Excel Document
+    IF    ${{$theBaseDialog is not None}}
+        InitializeDialogExecution    ${theBaseDialog}    ${DialogRecord}
+        FOR    ${row_index}     IN RANGE     4    ${DialogRowCount} + 1
+            ${theDialogRecord}    Read Excel Cell    ${row_index}    1
+            Log    ${theDialogRecord}
+            IF    $DialogRecord == $theDialogRecord
+                Set Test Variable    ${DialogRecordFound}    ${True}
+                DialogRowProcessing    ${row_index}    #${DialogColumnCount}
+                Exit For Loop
+            END
+        END
+    END
 
 DialogBaseProcessing
     [Arguments]    ${Dialog}    ${DialogRecord}    ${BaseDialog}

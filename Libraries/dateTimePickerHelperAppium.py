@@ -16,17 +16,17 @@ def set_value(value):
 
     logger.info("driver assigned to current session")
 
-    theDatePicker = search_element("//android.widget.DatePicker[@resource-id='android:id/datePicker']", driver)
+    theDatePicker = search_element("//android.widget.DatePicker[@resource-id='android:id/datePicker']")
     logger.info("theDatePicker identified")
 
-    theClearButton = search_element("//android.widget.Button[@text='Clear']", driver)
-    theCancelButton = search_element("//android.widget.Button[@text='Cancel']", driver)
-    theSetButton = search_element("//android.widget.Button[@text='Set']", driver)
+    theClearButton = search_element("//android.widget.Button[@text='Clear']")
+    theCancelButton = search_element("//android.widget.Button[@text='Cancel']")
+    theSetButton = search_element("//android.widget.Button[@text='Set']")
     logger.info("buttons identified")
 
-    theMonthView = search_element("//android.view.View[@resource-id='android:id/month_view']", driver)
-    previousMonthArrow = search_element("//android.widget.ImageButton[@content-desc='Previous month']", driver)
-    nextMonthArrow = search_element("//android.widget.ImageButton[@content-desc='Next month']", driver)
+    theMonthView = search_element("//android.view.View[@resource-id='android:id/month_view']")
+    previousMonthArrow = search_element("//android.widget.ImageButton[@content-desc='Previous month']")
+    nextMonthArrow = search_element("//android.widget.ImageButton[@content-desc='Next month']")
 
     logger.info("some other elements identified")
 
@@ -60,13 +60,10 @@ def set_value(value):
             previousMonthArrow.click()
 
     #Element muss neu eingelesen werden
-    theMonthView = search_element("//android.view.View[@resource-id='android:id/month_view']", driver)
+    theMonthView = search_element("//android.view.View[@resource-id='android:id/month_view']")
     theMonthView.find_element(AppiumBy.XPATH, "//android.view.View[@text='" + str(tag) + "']").click()
     theSetButton.click()
 
 def monat_als_zahl(monatsname):
     monate = {monat.lower(): index for index, monat in enumerate(calendar.month_name) if monat}
     return monate.get(monatsname.lower(), "Ungültiger Monat")
-
-
-

@@ -1,6 +1,6 @@
 *** Settings ***
 Library    String
-Library    ../../Libraries/elementHelperAppium.py    WITH NAME    ElementHelper
+Library    AppiumLibrary
 
 *** Variables ***
 
@@ -11,5 +11,5 @@ Button specific get attribute names
 
 Button specific click
     [Arguments]    ${Selector}
-    ${element}=    ElementHelper.Search Element    ${Selector}
-    Evaluate    $element.click()
+    AppiumLibrary.Wait Until Element Is Visible    ${Selector}
+    AppiumLibrary.Click Element    ${Selector}

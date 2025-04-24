@@ -11,8 +11,7 @@ def get_checkbox_state(selector):
     logger.info('session opened')
     #sleep(1)
 
-    #theCheckbox = driver.find_element(AppiumBy.XPATH, selector)
-    theCheckbox = search_element(selector, driver)
+    theCheckbox = search_element(selector)
     now = datetime.datetime.now()
     # String im gewünschten Format erstellen
     formatted_string = now.strftime("%Y%m%d_%H%M%S")
@@ -32,7 +31,7 @@ def old_get_checkbox_state(selector):
     sleep(1)
 
     #theCheckbox = driver.find_element(AppiumBy.XPATH, selector)
-    theCheckbox = search_element(selector, driver)
+    theCheckbox = search_element(selector)
     now = datetime.datetime.now()
     # String im gewünschten Format erstellen
     formatted_string = now.strftime("%Y%m%d_%H%M%S")
@@ -44,7 +43,6 @@ def old_get_checkbox_state(selector):
         return True
     else:
         return False
-
 
 def simple_image_compare(filename):
     import cv2

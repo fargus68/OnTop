@@ -1,0 +1,4 @@
+Es scheint ein Thema mit der Bildschirmauflösung zu geben, wenn ein Skalierungsfaktor angegeben wird.
+In meinem Fall sind es 125%.
+Wenn die ScreenCapLibrary nicht irgendwo eingebunden ist, werden falsche Positionen verwendet, z. B. beim
+Verschieben der Konsolenfenster.

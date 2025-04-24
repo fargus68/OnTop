@@ -1,6 +1,6 @@
 *** Settings ***
 Library    String
-Library    AppiumLibrary
+Library    ../../Libraries/elementHelperAppium.py    WITH NAME    ElementHelper
 
 *** Variables ***
 
@@ -8,9 +8,11 @@ Library    AppiumLibrary
 Icon specific get text
     #ToDo not tested yet
     [Arguments]    ${Selector}
-    ${IconContent}=    Get Text    ${Selector}
+    ${element}=    ElementHelper.Search Element    ${Selector}
+    ${IconContent}=    Set Variable    ${element.text}
     RETURN    ${IconContent}
 
 Icon specific click
     [Arguments]    ${Selector}
-    Click Element    ${Selector}
+    ${element}=    ElementHelper.Search Element    ${Selector}
+    Evaluate    $element.click()

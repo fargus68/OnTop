@@ -1,22 +1,13 @@
 *** Settings ***
 Library    BuiltIn
-#Library    AppiumLibrary
+Library    AppiumLibrary
 Library    OperatingSystem
 Library    Process
-Library    ScreenCapLibrary
 Library    String
-Library    ../../Libraries/sessionHelperAppium.py    WITH NAME    SessionHelper
+Library    ../../Libraries/sessionHelperAppium.py
 Library    ../../Libraries/ScrollIntoView.py
 Library    ../../Libraries/WindowManagement.py
-Library    ../../Resources/Utils/Mobile_Mgmt_Direct.py
 Resource    ../../Resources/Framework/fwVariables.resource
-
-# Notes on Appium Logging:
-# - Appium automatically captures Android logcat logs during test execution
-# - The message "Stopping logcat capture" in the Appium logs indicates that Appium is stopping
-#   the capture of Android system logs (logcat) when a session ends or is terminated
-# - This is normal behavior and not an error condition
-# - Logcat capture is a built-in feature of Appium for Android and helps with debugging
 
 *** Variables ***
 ${BATCH_FILE_START_APPIUM_SERVER_NOBASEPATHARG_ALLOWDOWNLOADINSECURECHROMEDRIVER}    C:\\Users\\matth\\PycharmProjects\\OnTop\\Batch\\Start_Appium_Server_NoBasePathArg_AllowDwnload.bat
@@ -27,17 +18,31 @@ ${BATCH_FILE_START_EMULATOR}    C:\\Users\\matth\\PycharmProjects\\OnTop\\Batch\
 Set Up Pixel9Pro_API35
     Start Appium if necessary
     Start Emulator if necessary
+
+    #ToDo: can be further optimized
+    #Get Appium SessionId
+    #Page Should Contain Element    id=${ELEMENT_ID}
+
+    initializeCurrentSession
     Close All Appium Sessions
     BuiltIn.Sleep    1s
-    open application tt planer on google pixel 9
-    wait until login screen is ready
+
+    Open Application TT-Planer on Google Pixel 9
+    Wait Until Login Screen Is Ready
 
 Set Up Pixel9Pro_API35 NoWaitForLoginScreen
     Start Appium if necessary
     Start Emulator if necessary
+
+    #ToDo: can be further optimized
+    #Get Appium SessionId
+    #Page Should Contain Element    id=${ELEMENT_ID}
+
+    initializeCurrentSession
     Close All Appium Sessions
     BuiltIn.Sleep    1s
-    open application tt planer on google pixel 9
+
+    Open Application TT-Planer on Google Pixel 9
 
 Start Emulator if necessary
     ${EmulatorWinPixel9Pro_API35Exists}=    window_exists    Android Emulator - Pixel9Pro_API35:5554
@@ -61,6 +66,29 @@ Start Appium if necessary
     END
     Setwindowtopos    appium    10    1120    1330    250
 
+Wait Until Login Screen Is Ready
+    #Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    30s
+    #Wait For Primary Element Or Click Secondary
+    	
+    #waiting until any ttplaner window exists
+    #Wait Until Element Is Visible    //android.webkit.WebView    120s
+    
+    Run Keyword And Ignore Error    Scroll To Top
+
+    ${result} =    Run Keyword And Ignore Error    Wait Until Element Is Visible    xpath=//android.widget.TextView[@text=""]
+    Run Keyword If    '${result}[0]' == 'PASS'    Click Element    xpath=//android.widget.TextView[@text=""]
+    ${result} =    Run Keyword And Ignore Error    Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    10s
+    #Run Keyword If    '${result}[0]' == 'FAIL'    Click Element    xpath=//android.widget.TextView[@text=""]
+    #Log    ${result}[0]
+    Run Keyword If    '${result}[0]' == 'FAIL'    Restart Application
+    #ToDo: könnte sein dass die Anwendung noch offen ist, dann sollte der Abmelden-Button gedrückt werden und dann nochmals auf den Einloggen-Button gewartet
+
+Restart Application
+    Close Application
+    Open Application TT-Planer On Google Pixel 9
+    Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    10s
+    #ToDo    Restart code
+
 Appium_Start_NoBasePathArg_AllowDownloadInsecureChromeDriver
     Run Process    ${BATCH_FILE_START_APPIUM_SERVER_NOBASEPATHARG_ALLOWDOWNLOADINSECURECHROMEDRIVER}    shell=True    stdout=stdout.txt    stderr=stderr.txt
     Log    Appium Server gestartet
@@ -73,6 +101,27 @@ Emulator_Start
     [Arguments]    ${EmulatorName}
     Run Process    ${BATCH_FILE_START_EMULATOR}    ${EmulatorName}    shell=True    stdout=stdout.txt    stderr=stderr.txt
     Log    Emulator gestartet
+
+Open Application TT-Planer on Google Pixel 9 with reset
+    #Open Application    http://127.0.0.1:4723
+    ${appID}=    Open Application    http://192.168.2.224:4723
+    ...                 platformName=Android
+    ...                 deviceName=emulator-5554
+    ...                 appPackage=org.chromium.webapk.a62c68cebaf69977d_v2
+    ...                 appActivity=org.chromium.webapk.shell_apk.h2o.H2OOpaqueMainActivity
+    ...                 automationName=UIAutomator2
+    ...                 noReset=false
+    Log    ${appID}
+
+Open Application TT-Planer on Google Pixel 9
+    #Open Application    http://127.0.0.1:4723
+    Open Application    http://192.168.2.224:4723
+    ...                 platformName=Android
+    ...                 deviceName=emulator-5554
+    ...                 appPackage=org.chromium.webapk.a62c68cebaf69977d_v2
+    ...                 appActivity=org.chromium.webapk.shell_apk.h2o.H2OOpaqueMainActivity
+    ...                 automationName=UIAutomator2
+    ...                 noReset=true
 
 Emulator Is Ready
     ${output}=    Run Process    adb    shell    getprop    sys.boot_completed

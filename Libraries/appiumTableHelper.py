@@ -45,7 +45,7 @@ def search_row(grid_selector, row_ix, all_data, driver):
         if str(value) != 'None':
             cell_selector = row_selector + "/*" + selector[1:]
             print('cell_selector = ' + cell_selector)
-            theCell = search_element(cell_selector, driver)
+            theCell = search_element(cell_selector)
             print('Cell text = ' + theCell.text)
 
             if str(value) != theCell.text:
@@ -86,13 +86,13 @@ def delete_row(grid_selector, all_data):
     print("Row ix to delete = " + str(row_ix) )
 
     actionMenuSelector = grid_selector + '/android.view.View[@index=' + str(row_ix) + ']//android.widget.Button'
-    search_element(actionMenuSelector, driver).click()
+    search_element(actionMenuSelector).click()
 
     deleteMenuItemSelector = grid_selector + '/android.view.View[@index=' + str(row_ix) + ']//android.widget.TextView[@text=" Löschen"]'
-    search_element(deleteMenuItemSelector, driver).click()
+    search_element(deleteMenuItemSelector).click()
 
     modalDialogOkButtonSelector = '//android.widget.Button[@resource-id="com.android.chrome:id/positive_button"]'
-    search_element(modalDialogOkButtonSelector, driver).click()
+    search_element(modalDialogOkButtonSelector).click()
 
 def get_real_row_count(grid_selector, driver):
     # Den gesamten Seitenquelltext abrufen

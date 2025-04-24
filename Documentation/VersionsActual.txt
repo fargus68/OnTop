@@ -10,7 +10,7 @@ appium-driver windows                     4.3.1   (update 21.04.2025)
 [appium/support              6.0.8]
 robotframework              7.2.2
 robotframework-appiumlibrary    2.1.0
-appium-python-client        3.2.1 (!!! old !!!)
+appium-python-client        5.0   (from old 3.2.1 because of AppiumLibrary)
 ffmpeg                      7.1.1   (https://www.ffmpeg.org/)
 
 Downgrade to appium 2.0.1.

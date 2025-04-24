@@ -1,0 +1,15 @@
+In dem All products pack ist eine AI Pro-Subscription enthalten.
+Diese soll nun zukünftig zum Einsatz kommen.
+
+1.) Installing AI plugins "AI Assistant" und "Junie"
+(hierzu war es notwendig die Registrierung von Offline über Activation code auf Jetbrains account
+ umzustellen -> neuen Account matthias@matthias-schmotz.de angelegt)
+
+Links Junie:
+https://www.jetbrains.com/junie/
+
+Video "Beyond Auto-Complete: Junie Is Your Autonomous Coding Partner in JetBrains IDEs"
+https://www.youtube.com/watch?v=fcbSG8lm7So
+
+
+
