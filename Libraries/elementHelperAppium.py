@@ -1,12 +1,11 @@
 from time import sleep
 
 from selenium.common import NoSuchElementException
-from appium.webdriver import webelement
-from appium.webdriver import webdriver
-from appium.webdriver.common.appiumby import AppiumBy
+from selenium.common import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 from ScrollIntoView_Direct import scroll_page_down
-#from ScrollIntoView import scroll_page_down_with_driver
-#from sessionHelperAppium import open_session
 from sessionHelperAppium import get_current_session
 from robot.api import logger
 
@@ -16,33 +15,57 @@ def search_element(selector, retry_count = 10):
         selector = selector[6:]
     driver = get_current_session()
     logger.info("Session-id = " + driver.session_id)
-    element : webelement.WebElement
+    element = None
     element_found = False
     #retry_count = 10
     while element_found is False:
         try:
             logger.info('new attempt to find element')
-            element = driver.find_element(AppiumBy.XPATH, selector)
+
+            wait = WebDriverWait(driver, 10)  # Warte bis zu 10 Sekunden
+            element = wait.until(ec.presence_of_element_located((By.XPATH, selector)))
+
+            #element = driver.find_element(By.XPATH, selector)
+
             element_found = True
             logger.info(' => successfully found element')
-        except NoSuchElementException:
+        except TimeoutException:    #NoSuchElementException:
             retry_count -= 1
-            #scroll_page_down_with_driver(driver)
             scroll_page_down(driver)
-            #driver.close()
-            #driver = open_session()
             sleep(0.25)
         if retry_count == -1:
             break
     logger.info('end of Search element')
     return element
 
+def search_sub_elements(selector):
+    logger.info('Search sub elements with selector: ' + selector)
+    if selector.startswith('xpath='):
+        selector = selector[6:]
+    driver = get_current_session()
+    logger.info("Session-id = " + driver.session_id)
+    list_of_elements = driver.find_elements(By.XPATH, selector)
+    return list_of_elements
+
 def wait_until_element_exists_and_text_correct(selector, expected_text):
     logger.info('wait until element exists and text is correct')
     element = search_element(selector)
+    if element is None:
+        logger.info(' => element not found')
+        return False
     if element.text == expected_text:
         logger.info(' => element text is correct')
         return True
     else:
         logger.info(' => element text is not correct')
         return False
+
+def check_if_element_exists(selector):
+    logger.info('check_if_element_exists')
+    element = search_element(selector)
+    if element is None:
+        logger.info(' => element not found')
+        return False
+    else:
+        logger.info(' => element found')
+        return True

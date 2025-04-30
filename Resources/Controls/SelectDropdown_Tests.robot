@@ -32,7 +32,7 @@ Pixel9Pro_API35_Get_SelectDropdown_normalLogging
     SelectDropdownProcessing    dlgProfil_pagProfil    <GET>    msdTeilnahmeerinnerungTrainings    ${xpath}    X
     SelectDropdownProcessing    dlgProfil_pagProfil    <SET>    msdTeilnahmeerinnerungTrainings    ${xpath}    <SELECT>Aktiventraining (Donnerstag, 19:00 Uhr)
     SelectDropdownProcessing    dlgProfil_pagProfil    <GET>    msdTeilnahmeerinnerungTrainings    ${xpath}    X
-    
+
 Via_Chromium_Get_SelectDropdown_normalLogging
     Setup AUT Chromium VehicleInsuranceDemoApp
     DialogExecution    dlgVehicleInsuranceMain    Click Automobile link

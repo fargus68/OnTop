@@ -1,11 +1,12 @@
 *** Settings ***
 Library    String
-Library    AppiumLibrary
+Library    ../../Libraries/elementHelperAppium.py    WITH NAME    ElementHelper
 
 *** Variables ***
 
 *** Keywords ***
 Label specific get text
     [Arguments]    ${Selector}
-    ${LabelContent}=    AppiumLibrary.Get Text    ${Selector}
+    ${element}=    ElementHelper.Search Element    ${Selector}
+    ${LabelContent}=    Set Variable    ${element.text}
     RETURN    ${LabelContent}

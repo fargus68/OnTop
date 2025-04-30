@@ -6,6 +6,7 @@ Resource    ../../Resources/Framework/fwVariables.resource
 Resource    ../../Resources/Controls/Page.resource
 Library    Browser    auto_closing_level=keep
 Library    ScreenCapLibrary
+Library    ../../Libraries/screenshotHelperAppium.py    WITH NAME    ScreenshotHelper
 
 *** Test Cases ***
 Chromium_Set_SelectPageBenachrichtigungen
@@ -22,11 +23,23 @@ Pixel9Pro_API35_Set_SelectPageBenachrichtigungen
     Setup AUT Pixel9Pro_API35
     DialogExecution    dlgLogin    001_Login_001_Successful
     DialogExecution    dlgMain    Menueauswahl Mein Profil
-    Capture Page Screenshot
+    #Capture Page Screenshot
+    ScreenshotHelper.Take Screenshot
     #PageProcessing    <SET>    pagBenachrichtigungen    xpath=//*/li[@class = 'nav-item']/a[text()=" Benachrichtigungen"]    <SELECT>
     DialogExecution    dlgProfil    Check defaults
     DialogExecution    dlgProfil    Auswahl Page Benachrichtigungen
-    Capture Page Screenshot
+    #Capture Page Screenshot
+    ScreenshotHelper.Take Screenshot
+
+Pixel9Pro_API35_Chk_PageProfilSelected
+    #Setup AUT Pixel9Pro_API35
+    Setup AUT Pixel9Pro_API35 NoWaitForLoginScreen
+    #DialogExecution    dlgLogin    001_Login_001_Successful
+    #DialogExecution    dlgMain    Menueauswahl Mein Profil
+    #ScreenshotHelper.Take Screenshot
+    PageProcessing    dlgProfil    <CHK>    pagProfil    xpath=//android.widget.ListView//android.widget.TextView[@text='Profil']    <SELECTED>
+    #PageProcessing    dlgProfil    <CHK>    pagProfil    //android.view.View[@content-desc=' Profil']/android.widget.TextView[@text='Profil']    <SELECTED>
+    #PageProcessing    dlgProfil    <CHK>    pagProfil    //android.view.View[@content-desc=" Profil"]/android.widget.TextView[@text="Profil"]    <SELECTED>
 
 Chromium_UseExistingBrowser
     RETURN
@@ -37,7 +50,7 @@ Chromium_UseExistingBrowser
     #Connect To Browser    ws://127.0.0.1:9222/devtools/browser/${ExistingSessionId}
     Connect To Browser    http://localhost:9222/devtools/browser/${ExistingSessionId}
     PageProcessing    <SET>    pagBenachrichtigungen    xpath=//*/li[@class = 'nav-item']/a[text()=" Benachrichtigungen"]    <SELECT>
-
+    
 Pixel9Pro_API35_Set_SelectPageAbwesenheitenViaDialogExecution
     #Setup AUT Pixel9Pro_API35
     #DialogExecution    dlgLogin    001_Login_001_Successful

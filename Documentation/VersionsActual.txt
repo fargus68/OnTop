@@ -1,13 +1,12 @@
 Python                      3.13.3  (update 21.04.2025)
 PyCharm Professional        2025.1  (update 20.04.2025)
 Android Studio              Android Studio Meerkat | 2024.3.1 Patch 1
-Node.js                     v22.14.0
+Node.js                     v22.15.0    (update 28.04.2025)
 npm                         11.3.0  (update 21.04.2025)
 pip                         25.0.1
-Appium                      appium@2.17.1
-appium-driver uiautomator2                4.2.1   (update 21.04.2025) (https://github.com/appium/appium-uiautomator2-driver)
-appium-driver windows                     4.3.1   (update 21.04.2025)
-[appium/support              6.0.8]
+Appium                      appium@2.18.0           (update 28.04.2025)
+appium-driver uiautomator2                4.2.3   (update 28.04.2025) (https://github.com/appium/appium-uiautomator2-driver)
+appium-driver windows                     4.4.1   (update 28.04.2025)
 robotframework              7.2.2
 robotframework-appiumlibrary    2.1.0
 appium-python-client        5.0   (from old 3.2.1 because of AppiumLibrary)

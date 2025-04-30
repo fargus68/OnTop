@@ -1,10 +1,5 @@
-#import appium
-import appium.webdriver.webdriver
-from appium import webdriver
-#from selenium.webdriver.ie.webdriver import WebDriver
 from appium.options.android import UiAutomator2Options
-from robot.api import logger
-from robot.libraries.BuiltIn import BuiltIn
+from appium import webdriver
 import requests
 
 import Mobile_Mgmt_Direct
@@ -36,12 +31,12 @@ def close_all_appium_sessions():
 #only use in pure python tests
 def open_session():
     options = UiAutomator2Options()
-    options.platformName = 'Android'
-    options.deviceName = 'emulator-5554'
-    options.appPackage = 'org.chromium.webapk.a62c68cebaf69977d_v2'
-    options.appActivity = 'org.chromium.webapk.shell_apk.h2o.H2OOpaqueMainActivity'
-    options.noReset = True  # Setze noReset explizit auf True
-    driver = webdriver.Remote('http://192.168.2.224:4723', True, True, None, True, options)
+    options.set_capability('platformName', 'Android')
+    options.set_capability('deviceName', 'emulator-5554')
+    options.set_capability('appPackage', 'org.chromium.webapk.a62c68cebaf69977d_v2')
+    options.set_capability('appActivity', 'org.chromium.webapk.shell_apk.h2o.H2OOpaqueMainActivity')
+    options.set_capability('noReset', True)  # Setze noReset explizit auf True
+    driver = webdriver.Remote('http://192.168.2.224:4723', options=options)
     set_driver(driver)
     get_session_info()
     return driver

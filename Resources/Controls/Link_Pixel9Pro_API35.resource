@@ -1,6 +1,6 @@
 *** Settings ***
 Library    String
-Library    AppiumLibrary
+Library    ../../Libraries/elementHelperAppium.py    WITH NAME    ElementHelper
 
 *** Variables ***
 
@@ -8,9 +8,11 @@ Library    AppiumLibrary
 Link specific get text
     #ToDo not tested yet
     [Arguments]    ${Selector}
-    ${LinkContent}=    Get Text    ${Selector}
+    ${element}=    ElementHelper.Search Element    ${Selector}
+    ${LinkContent}=    Set Variable    ${element.text}
     RETURN    ${LinkContent}
 
 Link specific click
     [Arguments]    ${Selector}
-    Click Element    ${Selector}
+    ${element}=    ElementHelper.Search Element    ${Selector}
+    Evaluate    $element.click()

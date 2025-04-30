@@ -1,6 +1,7 @@
 *** Settings ***
 Library    String
-Library    AppiumLibrary
+#Library    AppiumLibrary
+Library    ../../Libraries/elementHelperAppium.py    WITH NAME    ElementHelper
 Library    ../../Libraries/checkboxHelperCheckstate.py
 
 *** Variables ***
@@ -13,12 +14,18 @@ Checkbox specific get checkbox state
 
 Checkbox specific click
     [Arguments]    ${Selector}
-    AppiumLibrary.Click Element    ${Selector}
+    #AppiumLibrary.Click Element    ${Selector}
+    ${element}=    ElementHelper.Search Element    ${Selector}
+    Evaluate    $element.click()
 
 Checkbox specific check
     [Arguments]    ${Selector}
-    AppiumLibrary.Click Element    ${Selector}
+    #AppiumLibrary.Click Element    ${Selector}
+    ${element}=    ElementHelper.Search Element    ${Selector}
+    Evaluate    $element.click()
 
 Checkbox specific uncheck
     [Arguments]    ${Selector}
-    AppiumLibrary.Click Element    ${Selector}
+    #AppiumLibrary.Click Element    ${Selector}
+    ${element}=    ElementHelper.Search Element    ${Selector}
+    Evaluate    $element.click()

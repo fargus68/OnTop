@@ -1,36 +1,16 @@
 import datetime
-from time import sleep
-from sessionHelperAppium import open_session
-from sessionHelperAppium import get_current_session
+#from time import sleep
+#from sessionHelperAppium import open_session
+#from sessionHelperAppium import get_current_session
 from elementHelperAppium import search_element
 from robot.api import logger
 
 def get_checkbox_state(selector):
     logger.info('getting checkbox state')
-    driver = get_current_session()
-    logger.info('session opened')
+    #driver = get_current_session()
+    #logger.info('session opened')
     #sleep(1)
 
-    theCheckbox = search_element(selector)
-    now = datetime.datetime.now()
-    # String im gewünschten Format erstellen
-    formatted_string = now.strftime("%Y%m%d_%H%M%S")
-
-    filename = "checkboxStateActual_" + formatted_string + ".png"
-    theCheckbox.screenshot(filename)
-    diff = simple_image_compare(filename)
-    if diff > 0.5:
-        return True
-    else:
-        return False
-
-def old_get_checkbox_state(selector):
-    logger.info('old getting checkbox state')
-    driver = open_session()
-    logger.info('old session opened')
-    sleep(1)
-
-    #theCheckbox = driver.find_element(AppiumBy.XPATH, selector)
     theCheckbox = search_element(selector)
     now = datetime.datetime.now()
     # String im gewünschten Format erstellen
