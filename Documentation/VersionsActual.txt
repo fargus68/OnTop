@@ -1,16 +1,22 @@
 Python                      3.13.3  (update 21.04.2025)
 PyCharm Professional        2025.1  (update 20.04.2025)
-Android Studio              Android Studio Meerkat | 2024.3.1 Patch 1
+Android Studio              Android Studio Meerkat | 2024.3.2   (Update 07.05.2025)
 Node.js                     v22.15.0    (update 28.04.2025)
 npm                         11.3.0  (update 21.04.2025)
-pip                         25.0.1
+pip                         25.1.1
 Appium                      appium@2.18.0           (update 28.04.2025)
 appium-driver uiautomator2                4.2.3   (update 28.04.2025) (https://github.com/appium/appium-uiautomator2-driver)
 appium-driver windows                     4.4.1   (update 28.04.2025)
 robotframework              7.2.2
 robotframework-appiumlibrary    2.1.0
-appium-python-client        5.0   (from old 3.2.1 because of AppiumLibrary)
+appium-python-client        5.1.1    (Update 07.05.2025)   (from old 3.2.1 because of AppiumLibrary)
 ffmpeg                      7.1.1   (https://www.ffmpeg.org/)
+playwright                      1.16.3      (via pip 1.52.0)
+robotframework-browserlibrary    19.5.0
+
+Update venv-browser:
+cd C:\Users\matth\PycharmProjects\OnTop
+.venv\Scripts\python -m Browser.entry init
 
 Downgrade to appium 2.0.1.
 ==========================

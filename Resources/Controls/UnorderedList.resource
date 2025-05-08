@@ -57,6 +57,11 @@ UnorderedListProcessingChk
 
     #ToDo: implement different checks <FULLMATCH>, <PARTMATCH>, <ENTRYMATCH>, more ?
 
+    #actual testing full match
+    IF    '${CountExpectedErrorElements}' != '${CountActualErrorElements}'
+        Fail    Different count of error elements
+    END
+        
     FOR    ${ListEntry}    IN    @{ActualErrorElements}
         #Get Text    ${ListEntry}
         UnorderedList specific get text    ${ListEntry}

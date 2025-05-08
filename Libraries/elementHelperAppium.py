@@ -1,7 +1,6 @@
 from time import sleep
-
-from selenium.common import NoSuchElementException
 from selenium.common import TimeoutException
+from selenium.common import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -53,7 +52,17 @@ def wait_until_element_exists_and_text_correct(selector, expected_text):
     if element is None:
         logger.info(' => element not found')
         return False
-    if element.text == expected_text:
+
+    driver = get_current_session()
+    element_text: str
+    try:
+        wait = WebDriverWait(driver, 10)  # Warte bis zu 10 Sekunden
+        element_text = wait.until(ec.presence_of_element_located((By.XPATH, selector))).text
+    except StaleElementReferenceException:
+        logger.info(' => StaleElementReferenceException')
+        return False
+
+    if element_text == expected_text:
         logger.info(' => element text is correct')
         return True
     else:
@@ -69,3 +78,23 @@ def check_if_element_exists(selector):
     else:
         logger.info(' => element found')
         return True
+
+
+def search_element_without_cache(selector):
+    driver = get_current_session()
+
+    # Wenn der Selektor mit xpath= beginnt, entferne diesen Präfix
+    if selector.startswith('xpath='):
+        selector = selector[6:]
+
+    # Setze die Cache-Einstellung temporär auf false
+    original_settings = driver.get_settings()
+    driver.update_settings({"shouldUseCompactResponses": False})
+
+    try:
+        # Suche das Element direkt ohne Cache
+        element = driver.find_element(By.XPATH, selector)
+        return element
+    finally:
+        # Stelle die ursprünglichen Einstellungen wieder her
+        driver.update_settings({"shouldUseCompactResponses": original_settings.get("shouldUseCompactResponses", True)})

@@ -15,9 +15,12 @@ UnorderedList specific get elements
     RETURN    @{ActualErrorElements}
 
 UnorderedList specific get text
-    [Arguments]    ${Selector}
+    [Arguments]    ${element}
+    #[Arguments]    ${Selector}
     #${ListEntryContent}=    Get Text    ${Selector}
     #${ListEntryContent}=    Get Element Attribute    ${Selector}    text
-    ${element}=    ElementHelper.Search Element    ${Selector}
+    #${element}=    ElementHelper.Search Element    ${Selector}
+    ${type}=   Evaluate    type(${element}).__name__
+    Log    Type = '${type}'
     ${ListEntryContent}=    Evaluate    ${element}.text
     RETURN    ${ListEntryContent}

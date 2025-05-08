@@ -11,5 +11,7 @@ https://www.jetbrains.com/junie/
 Video "Beyond Auto-Complete: Junie Is Your Autonomous Coding Partner in JetBrains IDEs"
 https://www.youtube.com/watch?v=fcbSG8lm7So
 
+Video "Junie - The New AI Coding Agent from JetBrains - Can it build a Compose Desktop app?"
+https://www.youtube.com/watch?v=XZuwlXNMm04
 
 

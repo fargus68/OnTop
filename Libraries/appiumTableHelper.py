@@ -1,29 +1,14 @@
-#from lxml.etree import LIBXML_COMPILED_VERSION
 from time import sleep
-
-from sessionHelperAppium import open_session
-from sessionHelperAppium import get_current_session
 from elementHelperAppium import search_element
-from appium.webdriver.common.appiumby import AppiumBy
 from robot.api import logger
-from lxml import *
 from lxml.etree import *
 
-def search_row(grid_selector, row_ix, all_data, driver):
+def search_row(grid_selector, row_ix, all_data):
     logger.info('search row by data')
     #logger.info(all_data)
 
-    if driver is None:
-        #driver = get_current_session()
-        logger.error('driver is None')
-        driver = open_session()
-        logger.info('session opened')
-        print('session opened')
-        #sleep(1)
-
     row_selector = grid_selector + '/android.view.View[@index=' + str(row_ix) + ']'
     logger.info('row selector = ' + row_selector)
-    print('row selector = ' + row_selector)
 
     print(type(all_data))
     aut_row = all_data[0]
@@ -54,12 +39,7 @@ def search_row(grid_selector, row_ix, all_data, driver):
     return row_found
 
 def delete_row(grid_selector, all_data):
-    driver = get_current_session()
-    #driver = open_session()
-    #logger.info('session opened')
-    #print('session opened')
     sleep(1)
-
     row_ix = 0
     row_to_delete_found = False
 
@@ -77,7 +57,7 @@ def delete_row(grid_selector, all_data):
 
     while not row_to_delete_found:
 
-        if search_row(grid_selector, row_ix, all_data, driver):
+        if search_row(grid_selector, row_ix, all_data):
             row_to_delete_found = True
             break
         else:
@@ -101,7 +81,7 @@ def get_real_row_count(grid_selector, driver):
     #print('tree = ' + str(page_source))
 
     # XPath verwenden, um alle Zeilen in der Tabelle zu finden
-    #from lxml import etree
+    from lxml import etree
     from lxml import html
 
     htmltree = etree.HTML(page_source)

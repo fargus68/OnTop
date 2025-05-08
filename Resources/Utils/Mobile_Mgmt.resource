@@ -6,7 +6,7 @@ Library    Process
 Library    ScreenCapLibrary
 Library    String
 Library    ../../Libraries/sessionHelperAppium.py    WITH NAME    SessionHelper
-Library    ../../Libraries/ScrollIntoView.py
+Library    ../../Libraries/ScrollIntoView_Direct.py
 Library    ../../Libraries/WindowManagement.py
 Library    ../../Resources/Utils/Mobile_Mgmt_Direct.py
 Resource    ../../Resources/Framework/fwVariables.resource
@@ -27,17 +27,17 @@ ${BATCH_FILE_START_EMULATOR}    C:\\Users\\matth\\PycharmProjects\\OnTop\\Batch\
 Set Up Pixel9Pro_API35
     Start Appium if necessary
     Start Emulator if necessary
-    Close All Appium Sessions
-    BuiltIn.Sleep    1s
-    open application tt planer on google pixel 9
+    #Close All Appium Sessions
+    #BuiltIn.Sleep    1s
+    #open application tt planer on google pixel 9
     wait until login screen is ready
 
 Set Up Pixel9Pro_API35 NoWaitForLoginScreen
     Start Appium if necessary
     Start Emulator if necessary
-    Close All Appium Sessions
-    BuiltIn.Sleep    1s
-    open application tt planer on google pixel 9
+    #Close All Appium Sessions
+    #BuiltIn.Sleep    1s
+    #open application tt planer on google pixel 9
 
 Start Emulator if necessary
     ${EmulatorWinPixel9Pro_API35Exists}=    window_exists    Android Emulator - Pixel9Pro_API35:5554

@@ -1,5 +1,5 @@
 *** Settings ***
-Library    AppiumLibrary
+#Library    AppiumLibrary
 Library    Collections
 Library    String
 Library    ScrollIntoView.py

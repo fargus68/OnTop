@@ -30,6 +30,9 @@ def close_all_appium_sessions():
 
 #only use in pure python tests
 def open_session():
+    Mobile_Mgmt_Direct.open_application_tt_planer_on_google_pixel_9()
+
+'''    
     options = UiAutomator2Options()
     options.set_capability('platformName', 'Android')
     options.set_capability('deviceName', 'emulator-5554')
@@ -40,6 +43,7 @@ def open_session():
     set_driver(driver)
     get_session_info()
     return driver
+'''
 
 def get_current_session():
     return Mobile_Mgmt_Direct.get_driver()
