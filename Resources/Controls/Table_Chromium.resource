@@ -21,11 +21,14 @@ Table specific set text
     [Arguments]    ${Selector}    ${Value}
     Browser.Clear Text    ${Selector}
     Browser.Type Text    ${Selector}    ${Value}    0.01    False
-    
+
 Table specific delete keyword processing
     [Arguments]    ${Selector}    ${Value}    ${AllData}
-    Log    Not implemented yet!
+    Log    Implementation not ready yet!
     Log Many    ${AllData}
+
+    Wait For Load State    networkidle    timeout=3s
+
 
     ${col_count}=    Get Element Count    ${Selector}/thead/tr/th
     Log    col_count = ${col_count}
@@ -66,6 +69,8 @@ Table specific delete keyword processing
 
             Click    ${CellRowMenu} >> div >> button >> i
 
+            Wait For Load State    networkidle    timeout=3s
+
             Browser.Take Screenshot    
             #${SelectorContextMenuItem}=    Catenate    SEPARATOR=    ${RowMenu}    /*[@class='dropdown-item' and text()=' Löschen']
             #${SelectorContextMenuItem}=    Catenate    SEPARATOR=    ${CellRowMenu}    /*[@class='dropdown-item' and text()=' Löschen']
@@ -81,11 +86,30 @@ Table specific delete keyword processing
             ${menItemDelete}=    Get Element    //*[@class='dropdown-menu show']/*[@class='dropdown-item' and text()=' Löschen']
             ${menItemDeleteSelector}=    Convert To String    //*[@class='dropdown-menu show']/*[@class='dropdown-item' and text()=' Löschen']
 
-            BuiltIn.Sleep    1s
-            Browser.Take Screenshot    selector=//*[@class='dropdown-menu show']/*[@class='dropdown-item' and text()=' Löschen']
+            #BuiltIn.Sleep    1s
+            #Browser.Take Screenshot    selector=//*[@class='dropdown-menu show']/*[@class='dropdown-item' and text()=' Löschen']
 
-            Click With Options    ${menItemDeleteSelector}    force=True
-                    
+            #Keyboard Key    press    ArrowDown
+            #BuiltIn.Sleep    1s
+
+            #Keyboard Key    press    ArrowDown
+            #BuiltIn.Sleep    1s
+
+            #${menItemDelete}=    Get Element    //*[@class='dropdown-menu show']/*[@class='dropdown-item' and text()=' Löschen']
+            ${boundingBox}=    Get BoundingBox    ${menItemDelete}
+            ${x}=    Evaluate    ${boundingBox}[x] + ${boundingBox}[width] / 2
+            ${y}=    Evaluate    ${boundingBox}[y] + ${boundingBox}[height] / 2
+            #Mouse Click    ${x}    ${y}
+            Mouse Move    ${x}    ${y}    50
+            #BuiltIn.Sleep    1s
+            #Browser.Take Screenshot
+            #Mouse Button    click    #${x}    ${y}
+            #Mouse Button    click    #${x}    ${y}
+
+            #Browser.Take Screenshot
+
+            #Click With Options    ${menItemDeleteSelector}    force=True
+
             #Click    //*[@class='dropdown-menu show']/*[@class='dropdown-item' and text()=' Löschen']
             #Click    ${CellRowMenu}/following-sibling::div[contains(@class, 'dropdown-menu')]/*[@class='dropdown-item' and text()=' Löschen']
 
@@ -93,20 +117,27 @@ Table specific delete keyword processing
 
             #Evaluate JavaScript    document.querySelector(".dropdown-menu.show .dropdown-item").click()
 
-            Browser.Take Screenshot  
+            #Browser.Take Screenshot  
 
-            Wait For Alert    action=accept    text=Willst du die Abwesenheit wirklich löschen?
+            #Problem with click, no alert box
+            #Wait For Alert    action=accept    text=Willst du die Abwesenheit wirklich löschen?
+
+            #WORKAROUND!
+            # Extract the href attribute from the delete menu item to get the URL for deletion
+            ${UrlDeleteRow}=    Get Attribute    ${menItemDelete}    href
+            Log    URL for deletion: ${UrlDeleteRow}
+            Go To    ${UrlDeleteRow}
+
             ${RowDeleted}=    Set Variable    ${True}
             Log    ${RowDeleted}
             Exit For Loop
         END
     END
-    
+
     IF    ${RowDeleted} == ${True}
         Log    Row successfully deleted!
     ELSE
         Fail    Row to delete was not found!
     END
 
-    Fail    For testing purposes!
-
+    #Fail    For testing purposes!

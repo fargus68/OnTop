@@ -2,7 +2,7 @@
 Library    OperatingSystem
 Library    Process
 Library    String
-Library    Browser    auto_closing_level=keep
+Library    Browser    auto_closing_level=keep    enable_presenter_mode={'duration': '0:00:01', 'width': '3px', 'style': 'solid', 'color': 'red'}
 Resource    ../../Resources/Framework/fwVariables.resource
 #Library    Browser    auto_closing_level=${auto_closing_level}
 
@@ -15,6 +15,10 @@ Set up browser
     ...            ${slowMo}=0:00:01
     ...            ${viewport}={'width': 1280, 'height': 720}
     ...            ${url}=https://app.tt-planer.de/login
+    #[Arguments]    ${browser}=chromium
+    #[Arguments]    ${browser}=firefox
+    #[Arguments]    ${browser}=webkit
+
     #Launch Browser Server    browser=${browser}    headless=${headless}    slowMo=${slowMo}    port=9222
     New Browser    browser=${browser}    headless=${headless}    slowMo=${slowMo}
     New Context    viewport=${viewport}
@@ -35,10 +39,10 @@ Tear down browser
 
 Log Browser IDs
     Log    ${session_id}
-    
+
 Get Session ID
     RETURN    ${session_id}
-    
+
 Kill all chromium processes
     Log    not implemented yet
 
