@@ -11,7 +11,7 @@ Resource    ../../Resources/Framework/fwProcess.resource
 ${FlowDir}    Data\\Flows\\
 ${RowCount}    -1
 ${FlowRecordFound}
-${ActualConfig}    Config1
+${ActualConfig}    Config2
 
 *** Keywords ***
 FlowExecution
@@ -79,6 +79,8 @@ ProcessFlowProcessing
           Log    No process value found!
        END
     END
+    
+    Teardown SUT
 
 #ToDo: sollte in Konfigurationsdaten ausgelagert werden
 Setup SUT
@@ -96,6 +98,13 @@ Setup SUT
     ${BaseStatePixel9Pro_API35}=    GetVariableValue    BaseStatePixel9Pro_API35
     IF    $BaseStatePixel9Pro_API35 == 'Started'
         Set Up Pixel9Pro_API35
+    END
+
+Teardown SUT
+    ${BaseStateChromium}=    GetVariableValue    BaseStateChromium
+    ${AUT}=    GetVariableValue    AUT
+    IF    $AUT == 'Chromium'
+        Tear down browser
     END
 
 ReportFlowContent

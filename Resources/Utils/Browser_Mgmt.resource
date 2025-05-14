@@ -2,7 +2,7 @@
 Library    OperatingSystem
 Library    Process
 Library    String
-Library    Browser    auto_closing_level=keep    enable_presenter_mode={'duration': '0:00:01', 'width': '3px', 'style': 'solid', 'color': 'red'}
+Library    Browser    auto_closing_level=keep    #enable_presenter_mode={'duration': '0:00:01', 'width': '3px', 'style': 'solid', 'color': 'red'}
 Resource    ../../Resources/Framework/fwVariables.resource
 #Library    Browser    auto_closing_level=${auto_closing_level}
 
@@ -36,6 +36,7 @@ Set up browser
 
 Tear down browser
     Close Browser
+    #Close Context
 
 Log Browser IDs
     Log    ${session_id}

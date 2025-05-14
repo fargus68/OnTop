@@ -3,7 +3,7 @@ Library    BuiltIn
 Library    String
 Library    ../../Libraries/elementHelperAppium.py    WITH NAME    ElementHelper
 Library    ../../Libraries/screenshotHelperAppium.py    WITH NAME    ScreenshotHelper
-Library    ../../Libraries/sessionHelperAppium.py
+Library    ../Utils/Mobile_Mgmt_Direct.py
 Library    ../../Libraries/ScrollIntoView.py
 
 *** Variables ***
@@ -22,7 +22,7 @@ Menu specific get text
 Menu specific click
     [Arguments]    ${target_selector}
     BuiltIn.Sleep    1s
-    
+
     ${element}=    ElementHelper.Search Element    ${MENU_HEADER_XPATH}
 
     #${menu_visible}=    Run Keyword And Ignore Error    AppiumLibrary.Wait Until Element Is Visible    ${MENU_HEADER_XPATH}

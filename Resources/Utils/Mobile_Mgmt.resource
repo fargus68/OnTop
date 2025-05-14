@@ -5,10 +5,9 @@ Library    OperatingSystem
 Library    Process
 Library    ScreenCapLibrary
 Library    String
-Library    ../../Libraries/sessionHelperAppium.py    WITH NAME    SessionHelper
 Library    ../../Libraries/ScrollIntoView_Direct.py
 Library    ../../Libraries/WindowManagement.py
-Library    ../../Resources/Utils/Mobile_Mgmt_Direct.py
+Library    ../../Resources/Utils/Mobile_Mgmt_Direct.py    WITH NAME    SessionHelper
 Resource    ../../Resources/Framework/fwVariables.resource
 
 # Notes on Appium Logging:

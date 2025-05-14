@@ -1,5 +1,5 @@
 *** Settings ***
-Library    sessionHelperAppium.py
+Library    Resources/Utils/Mobile_Mgmt_Direct.py
 Library    checkboxHelperCheckstate.py
 Library    ScrollIntoView.py
 

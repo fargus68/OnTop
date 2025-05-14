@@ -4,7 +4,7 @@ Library    AppiumLibrary
 Library    OperatingSystem
 Library    Process
 Library    String
-Library    ../../Libraries/sessionHelperAppium.py
+Library    ../Utils/Mobile_Mgmt_Direct.py
 Library    ../../Libraries/ScrollIntoView.py
 Library    ../../Libraries/WindowManagement.py
 Resource    ../../Resources/Framework/fwVariables.resource
@@ -69,10 +69,10 @@ Start Appium if necessary
 Wait Until Login Screen Is Ready
     #Wait Until Element Is Visible    xpath=//android.widget.Button[@text="Einloggen"]    30s
     #Wait For Primary Element Or Click Secondary
-    	
+
     #waiting until any ttplaner window exists
     #Wait Until Element Is Visible    //android.webkit.WebView    120s
-    
+
     Run Keyword And Ignore Error    Scroll To Top
 
     ${result} =    Run Keyword And Ignore Error    Wait Until Element Is Visible    xpath=//android.widget.TextView[@text=""]

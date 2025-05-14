@@ -5,14 +5,19 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from ScrollIntoView_Direct import scroll_page_down
-from sessionHelperAppium import get_current_session
+#from Resources.Utils.Mobile_Mgmt_Direct import get_current_session
+#from Resources.Utils.Mobile_Mgmt_Direct import *
+import  Resources.Utils.Mobile_Mgmt_Direct  as mgmt_direct
 from robot.api import logger
+from appium import webdriver
 
 def search_element(selector, retry_count = 10):
     logger.info('Search element with selector: ' + selector)
     if selector.startswith('xpath='):
         selector = selector[6:]
-    driver = get_current_session()
+
+    driver: webdriver.Remote = mgmt_direct.get_current_session()
+
     logger.info("Session-id = " + driver.session_id)
     element = None
     element_found = False
@@ -41,7 +46,7 @@ def search_sub_elements(selector):
     logger.info('Search sub elements with selector: ' + selector)
     if selector.startswith('xpath='):
         selector = selector[6:]
-    driver = get_current_session()
+    driver: webdriver.Remote = mgmt_direct.get_current_session()
     logger.info("Session-id = " + driver.session_id)
     list_of_elements = driver.find_elements(By.XPATH, selector)
     return list_of_elements
@@ -53,7 +58,7 @@ def wait_until_element_exists_and_text_correct(selector, expected_text):
         logger.info(' => element not found')
         return False
 
-    driver = get_current_session()
+    driver: webdriver.Remote = mgmt_direct.get_current_session()
     element_text: str
     try:
         wait = WebDriverWait(driver, 10)  # Warte bis zu 10 Sekunden
@@ -81,7 +86,7 @@ def check_if_element_exists(selector):
 
 
 def search_element_without_cache(selector):
-    driver = get_current_session()
+    driver: webdriver.Remote = mgmt_direct.get_current_session()
 
     # Wenn der Selektor mit xpath= beginnt, entferne diesen Präfix
     if selector.startswith('xpath='):

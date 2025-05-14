@@ -1,7 +1,7 @@
 def take_screenshot():
     import time
     from datetime import datetime
-    from sessionHelperAppium import get_current_session
+    from Resources.Utils.Mobile_Mgmt_Direct import get_current_session
     import os
 
     # Erstelle Screenshot-Verzeichnis, falls es nicht existiert

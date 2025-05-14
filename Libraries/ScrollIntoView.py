@@ -1,5 +1,5 @@
 from time import sleep
-from sessionHelperAppium import get_current_session
+from Resources.Utils.Mobile_Mgmt_Direct import get_current_session
 
 def scroll_to_top():
     driver = get_current_session()
