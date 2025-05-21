@@ -1,6 +1,5 @@
 *** Settings ***
 Library    BuiltIn
-#Library    AppiumLibrary
 Library    OperatingSystem
 Library    Process
 Library    ScreenCapLibrary
