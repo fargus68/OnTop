@@ -3,7 +3,7 @@ Library    BuiltIn
 Library    String
 Library    ../../Libraries/elementHelperAppium.py    WITH NAME    ElementHelper
 Library    ../../Libraries/screenshotHelperAppium.py    WITH NAME    ScreenshotHelper
-Library    ../Utils/Mobile_Mgmt_Direct.py
+Library    ../Utils/DriverSingletonAdapter.py
 Library    ../../Libraries/ScrollIntoView.py
 
 *** Variables ***

@@ -1,5 +1,5 @@
 *** Settings ***
-Library    Resources/Utils/Mobile_Mgmt_Direct.py
+Library    Resources/Utils/DriverSingletonAdapter.py
 Library    checkboxHelperCheckstate.py
 Library    ScrollIntoView.py
 

@@ -7,7 +7,7 @@ Library    ScreenCapLibrary
 Library    String
 Library    ../../Libraries/ScrollIntoView_Direct.py
 Library    ../../Libraries/WindowManagement.py
-Library    ../../Resources/Utils/Mobile_Mgmt_Direct.py    WITH NAME    SessionHelper
+Library    ../../Resources/Utils/DriverSingletonAdapter.py    WITH NAME    SessionHelper
 Resource    ../../Resources/Framework/fwVariables.resource
 
 # Notes on Appium Logging:
@@ -29,7 +29,7 @@ Set Up Pixel9Pro_API35
     #Close All Appium Sessions
     #BuiltIn.Sleep    1s
     #open application tt planer on google pixel 9
-    wait until login screen is ready
+    SessionHelper.wait until login screen is ready
 
 Set Up Pixel9Pro_API35 NoWaitForLoginScreen
     Start Appium if necessary

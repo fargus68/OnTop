@@ -7,7 +7,8 @@ from selenium.webdriver.support import expected_conditions as ec
 from ScrollIntoView_Direct import scroll_page_down
 #from Resources.Utils.Mobile_Mgmt_Direct import get_current_session
 #from Resources.Utils.Mobile_Mgmt_Direct import *
-import  Resources.Utils.Mobile_Mgmt_Direct  as mgmt_direct
+#import  Resources.Utils.Mobile_Mgmt_Direct  as mgmt_direct
+import DriverSingletonAdapter as mgmt_direct
 from robot.api import logger
 from appium import webdriver
 
@@ -47,6 +48,9 @@ def search_sub_elements(selector):
     if selector.startswith('xpath='):
         selector = selector[6:]
     driver: webdriver.Remote = mgmt_direct.get_current_session()
+
+    mgmt_direct.wait_for_page_fully_loaded()
+
     logger.info("Session-id = " + driver.session_id)
     list_of_elements = driver.find_elements(By.XPATH, selector)
     return list_of_elements

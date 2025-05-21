@@ -1,4 +1,5 @@
 *** Settings ***
+Library    BuiltIn
 Library    String
 Library    Collections
 #Library    Browser
@@ -51,6 +52,9 @@ UnorderedListProcessingChk
     ${CopyExpectedErrorElements}=    Create List    @{ExpectedErrorElements}
     ${CountExpectedErrorElements}=    Get Length    ${CopyExpectedErrorElements}
 
+    ${ActualErrorElementTexts}=    UnorderedList specific get element texts    ${Selector}
+    Log    ${ActualErrorElementTexts}
+
     @{ActualErrorElements}=    UnorderedList specific get elements    ${Selector}
     ${CopyActualErrorElements}=    Create List    @{ActualErrorElements}
     ${CountActualErrorElements}=    Get Length    ${CopyActualErrorElements}
@@ -59,6 +63,18 @@ UnorderedListProcessingChk
 
     #actual testing full match
     IF    '${CountExpectedErrorElements}' != '${CountActualErrorElements}'
+
+        BuiltIn.Sleep    3s
+
+        @{ActualErrorElements}=    UnorderedList specific get elements    ${Selector}
+        ${CopyActualErrorElements}=    Create List    @{ActualErrorElements}
+        ${CountActualErrorElements}=    Get Length    ${CopyActualErrorElements}
+
+        FOR    ${ListEntry}    IN    @{ActualErrorElements}
+            #Get Text    ${ListEntry}
+            UnorderedList specific get text    ${ListEntry}
+        END
+
         Fail    Different count of error elements
     END
         

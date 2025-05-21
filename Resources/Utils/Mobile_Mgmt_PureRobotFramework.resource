@@ -4,7 +4,7 @@ Library    AppiumLibrary
 Library    OperatingSystem
 Library    Process
 Library    String
-Library    ../Utils/Mobile_Mgmt_Direct.py
+Library    ../Utils/DriverSingletonAdapter.py
 Library    ../../Libraries/ScrollIntoView.py
 Library    ../../Libraries/WindowManagement.py
 Resource    ../../Resources/Framework/fwVariables.resource

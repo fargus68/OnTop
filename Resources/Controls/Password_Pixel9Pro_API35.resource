@@ -1,7 +1,7 @@
 *** Settings ***
 #Library    AppiumLibrary
 Library    String
-Library    ../Utils/Mobile_Mgmt_Direct.py    WITH NAME    SessionHelper
+Library    ../Utils/DriverSingletonAdapter.py    WITH NAME    SessionHelper
 Library    ../../Libraries/elementHelperAppium.py    WITH NAME    ElementHelper
 
 *** Variables ***

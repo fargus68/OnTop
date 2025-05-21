@@ -4,7 +4,7 @@ import calendar
 from time import sleep
 from appium.webdriver.common.appiumby import AppiumBy
 #from sessionHelperAppium import open_session
-from Resources.Utils.Mobile_Mgmt_Direct import get_current_session
+from Resources.Utils.DriverSingletonAdapter import get_current_session
 from elementHelperAppium import search_element
 from robot.api import logger
 

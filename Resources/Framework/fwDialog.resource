@@ -9,6 +9,7 @@ Library    ../../Libraries/elementHelperAppium.py    WITH NAME    ElementHelper
 Resource    ../../Resources/Framework/fwApplicationUnderTest.resource
 Resource    ../../Resources/Framework/fwVariables.resource
 Resource    ../../Resources/Framework/fwControl.resource
+Library    ../../Resources/Utils/DriverSingletonAdapter.py    WITH NAME    Mobile_Mgmt
 
 *** Variables ***
 ${DialogDir}    Data\\Dialogs\\
@@ -114,6 +115,7 @@ Wait Until Element Text Is Correct
         IF     ${DialogFound}
             RETURN
         END
+        Mobile_Mgmt.Take Screenshot
         BuiltIn.Sleep    ${WAIT_INTERVAL}
         ${count}=    Evaluate    ${count} + 1
     END

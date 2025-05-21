@@ -1,4 +1,4 @@
-from Resources.Utils.Mobile_Mgmt_Direct import open_session
+from Resources.Utils.DriverSingletonAdapter import open_session
 import uiautomator2 as u2
 from appium.webdriver.common.appiumby import AppiumBy
 
