@@ -46,7 +46,7 @@ class DriverSingleton:
     _instance = None
     
     # Class variable to hold the driver instance
-    _driver = None
+    _driver: webdriver.Remote = None
 
     def __new__(cls):
         """
@@ -72,18 +72,11 @@ class DriverSingleton:
             else:
                 logger.info("No driver instance found, creating a new one")
                 DriverSingleton._driver = self.open_application_tt_planer_on_google_pixel_9()
-        
+
         logger.info("Returning driver instance with session-id = " + DriverSingleton._driver.session_id)
         return DriverSingleton._driver
-    
-    @staticmethod
-    def set_driver(driver):
-        """
-        Set the driver instance.
-        
-        Args:
-            driver (webdriver.Remote): The driver instance to set.
-        """
+
+    def set_driver(self, driver: webdriver.Remote) -> None:
         DriverSingleton._driver = driver
     
     def open_application_tt_planer_on_google_pixel_9(self):
@@ -121,25 +114,8 @@ class DriverSingleton:
             client_config = client_config
         )
 
-        '''
-        options = UiAutomator2Options()
-        options.set_capability('platformName', 'Android')
-        options.set_capability('deviceName', 'emulator-5554')
-        options.set_capability('appPackage', 'org.chromium.webapk.a62c68cebaf69977d_v2')
-        options.set_capability('appActivity', 'org.chromium.webapk.shell_apk.h2o.H2OOpaqueMainActivity')
-        options.set_capability('automationName', 'UIAutomator2')
-        options.set_capability('noReset', True)
-        options.set_capability('autoGrantPermissions', True)
-        options.set_capability('newCommandTimeout', 180)  # Erhöhen auf 180 Sekunden oder mehr
-        options.set_capability('adbExecTimeout', 60000)  # 60 Sekunden in Millisekunden
-        options.set_capability('waitForIdleTimeout', 30000)  # 30 Sekunden in Millisekunden
-
-        # Create driver instance
-        driver = webdriver.Remote('http://192.168.2.224:4723', options=options)
         logger.info(f"Application opened with session ID: {driver.session_id}")
-        '''
-
-        logger.info(f"Application opened with session ID: {driver.session_id}")
+        self.set_driver(driver)
         return driver
 
     def restart_application(self):
@@ -172,8 +148,8 @@ class DriverSingleton:
         # Try to scroll to top (ignore errors)
         try:
             # Import locally to avoid circular import
-            from ScrollIntoView_Direct import scroll_to_top
-            scroll_to_top(driver)
+            from ScrollIntoView import scroll_to_top
+            scroll_to_top()
         except Exception as e:
             logger.debug(f"Error scrolling to top: {e}")
             pass
@@ -234,8 +210,6 @@ class DriverSingleton:
             logger.debug(f"Connection error: {e}")
             return []
 
-
-    
     def has_active_appium_sessions(self):
         """
         Check if there are any active Appium driver sessions.
@@ -307,8 +281,7 @@ class DriverSingleton:
         driver = self.get_driver()
         logger.info(f"Session ID: {driver.session_id}")
 
-    @staticmethod
-    def connect_to_existing_session(session_id, server_url) -> WebDriver:
+    def connect_to_existing_session(self, session_id, server_url) -> webdriver.Remote:
         # Erstellen Sie eine Verbindung zum Server
         executor = RemoteConnection(server_url, keep_alive=True)
 
@@ -317,11 +290,31 @@ class DriverSingleton:
         options = ArgOptions()
         options.set_capability('platformName', 'Android')
         options.set_capability('appium:automationName', 'UIAutomator2')
-        driver = WebDriver(command_executor=executor, options=options)
+
+        desired_caps = {
+            'platformName': 'Android',
+            'automationName': 'UIAutomator2',
+        }
+
+        #driver = webdriver.Remote(command_executor="executor", options=options)
+
+        from appium.webdriver.client_config import AppiumClientConfig
+        client_config = AppiumClientConfig(
+            remote_server_addr = self.SERVER_URL_BASE,
+            direct_connection = True,
+            keep_alive = False,
+            ignore_certificates = True,
+        )
+
+        driver = webdriver.Remote(
+            options = UiAutomator2Options().load_capabilities(desired_caps),
+            client_config = client_config
+        )
+
+        print("Session-id of dummy session = " + driver.session_id)
 
         # Überschreiben Sie die automatisch erstellte Session-ID mit der bestehenden
         driver.session_id = session_id
-
         return driver
 
     def old_wait_for_page_fully_loaded(self) -> None:
@@ -330,25 +323,33 @@ class DriverSingleton:
         logger.info("Waiting for page fully loaded")
         wait.until(lambda driver: self._driver.execute_script("return document.readyState") == "complete")
 
-
     def wait_for_page_fully_loaded(self) -> None:
         # Warten bis WebView verfügbar ist
-        wait = WebDriverWait(self._driver, 30)
-        logger.info("Waiting for WebView to be available")
+        driver: webdriver.Remote = self.get_driver()
+
+        wait = WebDriverWait(driver, 30)
+        #logger.info("Waiting for WebView to be available")
+        print("Waiting for WebView to be available")
 
         # Auf WebView-Kontexte warten
+        #wait.until(lambda driver: len(driver.contexts) > 1)
         wait.until(lambda driver: len(driver.contexts) > 1)
 
         # Zum WebView-Kontext wechseln
         webview_context = [context for context in self._driver.contexts if 'WEBVIEW' in context][0]
-        self._driver.switch_to.context(webview_context)
+        driver.switch_to.context(webview_context)
 
         # Jetzt können wir JavaScript ausführen
         logger.info("Waiting for page fully loaded")
         wait.until(lambda driver: driver.execute_script("return document.readyState") == "complete")
 
         # Zurück zum nativen Kontext wechseln (optional)
-        self._driver.switch_to.context("NATIVE_APP")
+        driver.switch_to.context("NATIVE_APP")
 
     def take_screenshot(self) -> None:
-        self._driver.save_screenshot("screenshot.png")
+        driver: webdriver.Remote = self.get_driver()
+        driver.save_screenshot("screenshot.png")
+
+    def get_session_id(self):
+        driver: webdriver.Remote = self.get_driver()
+        return driver.session_id

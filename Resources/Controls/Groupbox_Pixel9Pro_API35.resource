@@ -1,11 +1,12 @@
 *** Settings ***
 Library    String
-Library    AppiumLibrary
+Library    ../../Libraries/elementHelperAppium.py    WITH NAME    ElementHelper
 
 *** Variables ***
 
 *** Keywords ***
 Group specific get text
     [Arguments]    ${Selector}
-    ${GroupContent}=    AppiumLibrary.Get Text    ${Selector}
+    ${element}=    ElementHelper.Search Element    ${Selector}
+    ${GroupContent}=    Set Variable    ${element.text}
     RETURN    ${GroupContent}

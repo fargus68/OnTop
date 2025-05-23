@@ -29,7 +29,7 @@ def get_driver() -> webdriver.Remote:
     """
     return _singleton.get_driver()
 
-def set_driver(driver):
+def set_driver(driver: webdriver.Remote):
     """
     Set the global driver instance.
 
@@ -136,7 +136,7 @@ def get_timeouts():
     Returns:
         dict: The current timeout settings.
     """
-    driver = get_driver()
+    driver: webdriver.Remote = get_driver()
     return driver.get_settings()
 
 def connect_to_existing_session(session_id, server_url):
@@ -150,7 +150,13 @@ def connect_to_existing_session(session_id, server_url):
     Returns:
         webdriver.Remote: A driver object connected to the specified session.
     """
-    return _singleton.connect_to_existing_session(session_id, server_url)
+
+    #old:
+    #return _singleton.connect_to_existing_session(session_id, server_url)
+
+    driver: webdriver.Remote = _singleton.connect_to_existing_session(session_id, server_url)
+    _singleton.set_driver(driver)  # Set the driver in the singleton
+    return driver
 
 def wait_for_page_fully_loaded():
     """
@@ -160,3 +166,6 @@ def wait_for_page_fully_loaded():
 
 def take_screenshot():
     _singleton.take_screenshot()
+
+def get_session_id():
+    _singleton.get_session_id()

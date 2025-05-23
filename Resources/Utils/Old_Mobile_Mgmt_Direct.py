@@ -74,7 +74,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 #from time import sleep
-#from Libraries.ScrollIntoView_Direct import scroll_to_top
+#from Libraries.ScrollIntoView import scroll_to_top
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -109,8 +109,8 @@ def wait_until_login_screen_is_ready():
     # Try to scroll to top (ignore errors)
     try:
         # Import locally to avoid circular import
-        from ScrollIntoView_Direct import scroll_to_top
-        scroll_to_top(_driver)
+        from ScrollIntoView import scroll_to_top
+        scroll_to_top()
     except Exception as e:
         logger.debug(f"Error scrolling to top: {e}")
         pass

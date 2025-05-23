@@ -4,9 +4,10 @@ Library    OperatingSystem
 Library    Process
 Library    ScreenCapLibrary
 Library    String
-Library    ../../Libraries/ScrollIntoView_Direct.py
+Library    ../../Libraries/ScrollIntoView.py
 Library    ../../Libraries/WindowManagement.py
 Library    ../../Resources/Utils/DriverSingletonAdapter.py    WITH NAME    SessionHelper
+#Library    ../../Resources/Utils/DriverSingleton.py    WITH NAME    SessionHelper
 Resource    ../../Resources/Framework/fwVariables.resource
 
 # Notes on Appium Logging:

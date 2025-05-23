@@ -4,7 +4,7 @@ from selenium.common import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from ScrollIntoView_Direct import scroll_page_down
+from ScrollIntoView import scroll_page_down
 #from Resources.Utils.Mobile_Mgmt_Direct import get_current_session
 #from Resources.Utils.Mobile_Mgmt_Direct import *
 #import  Resources.Utils.Mobile_Mgmt_Direct  as mgmt_direct
