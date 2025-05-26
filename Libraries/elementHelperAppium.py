@@ -38,6 +38,10 @@ def search_element(selector, retry_count = 10):
             retry_count -= 1
             scroll_page_down(driver)
             sleep(0.25)
+        except Exception as e:
+            if not mgmt_direct.check_uiautomator2_server_status():
+                mgmt_direct.restart_uiautomator2_server()
+
         if retry_count == -1:
             break
     logger.info('end of Search element')

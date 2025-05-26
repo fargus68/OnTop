@@ -1,15 +1,9 @@
 import datetime
-#from time import sleep
-#from sessionHelperAppium import open_session
-#from sessionHelperAppium import get_current_session
 from elementHelperAppium import search_element
 from robot.api import logger
 
 def get_checkbox_state(selector):
     logger.info('getting checkbox state')
-    #driver = get_current_session()
-    #logger.info('session opened')
-    #sleep(1)
 
     theCheckbox = search_element(selector)
     now = datetime.datetime.now()
@@ -40,7 +34,6 @@ def simple_image_compare(filename):
     else:
         first_image = cv2.imread('Resources/Images/checkboxStateChecked_57_57.png')
     second_image = cv2.imread(filename)
-    #second_image = cv2.imread('checkboxStateActual.png')
 
     # Konvertiere die Bilder in Graustufen
     first_image_gray = cv2.cvtColor(first_image, cv2.COLOR_BGR2GRAY)

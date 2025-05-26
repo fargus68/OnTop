@@ -2,16 +2,17 @@ import calendar
 #import string
 #import datetime
 from time import sleep
+from appium import webdriver
 from appium.webdriver.common.appiumby import AppiumBy
 #from sessionHelperAppium import open_session
-from Resources.Utils.DriverSingletonAdapter import get_current_session
+from DriverSingletonAdapter import get_current_session
 from elementHelperAppium import search_element
 from robot.api import logger
 
 def set_value(value):
     logger.info("set value")
     #driver = open_session()
-    driver = get_current_session()
+    driver: webdriver.Remote = get_current_session()
     sleep(0.25)
 
     logger.info("driver assigned to current session")
@@ -34,6 +35,8 @@ def set_value(value):
     print("Tag:", tag, " Monat:", monat, " Jahr:", jahr)
 
     eingestellterMonatserster = theMonthView.find_element(AppiumBy.XPATH, "//android.view.View[@text='1']")
+
+
     eingestellterMonatsersterWert = eingestellterMonatserster.get_attribute("content-desc")
     print(eingestellterMonatsersterWert)
     irrelevantertag1, monatsname, eingestelltesjahralsstring = eingestellterMonatsersterWert.split(" ")

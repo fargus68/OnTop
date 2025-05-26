@@ -1,7 +1,8 @@
 def take_screenshot():
     import time
     from datetime import datetime
-    from Resources.Utils.DriverSingletonAdapter import get_current_session
+    from appium import webdriver
+    from DriverSingletonAdapter import get_current_session
     import os
 
     # Erstelle Screenshot-Verzeichnis, falls es nicht existiert
@@ -12,7 +13,7 @@ def take_screenshot():
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     filename = os.path.join(screenshot_dir, f'screenshot_{timestamp}.png')
 
-    driver = get_current_session()
+    driver: webdriver.Remote = get_current_session()
 
     try:
         driver.get_screenshot_as_file(filename)

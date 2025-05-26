@@ -165,7 +165,105 @@ def wait_for_page_fully_loaded():
     _singleton.wait_for_page_fully_loaded()
 
 def take_screenshot():
+    """
+    Take a screenshot of the current screen.
+
+    Returns:
+        None
+    """
     _singleton.take_screenshot()
 
 def get_session_id():
-    _singleton.get_session_id()
+    """
+    Get the session ID of the current driver.
+
+    Returns:
+        str: The session ID of the current driver.
+    """
+    return _singleton.get_session_id()
+
+def start_monitoring_dashboard(port=8080):
+    """
+    Start a simple web server to monitor UiAutomator2 server status.
+
+    Args:
+        port (int): Port for the monitoring dashboard
+
+    Returns:
+        threading.Thread: The server thread
+    """
+    return _singleton.start_monitoring_dashboard(port)
+
+def check_uiautomator2_server_status():
+    """
+    Check if the UiAutomator2 server is running properly.
+
+    Returns:
+        bool: True if the server is running, False otherwise
+    """
+    return _singleton.check_uiautomator2_server_status()
+
+def restart_uiautomator2_server():
+    """
+    Restart the UiAutomator2 server if it's not responding.
+    """
+    _singleton.restart_uiautomator2_server()
+
+def monitor_uiautomator2_server(interval=30):
+    """
+    Periodically monitor the UiAutomator2 server status.
+
+    Args:
+        interval (int): Check interval in seconds
+    """
+    return _singleton.monitor_uiautomator2_server(interval)
+
+def monitor_appium_logs(log_file_path="appium.log"):
+    """
+    Monitor Appium logs for UiAutomator2 server issues.
+
+    Args:
+        log_file_path (str): Path to the Appium log file
+    """
+    return _singleton.monitor_appium_logs(log_file_path)
+
+def perform_critical_operation(operation_func, *args, **kwargs):
+    """
+    Perform a critical operation with automatic recovery if it fails.
+
+    Args:
+        operation_func (callable): The function to execute
+        *args: Arguments to pass to the function
+        **kwargs: Keyword arguments to pass to the function
+
+    Returns:
+        The result of the operation function
+    """
+    return _singleton.perform_critical_operation(operation_func, *args, **kwargs)
+
+def check_uiautomator2_process():
+    """
+    Check if the UiAutomator2 process is running on the device.
+
+    Returns:
+        bool: True if the process is running, False otherwise
+    """
+    return _singleton.check_uiautomator2_process()
+
+def restart_tt_planer_application():
+    """
+    Restart the TT-Planer application.
+    """
+    _singleton.restart_tt_planer_application()
+
+def scroll_to_top():
+    """
+    Scroll to the top of the current page.
+    """
+    _singleton.scroll_to_top()
+
+def scroll_page_down():
+    """
+    Scroll down the current page.
+    """
+    _singleton.scroll_page_down()

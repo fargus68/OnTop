@@ -22,3 +22,6 @@ Print version
 npm list appium -g
 Update
 npm install --location=global appium
+
+Logging device:
+https://developer.android.com/studio/debug/logcat?hl=de

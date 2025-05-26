@@ -27,7 +27,7 @@ Menu specific click
 
     #${menu_visible}=    Run Keyword And Ignore Error    AppiumLibrary.Wait Until Element Is Visible    ${MENU_HEADER_XPATH}
     ${menu_visible}=    check_if_element_exists    ${MENU_HEADER_XPATH}
-    Run Keyword If    ${menu_visible} == ${False}    scroll_to_top
+    Run Keyword If    ${menu_visible} == ${False}    ScrollIntoView.scroll_to_top
 
     #AppiumLibrary.Wait Until Element Is Visible    ${MENU_HEADER_XPATH}
     #AppiumLibrary.Click Element    ${MENU_HEADER_XPATH}

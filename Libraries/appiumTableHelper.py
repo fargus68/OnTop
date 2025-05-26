@@ -43,18 +43,6 @@ def delete_row(grid_selector, all_data):
     row_ix = 0
     row_to_delete_found = False
 
-    #rows_selector = grid_selector + '/android.view.View'
-    #rows = driver.find_elements(AppiumBy.XPATH, rows_selector)
-    #actual_row_count = len(rows)
-    #print("actual_row_count = " + str(actual_row_count))
-
-    #does not work without espresso driver
-    #actual_row_count = get_real_row_count(grid_selector, driver)
-    #print("actual_row_count = " + str(actual_row_count))
-
-    #for testing purposes
-    row_to_delete_found = False
-
     while not row_to_delete_found:
 
         if search_row(grid_selector, row_ix, all_data):
