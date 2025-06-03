@@ -1,14 +1,14 @@
 Python                      3.13.3  (update 21.04.2025)
 PyCharm Professional        2025.1.1.1  (update 16.05.2025)
-Android Studio              Android Studio Meerkat | 2024.3.2   (Update 07.05.2025)
+Android Studio              Android Studio Meerkat | 2024.3.2 Patch 1  (Update 29.05.2025)
 Android Emulator            35.5.10 (Update 21.05.2025 via Android Studio)
 Node.js                     v22.16.0    (update 23.05.2025)
-npm                         11.4.0  (update 19.05.2025)
+npm                         11.4.1  (update 28.05.2025)
 pip                         25.1.1
-Appium                      appium@2.18.0           (update 28.04.2025)
+Appium                      appium@2.19.0           (update 01.06.2025)
 appium-driver uiautomator2                4.2.3   (update 28.04.2025) (https://github.com/appium/appium-uiautomator2-driver)
 appium-driver windows                     4.4.1   (update 28.04.2025)
-robotframework              7.2.2
+robotframework              7.3 (update 01.06.2025)
 robotframework-appiumlibrary    2.1.0
 appium-python-client        5.1.1    (Update 07.05.2025)   (from old 3.2.1 because of AppiumLibrary)
 ffmpeg                      7.1.1   (https://www.ffmpeg.org/)
@@ -19,7 +19,7 @@ Update venv-browser:
 cd C:\Users\matth\PycharmProjects\OnTop
 .venv\Scripts\python -m Browser.entry init
 
-Downgrade to appium 2.0.1.
+Downgrade to appium 2.0.1. (only when using appiumlibrary)
 ==========================
 npm uninstall -g appium
 npm install -g appium@2.0.3

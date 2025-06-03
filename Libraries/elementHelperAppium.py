@@ -4,13 +4,11 @@ from selenium.common import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from ScrollIntoView import scroll_page_down
-#from Resources.Utils.Mobile_Mgmt_Direct import get_current_session
-#from Resources.Utils.Mobile_Mgmt_Direct import *
-#import  Resources.Utils.Mobile_Mgmt_Direct  as mgmt_direct
+#from ScrollIntoView import scroll_page_down
 import DriverSingletonAdapter as mgmt_direct
 from robot.api import logger
 from appium import webdriver
+
 
 def search_element(selector, retry_count = 10):
     logger.info('Search element with selector: ' + selector)
@@ -22,23 +20,21 @@ def search_element(selector, retry_count = 10):
     logger.info("Session-id = " + driver.session_id)
     element = None
     element_found = False
-    #retry_count = 10
     while element_found is False:
         try:
             logger.info('new attempt to find element')
+            retry_count -= 1
 
             wait = WebDriverWait(driver, 10)  # Warte bis zu 10 Sekunden
             element = wait.until(ec.presence_of_element_located((By.XPATH, selector)))
-
-            #element = driver.find_element(By.XPATH, selector)
-
             element_found = True
             logger.info(' => successfully found element')
         except TimeoutException:    #NoSuchElementException:
-            retry_count -= 1
-            scroll_page_down(driver)
+            #retry_count -= 1
+            mgmt_direct.scroll_page_down()
             sleep(0.25)
         except Exception as e:
+            #retry_count -= 1
             if not mgmt_direct.check_uiautomator2_server_status():
                 mgmt_direct.restart_uiautomator2_server()
 
@@ -84,14 +80,13 @@ def wait_until_element_exists_and_text_correct(selector, expected_text):
 
 def check_if_element_exists(selector):
     logger.info('check_if_element_exists')
-    element = search_element(selector)
+    element = search_element(selector, 0)
     if element is None:
         logger.info(' => element not found')
         return False
     else:
         logger.info(' => element found')
         return True
-
 
 def search_element_without_cache(selector):
     driver: webdriver.Remote = mgmt_direct.get_current_session()

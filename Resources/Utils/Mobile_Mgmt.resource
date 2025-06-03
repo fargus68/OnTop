@@ -29,7 +29,10 @@ Set Up Pixel9Pro_API35
     #Close All Appium Sessions
     #BuiltIn.Sleep    1s
     #open application tt planer on google pixel 9
-    SessionHelper.wait until login screen is ready
+    ${LoginAvailable}=    SessionHelper.wait until login screen is ready
+    IF    '${LoginAvailable}' == '${False}'
+        Fail    Login screen not available!
+    END
 
 Set Up Pixel9Pro_API35 NoWaitForLoginScreen
     Start Appium if necessary

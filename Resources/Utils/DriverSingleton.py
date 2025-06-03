@@ -17,13 +17,18 @@ Usage:
 import logging
 import requests
 from time import sleep
+from time import localtime
+
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
+from appium.webdriver.client_config import AppiumClientConfig
+
+from selenium.common import WebDriverException, InvalidSessionIdException, NoSuchElementException
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, InvalidArgumentException
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -41,6 +46,10 @@ class DriverSingleton:
     LOGIN_BUTTON_XPATH = '//android.widget.Button[@text="Einloggen"]'
     WAIT_TIMEOUT = 10
     SERVER_URL_BASE = 'http://127.0.0.1:4723'
+    TTPLANER_APP_PACKAGE = 'org.chromium.webapk.a62c68cebaf69977d_v2'
+    TTPLANER_APP_ACTIVITY = 'org.chromium.webapk.shell_apk.h2o.H2OOpaqueMainActivity'
+    APPIUM_PORT = '4723'
+    APPIUM_HOST = '127.0.0.1'
 
     # Class variable to hold the singleton instance
     _instance = None
@@ -54,6 +63,7 @@ class DriverSingleton:
         """
         if cls._instance is None:
             cls._instance = super(DriverSingleton, cls).__new__(cls)
+            logger.info("DriverSingleton instance created at" + str(localtime()))
         return cls._instance
 
     def get_driver(self) -> webdriver.Remote:
@@ -64,16 +74,19 @@ class DriverSingleton:
             webdriver.Remote: The current driver instance.
         """
         if DriverSingleton._driver is None:
-            logger.info("Driver is None!")
+            logger.info("(get_driver) Driver is None!")
 
             if self.has_active_appium_sessions():
-                logger.info("Session found, driver instance created and existing session attached to it.")
+                logger.info("(get_driver) Session found, driver instance created and existing session attached to it.")
                 DriverSingleton._driver = self.get_driver_for_first_session()
+                if DriverSingleton._driver is None:
+                    logger.info("(get_driver) Multiple sessions found, delete them all and create a new one")
+                    DriverSingleton._driver = self.open_application_tt_planer_on_google_pixel_9()
             else:
-                logger.info("No driver instance found, creating a new one")
+                logger.info("(get_driver) No session found, creating a new one")
                 DriverSingleton._driver = self.open_application_tt_planer_on_google_pixel_9()
 
-        logger.info("Returning driver instance with session-id = " + DriverSingleton._driver.session_id)
+        logger.info("(get_driver) Returning driver instance with session-id = " + DriverSingleton._driver.session_id)
         return DriverSingleton._driver
 
     def set_driver(self, driver: webdriver.Remote) -> None:
@@ -81,7 +94,7 @@ class DriverSingleton:
 
     def open_application_tt_planer_on_google_pixel_9(self):
         """
-        Open the TT-Planer application without reset.
+        Open the TT-Planer application without the reset.
         New format of 5.0 appium-python-client.
 
         Returns:
@@ -91,8 +104,8 @@ class DriverSingleton:
         desired_caps = {
             'platformName': 'Android',
             'deviceName': 'emulator-5554',
-            'appPackage': 'org.chromium.webapk.a62c68cebaf69977d_v2',
-            'appActivity': 'org.chromium.webapk.shell_apk.h2o.H2OOpaqueMainActivity',
+            'appPackage': self.TTPLANER_APP_PACKAGE,
+            'appActivity': self.TTPLANER_APP_ACTIVITY,
             'automationName': 'UIAutomator2',
             'noReset': True,
             'autoGrantPermissions': True,
@@ -104,7 +117,6 @@ class DriverSingleton:
             'printPageSourceOnFindFailure': True,
         }
 
-        from appium.webdriver.client_config import AppiumClientConfig
         client_config = AppiumClientConfig(
             remote_server_addr = self.SERVER_URL_BASE,
             direct_connection = True,
@@ -116,7 +128,7 @@ class DriverSingleton:
             client_config = client_config
         )
 
-        logger.info(f"Application opened with session ID: {driver.session_id}")
+        logger.info(f"(open_application) Application opened with session ID: {driver.session_id}")
         self.set_driver(driver)
         return driver
 
@@ -172,77 +184,157 @@ class DriverSingleton:
 
         DriverSingleton._driver = self.open_application_tt_planer_on_google_pixel_9()
 
-        # Wait for login button
+        # Wait for the login button
         WebDriverWait(DriverSingleton._driver, 10).until(
             EC.visibility_of_element_located((By.XPATH, '//android.widget.Button[@text="Einloggen"]'))
         )
 
-    def wait_until_login_screen_is_ready(self):
-        """
-        Wait until the login screen is ready and handle any necessary actions.
-        """
+    def check_app_state_and_restart_app_if_appropriate(self):
+        driver: webdriver.Remote = self.get_driver()
+        logger.info("(check app state) Session-ID = " + driver.session_id)
+
         if not self.check_uiautomator2_server_status():
             self.restart_uiautomator2_server()
 
-        driver: webdriver.Remote = self.get_driver()
-        logger.info("Session-ID = " + driver.session_id)
+        app_id = self.TTPLANER_APP_PACKAGE
+        app_state = driver.query_app_state(app_id)
+        logger.info("(check app state) app-state = " + str(app_state))
+        if app_state != 4:
+            logger.warning("(check app state) App is not running, restarting app!")
+            driver.terminate_app(app_id, force=True)
+            sleep(10)
+            driver.activate_app(app_id)
+            sleep(10)
+            return
 
-        # Try to scroll to top (ignore errors)
+    def wait_until_login_screen_is_ready(self):
+        login_dialog_available: bool = False
+
+        driver: webdriver.Remote = self.get_driver()
+        logger.info("(wait login) Session-ID = " + driver.session_id)
+
+        if not self.check_uiautomator2_server_status():
+            self.restart_uiautomator2_server()
+
+        app_id = self.TTPLANER_APP_PACKAGE
+        app_state = driver.query_app_state(app_id)
+        logger.info("(wait login) app-state = " + str(app_state))
+        if app_state != 4:
+            logger.warning("(wait login) App is not running, restarting app!")
+            driver.terminate_app(app_id, force=True)
+            sleep(10)
+            driver.activate_app(app_id)
+            sleep(10)
+
+        try:
+            WebDriverWait(driver, 1).until(
+                EC.visibility_of_element_located((By.XPATH, "//android.widget.Button[@text='Einloggen']"))
+            )
+            logger.info("(wait login) Login button found!")
+            login_dialog_available = True
+            return login_dialog_available
+        except TimeoutException:
+            logger.info("(wait login) Login button not found in the first place, now examining app situation ... ")
+            if not self.check_uiautomator2_server_status():
+                self.restart_uiautomator2_server()
+            pass
+        except WebDriverException as e:
+            logger.info(f"(wait login) Error first search einloggen button: {e}")
+            if not self.check_uiautomator2_server_status():
+                self.restart_uiautomator2_server()
+            pass
+
+        # Try to scroll to the top (ignore errors)
         try:
             # Import locally to avoid circular import
             #from ScrollIntoView import scroll_to_top
             self.scroll_to_top()
         except Exception as e:
-            logger.debug(f"Error scrolling to top: {e}")
+            logger.debug(f"(wait login) Error scrolling to top: {e}")
             pass
 
-        logger.info("Scrolled to top!")
+        logger.info("(wait login) Scrolled to top!")
+
+        if not self.check_uiautomator2_server_status():
+            self.restart_uiautomator2_server()
 
         #driver.switch_to.context(driver.contexts[1])
         #print(driver.current_context)
 
-        # Check for close button and click if present
+        # Check for the close button and click if present
         try:
             #close_button = WebDriverWait(driver, 10).until(
             #    EC.visibility_of_element_located((By.XPATH, '//android.widget.TextView[@text=""]')))
 
             xpath_close_button = "//android.view.View[@resource-id='navbar-collapse'][2]/android.widget.ListView/android.view.View[3]/android.view.View/android.widget.TextView"
-            close_button = WebDriverWait(driver, 10).until(
+            close_button = WebDriverWait(driver, 1).until(
                 EC.visibility_of_element_located((By.XPATH, xpath_close_button)))
 
             close_button.click()
-            logger.info("Close button found and clicked!")
+            logger.info("(wait login) Close button found and clicked!")
         except TimeoutException:
-            logger.info("Close button not found or not visible")
+            logger.info("(wait login) Close button not found or not visible")
             pass
         except Exception as e:
-            logger.error(f"Error handling close button: {e}")
+            logger.error(f"(wait login) Error handling close button: {e}")
             pass
 
-        logger.info("Close-button handled!")
+        logger.info("(wait login) Close-button handled!")
 
         #driver.switch_to.context(driver.contexts[0])
         #print(driver.current_context)
 
-        # Check for login button
-        original_settings = driver.get_settings()
-        driver.update_settings({"shouldUseCompactResponses": False})
+        if not self.check_uiautomator2_server_status():
+            logger.info("(wait login) UiAutomator2 server not running, restarting server!")
+            self.restart_uiautomator2_server()
+            sleep(15)
 
+        original_settings = driver.get_settings()
+        logger.info("(wait login) original_settings = "  + str(original_settings))
+        #original_settings = self.perform_critical_operation(self.get_settings_wrapper())
+        logger.info("(wait login) getting settings for saving purpose!")
+        driver.update_settings({"shouldUseCompactResponses": False})
+        logger.info("(wait login) update single setting to exclude caching!")
+
+        # Check for the login button
+        exception_found = False
         try:
-            WebDriverWait(driver, 10).until(
+            WebDriverWait(driver, 1).until(
                 EC.visibility_of_element_located((By.XPATH, "//android.widget.Button[@text='Einloggen']"))
             )
-            logger.info("Login button found!")
-            return
+            logger.info("(wait login)Login button found!")
+            login_dialog_available = True
+            #return True
         except TimeoutException:
             # If login button not found, restart the application
-            logger.info("Login button not found, restarting application")
+            logger.info("(wait login)Login button not found, restarting application")
             self.restart_application()
-        finally:
-            # Restore original settings
-            logger.info("Restoring original settings")
-            driver.update_settings({"shouldUseCompactResponses": original_settings.get("shouldUseCompactResponses", True)})
-            logger.info(driver)
+        except InvalidSessionIdException as e:
+            logger.info("(wait login)Login button not found (InvalidSessionIdException)")
+            exception_found = True
+        except NoSuchElementException as e:
+            logger.info("(wait login)Login button not found (NoSuchElementException)")
+            exception_found = True
+        except Exception as e:
+            print("(wait login)Exception = " + str(e))
+            exception_found = True
+            #pass
+
+        if exception_found:
+            logger.error(f"(wait login) Exception when try to find Einloggen button")
+
+        # Restore original settings
+        logger.info("(wait login)Restoring original settings")
+        driver.update_settings({"shouldUseCompactResponses": original_settings.get("shouldUseCompactResponses", True)})
+        logger.info("(wait login) driver = " + str(driver))
+
+        return login_dialog_available
+
+    def get_open_sessions_count(self):
+        sessions = self.get_sessions()
+        anzahl_sessions = len(sessions)
+        logger.info(f"(get open session count) Anzahl der offenen Sessions: {anzahl_sessions}")
+        return anzahl_sessions
 
     def get_sessions(self):
         """
@@ -251,20 +343,20 @@ class DriverSingleton:
         Returns:
             list: A list of active Appium sessions.
         """
-        logger.info("Getting sessions")
+        logger.info("(get sessions) Getting sessions")
         #response = requests.get("http://192.168.2.224:4723/sessions")
 
         try:
             response = requests.get(self.SERVER_URL_BASE + "/sessions")
             if response.status_code == 200:
                 sessions = response.json().get('value', [])
-                logger.info(f"Number of sessions: {len(sessions)}")
+                logger.info(f"get sessions) Number of sessions: {len(sessions)}")
                 return sessions
             else:
-                logger.error(f"Error retrieving sessions: {response.status_code}")
+                logger.error(f"get sessions) Error retrieving sessions: {response.status_code}")
                 return []
         except ConnectionError as e:
-            logger.debug(f"Connection error: {e}")
+            logger.debug(f"get sessions) Connection error: {e}")
             return []
 
     def has_active_appium_sessions(self):
@@ -291,33 +383,38 @@ class DriverSingleton:
         sessions = self.get_sessions()
 
         if not sessions:
-            logger.info("No active sessions found")
+            logger.info("(get driver first session) No active sessions found")
+            return None
+
+        if len(sessions) > 1:
+            logger.warning(f"(get driver first session) Multiple active sessions found: {len(sessions)}")
+            self.close_all_appium_sessions()
             return None
 
         # Get the first session
         first_session = sessions[0]
         session_id = first_session['id']
-        logger.info(f"Connecting to existing session with ID: {session_id}")
+        logger.info(f"(get driver first session) Connecting to existing session with ID: {session_id}")
 
         try:
             driver: webdriver.Remote = self.connect_to_existing_session(session_id, self.SERVER_URL_BASE)
-            print("driver connected to existing session - now testing if session is working")
+            logger.info("(get driver first session) driver connected to existing session - now testing if session is working")
 
             # Test if the session is actually working
             try:
-                # Simple command to test if session is responsive
+                # Simple command to test if the session is responsive
                 #driver.get_page_source()
                 print(driver.current_context)
                 return driver
             except Exception as e:
-                logger.error(f"Session exists but is not responsive: {e}")
+                logger.error(f"(get driver first session) Session exists but is not responsive: {e}")
                 # Close the broken session
                 self.close_all_appium_sessions()
                 # Create a new session
                 return self.open_application_tt_planer_on_google_pixel_9()
 
         except Exception as e:
-            logger.error(f"Failed to connect to existing session: {e}")
+            logger.error(f"(get driver first session) Failed to connect to existing session: {e}")
             return None
 
         #return self.connect_to_existing_session(session_id, self.SERVER_URL_BASE)
@@ -333,35 +430,50 @@ class DriverSingleton:
             # Close all sessions
             for session in sessions:
                 session_id = session['id']
-                requests.delete(f"{self.SERVER_URL_BASE}/sessions/{session_id}")
-            logger.info(f"All sessions closed: {len(sessions)} closed")
+                response_delete_request = requests.delete(f"{self.SERVER_URL_BASE}/session/{session_id}")
+                logger.info(f"(close all appium sessions) Closing session {session_id} status code: {response_delete_request.status_code}")
+                if response_delete_request.status_code != 200:
+                    logger.fatal(f"(close all appium sessions) Error closing session {session_id}: {response_delete_request.status_code}")
+
+            #bis zu 15 Sekunden warten bis alle Sessions gelöscht wurden
+            Retries = 0
+            while self.get_open_sessions_count() > 0:
+                Retries += 1
+                if Retries > 15:
+                    break
+                sleep(1)
+
+            if Retries > 15:
+                logger.error(f"(close all appium sessions) Error closing sessions: {response.status_code}")
+            else:
+                logger.info(f"(close all appium sessions) All sessions closed: {len(sessions)} closed")
         else:
-            logger.error(f"Error retrieving sessions: {response.status_code}")
+            logger.error(f"(close all appium sessions) Error retrieving sessions: {response.status_code}")
 
     def log_status(self):
         """
         Log the status of the current session.
         """
         driver: webdriver.Remote = self.get_driver()
-        logger.info(f"Session status: {driver.get_status()}")
+        logger.info(f"(log status) Session status: {driver.get_status()}")
 
     def log_timeouts(self):
         """
         Log the timeouts of the current session.
         """
         driver: webdriver.Remote = self.get_driver()
-        logger.info(f"Timeouts: {driver.get_settings()}")
+        logger.info(f"(log timeout) Timeouts: {driver.get_settings()}")
 
     def get_session_info(self):
         """
         Get information about the current session.
         """
         driver: webdriver.Remote = self.get_driver()
-        logger.info(f"Session ID: {driver.session_id}")
+        logger.info(f"(get session info) Session ID: {driver.session_id}")
 
     def connect_to_existing_session(self, session_id, server_url) -> webdriver.Remote:
         """
-        Connect to an existing Appium session.
+        Connect to an existing appium session.
 
         Args:
             session_id (str): The ID of the session to connect to.
@@ -370,8 +482,6 @@ class DriverSingleton:
         Returns:
             webdriver.Remote: A driver object connected to the specified session.
         """
-        # Import AppiumClientConfig
-        from appium.webdriver.client_config import AppiumClientConfig
 
         # Create client config with the base server URL (not including session ID)
         client_config = AppiumClientConfig(
@@ -385,7 +495,7 @@ class DriverSingleton:
         options = UiAutomator2Options()
         options.set_capability('platformName', 'Android')
 
-        # Create driver with empty options
+        # Create the driver with empty options
         driver = webdriver.Remote(
             options=options,
             client_config=client_config
@@ -396,7 +506,10 @@ class DriverSingleton:
         driver.session_id = session_id
 
         logger.info(
-            f"Successfully connected to existing session with ID: {session_id} (replaced {original_session_id})")
+            f"(connect to existing session) Successfully connected to existing session with ID: {session_id} (replaced {original_session_id})")
+
+        requests.delete(f"{self.SERVER_URL_BASE}/session/{original_session_id}")
+        logger.info(f"(connect to existing session) Temporarily added session with session id {original_session_id} deleted!")
 
         return driver
 
@@ -406,7 +519,7 @@ class DriverSingleton:
 
         wait = WebDriverWait(driver, 30)
         #logger.info("Waiting for WebView to be available")
-        print("Waiting for WebView to be available")
+        logger.info("(wait for page) Waiting for WebView to be available")
 
         # Auf WebView-Kontexte warten
         #wait.until(lambda driver: len(driver.contexts) > 1)
@@ -417,7 +530,7 @@ class DriverSingleton:
         driver.switch_to.context(webview_context)
 
         # Jetzt können wir JavaScript ausführen
-        logger.info("Waiting for page fully loaded")
+        logger.info("wait for page) Waiting for page fully loaded")
         wait.until(lambda driver: driver.execute_script("return document.readyState") == "complete")
 
         # Zurück zum nativen Kontext wechseln (optional)
@@ -432,21 +545,23 @@ class DriverSingleton:
         return driver.session_id
 
     def check_uiautomator2_server_status(self):
-        """
-        Check if the UiAutomator2 server is running properly.
-
-        Returns:
-            bool: True if the server is running, False otherwise
-        """
         driver: webdriver.Remote = self.get_driver()
         try:
-            # Simple command that will fail if the UiAutomator2 server is not running
-            #driver.get_page_source()
+            # Test page_source
             print("Source = " + driver.page_source)
-            logger.info("UiAutomator2 server is running properly")
-            return True
+            logger.info("(check uiautomator2) UiAutomator2 server is responding")
+
+            # Testing settings endpoint
+            try:
+                driver.get_settings()
+                logger.info("(check uiautomator2) UiAutomator2 server is fully functional (including settings API)")
+                return True
+            except Exception as e:
+                logger.error(f"(check uiautomator2) UiAutomator2 server settings API not working: {e}")
+                return False
+
         except Exception as e:
-            logger.error(f"UiAutomator2 server is not responding: {e}")
+            logger.error(f"(check uiautomator2) UiAutomator2 server is not responding: {e}")
             return False
 
     def monitor_uiautomator2_server(self, interval=30):
@@ -495,26 +610,40 @@ class DriverSingleton:
                 'command': 'am instrument -w io.appium.uiautomator2.server.test/androidx.test.runner.AndroidJUnitRunner'
             })
 
-            # Wait for server to be ready
-            import time
-            time.sleep(5)
+            # Wait for the server to be ready - increase wait time
+            sleep(10)  # Increase from 5 to 10 seconds
 
-            # Test if server is responsive
-            #driver.get_page_source()
+            # Test if the server is responsive
             print("Source = " + driver.page_source)
-            logger.info("UiAutomator2 server successfully restarted")
+
+            # Also test if settings API is working
+            try:
+                driver.get_settings()
+                logger.info("UiAutomator2 server successfully restarted with working settings API")
+            except Exception as e:
+                logger.error(f"Settings API not working after restart: {e}")
+                # Try one more restart with longer wait
+                sleep(5)
+                driver.execute_script('mobile: shell', {
+                    'command': 'am instrument -w io.appium.uiautomator2.server.test/androidx.test.runner.AndroidJUnitRunner'
+                })
+                sleep(15)  # Longer wait time
         except Exception as e:
             logger.error(f"Failed to restart UiAutomator2 server: {e}")
             # If restart fails, create a new session
             self.close_all_appium_sessions()
             self.open_application_tt_planer_on_google_pixel_9()
 
+    def get_settings_wrapper(self):
+        driver: webdriver.Remote = self.get_driver()
+        return driver.get_settings()
+
     def monitor_appium_logs(self, log_file_path="appium.log"):
         """
         Monitor Appium logs for UiAutomator2 server issues.
         """
         import re
-        from pathlib import Path
+        #from pathlib import Path
 
         def _tail_file(file_path):
             with open(file_path, 'r') as f:
@@ -566,7 +695,7 @@ class DriverSingleton:
 
     def check_uiautomator2_process(self):
         """
-        Check if UiAutomator2 server process is running using ADB.
+        Check if the UiAutomator2 server process is running using ADB.
 
         Returns:
             bool: True if the process is running, False otherwise

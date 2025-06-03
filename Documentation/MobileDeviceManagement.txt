@@ -25,3 +25,6 @@ npm install --location=global appium
 
 Logging device:
 https://developer.android.com/studio/debug/logcat?hl=de
+
+Bootcamp To Understand Appium Android Internals by Sravan Kumar #AppiumConf2019
+https://www.youtube.com/watch?v=T01GA09sySk

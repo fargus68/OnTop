@@ -1,21 +1,20 @@
 import calendar
 #import string
 #import datetime
-from time import sleep
-from appium import webdriver
+#from time import sleep
+#from appium import webdriver
 from appium.webdriver.common.appiumby import AppiumBy
 #from sessionHelperAppium import open_session
-from DriverSingletonAdapter import get_current_session
+#from DriverSingletonAdapter import get_current_session
 from elementHelperAppium import search_element
 from robot.api import logger
 
 def set_value(value):
     logger.info("set value")
     #driver = open_session()
-    driver: webdriver.Remote = get_current_session()
-    sleep(0.25)
-
-    logger.info("driver assigned to current session")
+    #driver: webdriver.Remote = get_current_session()
+    #sleep(0.25)
+    #logger.info("driver assigned to current session")
 
     theDatePicker = search_element("//android.widget.DatePicker[@resource-id='android:id/datePicker']")
     logger.info("theDatePicker identified")

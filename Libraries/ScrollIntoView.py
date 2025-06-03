@@ -19,29 +19,8 @@ logger = logging.getLogger(__name__)
 
 def scroll_to_top():
     logger.info("scroll_to_top")
-
-    #from Resources.Utils.DriverSingleton import DriverSingleton
-    ## Create a singleton instance (this will always return the same instance)
-    #singleton = DriverSingleton()
-    ## Get the driver instance
-    #driver = singleton.get_driver()
-
-    #from Resources.Utils.DriverSingletonAdapter import get_driver
-    #driver: webdriver.Remote = get_driver()
-
     print("Waiting for page fully loaded...")
-    #from Resources.Utils.DriverSingletonAdapter import wait_for_page_fully_loaded
-    #singleton.wait_for_page_fully_loaded()
     mgmt_direct.wait_for_page_fully_loaded()
-
-    #from Resources.Utils.DriverSingletonAdapter import get_session_id
-    #print(f"Driver session ID: {get_session_id()}")
-
-    #print(f"Driver session ID: {singleton.get_session_id()}")
-    ##driver: webdriver = mgmt_direct.get_driver()
-    ##print("Session-ID in scroll_to_top = " + mgmt_direct.get_session_id())
-
-    #from Resources.Utils.DriverSingletonAdapter import get_driver
     driver: webdriver.Remote = mgmt_direct.get_driver()
 
     driver.switch_to.context(driver.contexts[1])
@@ -50,9 +29,12 @@ def scroll_to_top():
     driver.switch_to.context(driver.contexts[0])
     sleep(0.25)
 
-def scroll_page_down(driver):
+def scroll_page_down():
     logger.info("scroll_page_down")
-    #driver = get_driver()
+    print("Waiting for page fully loaded...")
+    mgmt_direct.wait_for_page_fully_loaded()
+    driver: webdriver.Remote = mgmt_direct.get_driver()
+
     driver.switch_to.context(driver.contexts[1])
     print(driver.current_context)
     driver.execute_script("window.scrollBy(0, 850)")

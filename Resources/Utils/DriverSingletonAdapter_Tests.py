@@ -13,6 +13,9 @@ from Resources.Utils.DriverSingletonAdapter import (
     get_driver,
     has_active_appium_sessions,
     get_driver_for_first_session,
+    wait_until_login_screen_is_ready,
+    restart_uiautomator2_server,
+    check_app_state_and_restart_app_if_appropriate,
 )
 
 # Configure logging
@@ -116,6 +119,21 @@ class TestDriverSingletonAdapter(unittest.TestCase):
 
     def test_get_sessions(self):
         get_sessions()
+
+    def test_restart_app(self):
+        open_application_tt_planer_on_google_pixel_9()
+        wait_until_login_screen_is_ready()
+
+    def test_restart_uiautomator2_server(self):
+        restart_uiautomator2_server()
+
+    def test_check_app_state_and_restart_app_if_appropriate(self):
+        check_app_state_and_restart_app_if_appropriate()
+
+    def test_close_all_appium_sessions(self):
+        #open_application_tt_planer_on_google_pixel_9()
+        wait_until_login_screen_is_ready()
+        close_all_appium_sessions()
 
 if __name__ == '__main__':
         unittest.main()

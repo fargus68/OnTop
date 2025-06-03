@@ -62,6 +62,9 @@ def restart_application():
     """
     _singleton.restart_application()
 
+def check_app_state_and_restart_app_if_appropriate():
+    _singleton.check_app_state_and_restart_app_if_appropriate()
+
 def wait_until_login_screen_is_ready():
     """
     Wait until the login screen is ready and handle any necessary actions.
