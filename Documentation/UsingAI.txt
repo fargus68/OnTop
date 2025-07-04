@@ -8,10 +8,39 @@ Diese soll nun zukünftig zum Einsatz kommen.
 Links Junie:
 https://www.jetbrains.com/junie/
 
+2.) Aktualität von Junie überprüfen und aktualisieren
+- In PyCharm: File > Settings > Plugins > Installed > Junie
+- Auf der rechten Seite wird die aktuelle Version angezeigt
+- Wenn ein Update verfügbar ist, erscheint ein "Update" Button
+- Klicke auf "Update", um Junie auf die neueste Version zu aktualisieren
+- Nach der Aktualisierung starte PyCharm neu, um die Änderungen zu übernehmen
+
 Video "Beyond Auto-Complete: Junie Is Your Autonomous Coding Partner in JetBrains IDEs"
 https://www.youtube.com/watch?v=fcbSG8lm7So
 
-Video "Junie - The New AI Coding Agent from JetBrains - Can it build a Compose Desktop app?"
+AktulVideo "Junie - The New AI Coding Agent from JetBrains - Can it build a Compose Desktop app?"
 https://www.youtube.com/watch?v=XZuwlXNMm04
 
+Video "JETBRAINS JUNIE vs CURSOR! " (PHPStorm!!!)
+https://www.youtube.com/watch?v=T-hDIxdCmvo
 
+
+Video "Junie Livestream #5: Inner Workings of an AI Coding Agent"
+https://www.youtube.com/watch?v=z1lVsLPXn2c
+
+3.) Aktualität des Datenbestandes von Junie ausgeben
+- Führe das Script "Scripts\junie_data_status.py" aus, um den Status des Datenbestandes von Junie anzuzeigen
+- Das Script zeigt folgende Informationen an:
+  - Anzahl der Junie-Datendateien
+  - Datum der letzten Aktualisierung
+  - Alter der Daten (in Tagen und Stunden)
+  - Status (AKTUELL oder VERALTET)
+  - Empfehlungen zur Aktualisierung, falls die Daten veraltet sind
+- Beispiel für die Ausführung:
+  python Scripts\junie_data_status.py
+
+Video "Autonomous Visual Testing with Robot Framework"
+https://www.youtube.com/watch?v=cSyMuWnOWWw
+
+Video "RoboCon 2024 - The Pros and Cons of Generative AI in Robot Framework"
+https://www.youtube.com/watch?v=T-abu3JfbF4&t=555s

@@ -6,7 +6,8 @@ def take_screenshot():
     import os
 
     # Erstelle Screenshot-Verzeichnis, falls es nicht existiert
-    screenshot_dir = os.path.join(os.getcwd(), 'screenshots')
+    #screenshot_dir = os.path.join(os.getcwd(), 'screenshots')
+    screenshot_dir = os.path.join(os.getcwd(), 'Output', 'screenshots')
     os.makedirs(screenshot_dir, exist_ok=True)
 
     # Generiere eindeutigen Dateinamen mit Zeitstempel
