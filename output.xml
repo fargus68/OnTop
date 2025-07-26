@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.13.3 on win32)" generated="2025-05-22T16:18:35.225829" rpa="false" schemaversion="5">
+<suite id="s1" name="OnTop" source="C:\Users\matth\PycharmProjects\OnTop">
+<suite id="s1-s1" name="Libraries" source="C:\Users\matth\PycharmProjects\OnTop\Libraries">
+<suite id="s1-s1-s1" name="ScrollIntoView Tests" source="C:\Users\matth\PycharmProjects\OnTop\Libraries\ScrollIntoView_Tests.robot">
+<test id="s1-s1-s1-t1" name="Test scroll to the top" line="30">
+<kw name="Setup AUT Pixel9Pro_API35 NoWaitForLoginScreen" owner="Mobile_Mgmt">
+<kw name="Set Up Pixel9Pro_API35 NoWaitForLoginScreen" owner="Mobile_Mgmt">
+<kw name="Start Appium if necessary" owner="Mobile_Mgmt">
+<kw name="Window Exists" owner="WindowManagement">
+<msg time="2025-05-22T16:18:36.066165" level="INFO">${AppiumWinExists} = True</msg>
+<var>${AppiumWinExists}</var>
+<arg>appium</arg>
+<status status="PASS" start="2025-05-22T16:18:36.064462" elapsed="0.001739"/>
+</kw>
+<if>
+<branch type="IF" condition="${AppiumWinExists}">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-05-22T16:18:36.066525" level="INFO">Appium-Window already exists!</msg>
+<arg>Appium-Window already exists!</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-05-22T16:18:36.066419" elapsed="0.000155"/>
+</kw>
+<status status="PASS" start="2025-05-22T16:18:36.066286" elapsed="0.000320"/>
+</branch>
+<branch type="ELSE">
+<kw name="Appium_Start_NoBasePathArg_AllowDownloadInsecureChromeDriver" owner="Mobile_Mgmt">
+<status status="NOT RUN" start="2025-05-22T16:18:36.066721" elapsed="0.000017"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2025-05-22T16:18:36.066813" elapsed="0.000015"/>
+</kw>
+<status status="NOT RUN" start="2025-05-22T16:18:36.066630" elapsed="0.000222"/>
+</branch>
+<status status="PASS" start="2025-05-22T16:18:36.066264" elapsed="0.000606"/>
+</if>
+<kw name="Setwindowtopos" owner="WindowManagement">
+<msg time="2025-05-22T16:18:36.070556" level="INFO">10 1120 1330 250
+&lt;class 'int'&gt;
+['', 'OnTop – ScrollIntoView_Tests.robot', 'Emulator', 'Android Emulator - Pixel9Pro_API35:5554', 'C:\\Windows\\system32\\cmd.exe - emulator  -avd  Pixel9Pro_API35', 'C:\\Windows\\system32\\cmd.exe  - "node"   "C:\\Users\\matth\\AppData\\Roaming\\npm\\\\node_modules\\appium\\index.js" --allow-cors --allow-insecure chromedriver_autodownload --log appium.log', 'WhatsApp', 'WhatsApp', 'TSG-Halle – TSG Eddersheim 1888 e.V. und 2 weitere Seiten - Persönlich – Microsoft\u200b Edge', 'Posteingang - matthias@matthias-schmotz.de - Outlook', '', '', '', '', 'Norton 360', '', '', 'Medien-wiedergabe', 'Medien-wiedergabe', '', 'Microsoft Text Input Application', 'NVIDIA GeForce Overlay', '', '', '', '', 'Program Manager']</msg>
+<arg>appium</arg>
+<arg>10</arg>
+<arg>1120</arg>
+<arg>1330</arg>
+<arg>250</arg>
+<status status="PASS" start="2025-05-22T16:18:36.066935" elapsed="0.003674"/>
+</kw>
+<status status="PASS" start="2025-05-22T16:18:36.063941" elapsed="0.006724"/>
+</kw>
+<kw name="Start Emulator if necessary" owner="Mobile_Mgmt">
+<kw name="Window Exists" owner="WindowManagement">
+<msg time="2025-05-22T16:18:36.071741" level="INFO">${EmulatorWinPixel9Pro_API35Exists} = True</msg>
+<var>${EmulatorWinPixel9Pro_API35Exists}</var>
+<arg>Android Emulator - Pixel9Pro_API35:5554</arg>
+<status status="PASS" start="2025-05-22T16:18:36.070961" elapsed="0.000801"/>
+</kw>
+<if>
+<branch type="IF" condition="${EmulatorWinPixel9Pro_API35Exists}">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-05-22T16:18:36.072003" level="INFO">Emulator-Window already exists!</msg>
+<arg>Emulator-Window already exists!</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-05-22T16:18:36.071930" elapsed="0.000107"/>
+</kw>
+<status status="PASS" start="2025-05-22T16:18:36.071822" elapsed="0.000241"/>
+</branch>
+<branch type="ELSE">
+<kw name="Emulator_Start" owner="Mobile_Mgmt">
+<arg>Pixel9Pro_API35</arg>
+<status status="NOT RUN" start="2025-05-22T16:18:36.072166" elapsed="0.000017"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<arg>10x</arg>
+<arg>5s</arg>
+<arg>Emulator Is Ready</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="NOT RUN" start="2025-05-22T16:18:36.072469" elapsed="0.000018"/>
+</kw>
+<status status="NOT RUN" start="2025-05-22T16:18:36.072084" elapsed="0.000432"/>
+</branch>
+<status status="PASS" start="2025-05-22T16:18:36.071806" elapsed="0.000728"/>
+</if>
+<kw name="Setwindowtopos" owner="WindowManagement">
+<msg time="2025-05-22T16:18:36.076200" level="INFO">1350 1120 1330 250
+&lt;class 'int'&gt;
+['', 'C:\\Windows\\system32\\cmd.exe  - "node"   "C:\\Users\\matth\\AppData\\Roaming\\npm\\\\node_modules\\appium\\index.js" --allow-cors --allow-insecure chromedriver_autodownload --log appium.log', 'OnTop – ScrollIntoView_Tests.robot', 'Emulator', 'Android Emulator - Pixel9Pro_API35:5554', 'C:\\Windows\\system32\\cmd.exe - emulator  -avd  Pixel9Pro_API35', 'WhatsApp', 'WhatsApp', 'TSG-Halle – TSG Eddersheim 1888 e.V. und 2 weitere Seiten - Persönlich – Microsoft\u200b Edge', 'Posteingang - matthias@matthias-schmotz.de - Outlook', '', '', '', '', 'Norton 360', '', '', 'Medien-wiedergabe', 'Medien-wiedergabe', '', 'Microsoft Text Input Application', 'NVIDIA GeForce Overlay', '', '', '', '', 'Program Manager']</msg>
+<arg>-avd</arg>
+<arg>1350</arg>
+<arg>1120</arg>
+<arg>1330</arg>
+<arg>250</arg>
+<status status="PASS" start="2025-05-22T16:18:36.072600" elapsed="0.003656"/>
+</kw>
+<kw name="Setwindowtopos" owner="WindowManagement">
+<msg time="2025-05-22T16:18:36.079999" level="INFO">2730 130 -1 -1
+&lt;class 'int'&gt;
+['', 'C:\\Windows\\system32\\cmd.exe - emulator  -avd  Pixel9Pro_API35', 'C:\\Windows\\system32\\cmd.exe  - "node"   "C:\\Users\\matth\\AppData\\Roaming\\npm\\\\node_modules\\appium\\index.js" --allow-cors --allow-insecure chromedriver_autodownload --log appium.log', 'OnTop – ScrollIntoView_Tests.robot', 'Emulator', 'Android Emulator - Pixel9Pro_API35:5554', 'WhatsApp', 'WhatsApp', 'TSG-Halle – TSG Eddersheim 1888 e.V. und 2 weitere Seiten - Persönlich – Microsoft\u200b Edge', 'Posteingang - matthias@matthias-schmotz.de - Outlook', '', '', '', '', 'Norton 360', '', '', 'Medien-wiedergabe', 'Medien-wiedergabe', '', 'Microsoft Text Input Application', 'NVIDIA GeForce Overlay', '', '', '', '', 'Program Manager']</msg>
+<arg>Android Emulator - Pixel9Pro_API35:5554</arg>
+<arg>2730</arg>
+<arg>130</arg>
+<status status="PASS" start="2025-05-22T16:18:36.076340" elapsed="0.003710"/>
+</kw>
+<status status="PASS" start="2025-05-22T16:18:36.070802" elapsed="0.009301"/>
+</kw>
+<status status="PASS" start="2025-05-22T16:18:36.063706" elapsed="0.016432"/>
+</kw>
+<kw name="InitializeVariableStorage" owner="fwVariables">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-05-22T16:18:36.080575" level="INFO">&amp;{variableStorage} = { }</msg>
+<var>&amp;{variableStorage}</var>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-05-22T16:18:36.080396" elapsed="0.000201"/>
+</kw>
+<status status="PASS" start="2025-05-22T16:18:36.080225" elapsed="0.000415"/>
+</kw>
+<kw name="SetVariableValue" owner="fwVariables">
+<kw name="Set To Dictionary" owner="Collections">
+<arg>${variableStorage}</arg>
+<arg>$${theVariable}</arg>
+<arg>${theValue}</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" start="2025-05-22T16:18:36.080894" elapsed="0.000131"/>
+</kw>
+<arg>AUT</arg>
+<arg>Pixel9Pro_API35</arg>
+<status status="PASS" start="2025-05-22T16:18:36.080722" elapsed="0.000354"/>
+</kw>
+<status status="PASS" start="2025-05-22T16:18:36.063435" elapsed="0.017679"/>
+</kw>
+<kw name="Scroll To Top" owner="ScrollIntoView_Direct">
+<msg time="2025-05-22T16:18:36.081452" level="INFO">scroll_to_top</msg>
+<msg time="2025-05-22T16:18:36.085967" level="INFO">Driver is None!</msg>
+<msg time="2025-05-22T16:18:36.086138" level="INFO">Getting sessions</msg>
+<msg time="2025-05-22T16:18:36.093218" level="INFO">Number of sessions: 1</msg>
+<msg time="2025-05-22T16:18:36.093372" level="INFO">Session found, driver instance created and existing session attached to it.</msg>
+<msg time="2025-05-22T16:18:36.093420" level="INFO">Getting sessions</msg>
+<msg time="2025-05-22T16:18:36.097409" level="INFO">Number of sessions: 1</msg>
+<msg time="2025-05-22T16:18:36.097543" level="INFO">Connecting to existing session with ID: 0810609e-c702-4186-b163-51afea901f7f</msg>
+<msg time="2025-05-22T16:18:39.099537" level="INFO">Returning driver instance with session-id = 0810609e-c702-4186-b163-51afea901f7f</msg>
+<msg time="2025-05-22T16:18:39.099610" level="INFO">Returning driver instance with session-id = 0810609e-c702-4186-b163-51afea901f7f</msg>
+<msg time="2025-05-22T16:19:54.738544" level="INFO">Session-id of dummy session = c7a34b1a-91e3-48ca-a73d-6661f9400b19
+Waiting for page fully loaded...
+Waiting for WebView to be available</msg>
+<msg time="2025-05-22T16:19:54.738695" level="FAIL">WebDriverException: Message: An unknown server-side error occurred while processing the command. Original error: Error executing adbExec. Original error: 'Command 'C:\\Users\\matth\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe -P 5037 -s emulator-5554 shell cat /proc/net/unix' timed out after 60000ms'. Try to increase the 60000ms adb execution timeout represented by 'adbExecTimeout' capability
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: Error executing adbExec. Original error: 'Command 'C:\\Users\\matth\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe -P 5037 -s emulator-5554 shell cat /proc/net/unix' timed out after 60000ms'. Try to increase the 60000ms adb execution timeout represented by 'adbExecTimeout' capability
+    at getResponseForW3CError (C:\Users\matth\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\lib\protocol\errors.js:1143:9)
+    at asyncHandler (C:\Users\matth\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\lib\protocol\protocol.js:487:57)</msg>
+<arg>dummy</arg>
+<status status="FAIL" start="2025-05-22T16:18:36.081317" elapsed="78.667712">WebDriverException: Message: An unknown server-side error occurred while processing the command. Original error: Error executing adbExec. Original error: 'Command 'C:\\Users\\matth\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe -P 5037 -s emulator-5554 shell cat /proc/net/unix' timed out after 60000ms'. Try to increase the 60000ms adb execution timeout represented by 'adbExecTimeout' capability
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: Error executing adbExec. Original error: 'Command 'C:\\Users\\matth\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe -P 5037 -s emulator-5554 shell cat /proc/net/unix' timed out after 60000ms'. Try to increase the 60000ms adb execution timeout represented by 'adbExecTimeout' capability
+    at getResponseForW3CError (C:\Users\matth\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\lib\protocol\errors.js:1143:9)
+    at asyncHandler (C:\Users\matth\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\lib\protocol\protocol.js:487:57)</status>
+</kw>
+<status status="FAIL" start="2025-05-22T16:18:36.062829" elapsed="78.686643">WebDriverException: Message: An unknown server-side error occurred while processing the command. Original error: Error executing adbExec. Original error: 'Command 'C:\\Users\\matth\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe -P 5037 -s emulator-5554 shell cat /proc/net/unix' timed out after 60000ms'. Try to increase the 60000ms adb execution timeout represented by 'adbExecTimeout' capability
+Stacktrace:
+UnknownError: An unknown server-side error occurred while processing the command. Original error: Error executing adbExec. Original error: 'Command 'C:\\Users\\matth\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe -P 5037 -s emulator-5554 shell cat /proc/net/unix' timed out after 60000ms'. Try to increase the 60000ms adb execution timeout represented by 'adbExecTimeout' capability
+    at getResponseForW3CError (C:\Users\matth\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\lib\protocol\errors.js:1143:9)
+    at asyncHandler (C:\Users\matth\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\lib\protocol\protocol.js:487:57)</status>
+</test>
+<status status="FAIL" start="2025-05-22T16:18:35.250757" elapsed="79.499554"/>
+</suite>
+<status status="FAIL" start="2025-05-22T16:18:35.249640" elapsed="79.501459"/>
+</suite>
+<status status="FAIL" start="2025-05-22T16:18:35.227118" elapsed="79.524626"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="OnTop" id="s1" pass="0" fail="1" skip="0">OnTop</stat>
+<stat name="Libraries" id="s1-s1" pass="0" fail="1" skip="0">OnTop.Libraries</stat>
+<stat name="ScrollIntoView Tests" id="s1-s1-s1" pass="0" fail="1" skip="0">OnTop.Libraries.ScrollIntoView Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
