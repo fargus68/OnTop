@@ -5,7 +5,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 7.2.2 (Python 3.13.3 on win32)" name="Generator">
+<meta content="Robot Framework 7.4 (Python 3.13.11 on win32)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKcAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAqAAAAAAAAAAAAAAAAAAAALIAAAD/AAAA4AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA4AAAAP8AAACxAAAAAAAAAKYAAAD/AAAAuwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC/AAAA/wAAAKkAAAD6AAAAzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN8AAAD/AAAA+gAAAMMAAAAAAAAAAgAAAGsAAABrAAAAawAAAGsAAABrAAAAawAAAGsAAABrAAAADAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAIsAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAANEAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAAAAAAAAMgAAADIAAAAyAAAAMgAAADIAAAAyAAAAMgAAADIAAAAFAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAADwAAAB8AAAAAAAAAGAAAABcAAAAAAAAAH8AAABKAAAAAAAAAAAAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAADCAAAA/wAAACkAAADqAAAA4QAAAAAAAAD7AAAA/wAAALAAAAAGAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAIwAAAP4AAAD/AAAA/wAAAGAAAAAAAAAAAAAAAMkAAAD/AAAAigAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAAAAAAAIAAAAcAAAABkAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAA2gAAAP8AAAD7AAAAywAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN4AAAD/AAAAqwAAAP8AAACvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALIAAAD/AAAAsgAAAAAAAAC5AAAA/wAAAMoAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMkAAAD/AAAAvAAAAAAAAAAAAAAAAAAAAKwAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAArQAAAAAAAAAAwAMAAIABAAAf+AAAP/wAAD/8AAAgBAAAP/wAAD/8AAA//AAAJIwAADHEAAA//AAAP/wAAB/4AACAAQAAwAMAAA==">
 <style media="all">
 :root {
@@ -116,15 +116,16 @@ select {
 #header {
     width: 65em;
     height: 3em;
-    margin: 20px 0 6px 0;
+    margin: 1em 0 0 0;
 }
 h1 {
     float: left;
-    margin: 0 0 0.5em 0;
+    margin: 0 0 1em 0;
     width: 75%;
 }
 h2 {
     clear: left;
+    margin: 1.5em 0 0.5em 0;
 }
 #generated {
     float: right;
@@ -168,7 +169,13 @@ h2 {
     background-color: var(--primary-color);
     border-radius: 3px;
 }
-.label.debug, .label.trace, .label.error, .label.keyword {
+/* https://stackoverflow.com/questions/75238633 */
+@supports (-moz-appearance: none) {
+    .label {
+        padding-top: 4px;
+    }
+}
+.label.debug, .label.trace, .label.error {
     letter-spacing: 0;
 }
 .label.pass, .label.fail, .label.error, .label.skip, .label.warn {
@@ -354,19 +361,6 @@ th.stats-col-graph:hover {
 [data-theme="dark"] .light-mode-icon,
 [data-theme="light"] .dark-mode-icon {
     display: block;
-}
-@keyframes highlight {
-    0% {
-        background: var(--primary-color)
-    }
-    100% {
-        background: var(--target-color);
-    }
-}
-:target {
-    background: var(--target-color);
-    transition: background 0.3s;
-    animation: highlight 4s;
 }
 </style>
 <style media="all">
@@ -957,7 +951,7 @@ window.model = (function () {
         kw.type = data.type;
         kw.template = 'keywordTemplate';
         kw.arguments = data.args;
-        kw.assign = data.assign + (data.assign ? ' =  ' : '');
+        kw.assign = data.assign;
         kw.tags = data.tags;
         kw.timeout = data.timeout;
         kw.populateKeywords = createIterablePopulator('Keyword');
@@ -1696,7 +1690,7 @@ function addStatistics() {
         '<th class="stats-col-elapsed">Elapsed</th>' +
         '<th class="stats-col-graph">Pass / Fail / Skip</th>';
     var statTable =
-        '<h2>{Test} Statistics</h2>' +
+        '<h2>Statistics</h2>' +
         '<table class="statistics" id="total-stats"><thead><tr>' +
         '<th class="stats-col-name">Total Statistics</th>' + statHeaders +
         '</tr></thead></table>' +
@@ -1706,7 +1700,7 @@ function addStatistics() {
         '<table class="statistics" id="suite-stats"><thead><tr>' +
         '<th class="stats-col-name">Statistics by Suite</th>' + statHeaders +
         '</tr></thead></table>';
-    $(testOrTask(statTable)).appendTo('#statistics-container');
+    $(statTable).appendTo('#statistics-container');
     util.map(['total', 'tag', 'suite'], addStatTable);
     addTooltipsToElapsedTimes();
     enableStatisticsSorter();
@@ -1887,22 +1881,22 @@ storage = function () {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[0,0,79525],[[4,5,4,0,[],[0,23,79501],[[6,7,8,0,[],[0,24,79500],[],[[9,0,0,[],[0,836,78687,10],[]]],[],[1,0,1,0]]],[],[],[1,0,1,0]]],[],[],[1,0,1,0]];
+window.output["suite"] = [1,2,3,0,[],[1,0,24571],[[4,5,4,0,[],[1,35,24535],[[6,7,8,0,[],[1,36,24534],[[9,10,11,0,[],[1,37,24531],[],[[12,0,0,[],[1,1048,23516],[]]],[],[1,1,0,0]]],[],[],[1,1,0,0]]],[],[],[1,1,0,0]]],[],[],[1,1,0,0]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*OnTop","*C:\\Users\\matth\\PycharmProjects\\OnTop","*.","*Libraries","*C:\\Users\\matth\\PycharmProjects\\OnTop\\Libraries","*ScrollIntoView Tests","*C:\\Users\\matth\\PycharmProjects\\OnTop\\Libraries\\ScrollIntoView_Tests.robot","*Libraries/ScrollIntoView_Tests.robot","*Test scroll to the top","eNrtU0tvEzEQvvdXzG3pYZNWSQjsiaoN4gAC9aFeLCGvPU1MvB5rPEuTf8/sbnKBO1zwacaex/eQn7G94/ATeXNwmCVQauALlmK32MBNgj7tE70mKMhaVJfgEZCZGMi5nhk9vO5CRMhMTvtC2oLsEBx1nU1+Bl85bEOycepqYDM24wFdL0Ox9e1Gkz8Lq9tphAaNMU8KoBjTWZGdMTc531mxxnwmZ6PmyTMFb8yD3xuTo5UX4q4WoqhNumKmC6H+BqurxRrqAtj1WkRcr1arJZQdxgjOCswHGvOEMu9TOFQgoVOG1AvYF0GGt1d6ulLN4JGPIAQhOUZbcCR9eh04nRlSGmcMExgzY8EkOrE9QnVi/jg9V7o/2zbEIMeLB7FuL2wdNhdPkwObSZX/lvwjS0CPotmi3GPJlAp+JH5e3E7ivVFBJj0mOc5q3JPtVFKTcmcSefzeke8jFmNzDv1vdx9Ol62Cr/34K00MrVEBhBxFM9pQZj9Kc329XDTvL8+obDkm90mdifi3sJyDAc3y3bpZrS9/AYt6jeo="]);
+window.output["strings"] = window.output["strings"].concat(["*","*OnTop","*C:\\Users\\matth\\PycharmProjects\\OnTop","*.","*Resources","*C:\\Users\\matth\\PycharmProjects\\OnTop\\Resources","*Controls","*C:\\Users\\matth\\PycharmProjects\\OnTop\\Resources\\Controls","*Resources/Controls","*Table Tests","*C:\\Users\\matth\\PycharmProjects\\OnTop\\Resources\\Controls\\Table_Tests.robot","*Resources/Controls/Table_Tests.robot","*Chromium_Table_Tests_AllModus"]);
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:01:19","fail":1,"label":"All Tests","pass":0,"skip":0}],[],[{"elapsed":"00:01:20","fail":1,"id":"s1","label":"OnTop","name":"OnTop","pass":0,"skip":0},{"elapsed":"00:01:20","fail":1,"id":"s1-s1","label":"OnTop.Libraries","name":"Libraries","pass":0,"skip":0},{"elapsed":"00:01:19","fail":1,"id":"s1-s1-s1","label":"OnTop.Libraries.ScrollIntoView Tests","name":"ScrollIntoView Tests","pass":0,"skip":0}]];
+window.output["stats"] = [[{"elapsed":"00:00:24","fail":0,"label":"All Tests","pass":1,"skip":0}],[],[{"elapsed":"00:00:25","fail":0,"id":"s1","label":"OnTop","name":"OnTop","pass":1,"skip":0},{"elapsed":"00:00:25","fail":0,"id":"s1-s1","label":"OnTop.Resources","name":"Resources","pass":1,"skip":0},{"elapsed":"00:00:25","fail":0,"id":"s1-s1-s1","label":"OnTop.Resources.Controls","name":"Controls","pass":1,"skip":0},{"elapsed":"00:00:25","fail":0,"id":"s1-s1-s1-s1","label":"OnTop.Resources.Controls.Table Tests","name":"Table Tests","pass":1,"skip":0}]];
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1747923515227;
+window.output["baseMillis"] = 1766325323433;
 </script>
 <script type="text/javascript">
-window.output["generated"] = 79529;
+window.output["generated"] = 24615;
 </script>
 <script type="text/javascript">
 window.output["expand_keywords"] = null;
@@ -2285,7 +2279,7 @@ function hideHiddenDetailsColumns(elem) {
 </script>
 
 <script type="text/x-jquery-tmpl" id="summaryTableTemplate">
-  <h2>Summary Information</h2>
+  <h2>Summary</h2>
   <table class="details">
     <tr>
       <th>Status:</th>
@@ -2382,7 +2376,7 @@ function hideHiddenDetailsColumns(elem) {
 </script>
 
 <script type="text/x-jquery-tmpl" id="detailsHeaderTemplate">
-  <h2 id="${linkTarget}">{{= testOrTask('{Test} Details')}}</h2>
+  <h2 id="${linkTarget}">Details</h2>
   <ul id="detail-tabs">
     <li class="${totalTabStatus} detail-tab">
       <a href="#totals" onclick="renderTotalSelector()"

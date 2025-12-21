@@ -67,7 +67,7 @@ Table specific delete keyword processing
             #${RowMenu}=    Catenate    SEPARATOR=    ${CellRowMenu}    /div/button/i
             #Click    ${RowMenu}
 
-            Click    ${CellRowMenu} >> div >> button >> i
+            Click    ${CellRowMenu} >> div >> button >> i >> nth=1
 
             Wait For Load State    networkidle    timeout=3s
 

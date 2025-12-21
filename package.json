@@ -1,0 +1,23 @@
+{
+  "name": "ontop",
+  "version": "1.0.0",
+  "description": "OnTop ist ein Framework, das auf RobotFramework aufsetzt (daher der Name).\r Ziel ist es, eine noch stärkere Entkopplung der Testdaten von der \"Codierungsseite\" zu erreichen.\r Codierung erfolgt in der Regel nicht mehr gegen spezifische Controls, sondern nur noch gegen\r Controltypen (für den Teil der sich auf die GUI-Automatisierung bezieht).",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fargus68/OnTop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/fargus68/OnTop/issues"
+  },
+  "homepage": "https://github.com/fargus68/OnTop#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.3"
+  }
+}
