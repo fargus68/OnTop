@@ -1,20 +1,20 @@
-Python                      3.13.11 (update 21.12.2025)] [nicht kompatible: 3.14.2  (update 21.12.2025)]
-PyCharm Professional        2025.3.1  (update 19.12.2025)
-Android Studio              Android Studio Otter 2 Feature Drop 2025.2.2 (Update 05.12.2025)
-Android Emulator            36.2.12 (Update 27.10.2025 via Android Studio)
-Android SDK Platform Tools  36.1.0 (Update 11.10.2025 via Android Studio)
-Node.js                     v24.12.0   (LTS) (update 21.12.2025)
-npm                         11.7.0  (update 21.12.2025)
-pip                         25.3 (update 26.10.2025) (venv + system => python.exe -m pip install --upgrade pip)
-Appium                      3.1.2   (update 21.12.2025)
-appium-driver uiautomator2  6.7.3   (update 21.12.2025) (https://github.com/appium/appium-uiautomator2-driver)
-appium-driver windows       5.1.4   (update 21.12.2025)
-robotframework              7.4.0 (update ??.??.2025)
+Python                      3.13.13 (update 24.05.2026)] [nicht kompatible: 3.14.5  (update 24.05.2026)]
+PyCharm Professional        2026.1.2  (update 16.05.2026)
+Android Studio              Android Studio Panda 4 2025.3.4 Patch 1 (Update 06.05.2026)
+Android Emulator            36.5.11 (Update 06.05.2026 via Android Studio)
+Android SDK Platform Tools  37.0.0 (Update 04.03.2026 via Android Studio)
+Node.js                     v24.15.0   (LTS) (update 18.04.2026)
+npm                         11.12.1  (update 18.04.2026)
+pip                         26.1.1 (update 05.05.2026) (venv + system => python.exe -m pip install --upgrade pip)
+Appium                      3.3.0   (update 18.04.2026)
+appium-driver uiautomator2  7.1.2   (update 18.04.2026) (https://github.com/appium/appium-uiautomator2-driver)
+appium-driver windows       5.1.10   (update 18.04.2026)
+robotframework              7.4.2 (update 04.03.2026)
 DEPRECATED robotframework-appiumlibrary    2.1.0
-appium-python-client        5.2.4    (Update ??.??.2025)   (from old 3.2.1 because of AppiumLibrary)
+appium-python-client        5.3.1 (Update 21.04.2026)
 ffmpeg                      8.0.1 (Update 21.12.2025)   (https://www.ffmpeg.org/) (update via "choco upgrade ffmpeg")
-playwright                  1.57.0 (21.12.2025)
-robotframework-browser      19.8 (Update ???)
+playwright                  1.6ß.0 (19.05.2026)
+robotframework-browser      19.15.1 (15.05.2026)
 
 Update venv-browser:
 cd C:\Users\matth\PycharmProjects\OnTop
@@ -25,6 +25,7 @@ npm uninstall -g appium
 npm cache verify
 npm install -g appium@latest
 appium -v
+
 ----------
 appium driver uninstall uiautomator2
 appium driver install uiautomator2
