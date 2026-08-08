@@ -17,7 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/ers/matth/PycharmProjects/OnTop/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/.venv2" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.13 (OnTop)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.14 (OnTop)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
